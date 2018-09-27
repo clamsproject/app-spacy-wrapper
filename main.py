@@ -20,6 +20,7 @@ app = Flask(__name__)
 def metadata():
     return json_response(json.dumps(METADATA))
 
+
 @app.route("/spacy", methods=['POST'])
 def execute():
     if request.content_type != JSON_MIME_TYPE:
@@ -27,7 +28,7 @@ def execute():
         return json_response(error, 400)
     doc = nlp(request.json["text"])
     data = build_data_object(request, doc)
-    return json_response(json.dumps(data.as_pretty_json()))
+    return json_response(data.as_pretty_json())
 
 
 def build_data_object(request, doc):

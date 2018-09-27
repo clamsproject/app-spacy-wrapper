@@ -14,11 +14,11 @@ METADATA =  {
 
     "requires": {
         "language": [ "en" ],
-        "format": Uri.LIF,
-        "annotations": [] },
+        "format": [ Uri.TEXT, Uri.LIF ],
+        "annotations": [ ] },
 
     "produces": {
         "language": [ "en" ],
-        "format": Uri.LIF,
-        "annotations": [ Uri.TOKEN, Uri.POS, Uri.LEMMA, Uri.NE ] }
+        "format": [ Uri.LIF ],
+        "annotations": [ Uri.TOKEN, Uri.POS, Uri.LEMMA, Uri.NCHUNK, Uri.SENTENCE,  Uri.NE ] }
 }
