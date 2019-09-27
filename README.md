@@ -1,3 +1,3 @@
 # SpacyService
 
-RESTful Flask service for spaCy.
+Spacy service wrapped in the Clams SDK.
