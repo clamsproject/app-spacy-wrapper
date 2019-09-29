@@ -61,17 +61,17 @@ class Spacy(ClamApp):
         # TODO: need to translate to character offsets or refer to token identifiers
         for (n, chunk) in enumerate(spacy_output.noun_chunks):
             a = new_view.new_annotation(n)
-            a.add_feature("start", chunk.start)
-            a.add_feature("end", chunk.end)
+            a.start = chunk.start
+            a.end = chunk.end
         for (n, sent) in enumerate(spacy_output.sents):
             a = new_view.new_annotation(n)
-            a.add_feature("start", sent.start)
-            a.add_feature("end", sent.end)
+            a.start = sent.start
+            a.end = sent.end
             a.add_feature("text", sent.text)
         for (n, ent) in enumerate(spacy_output.ents):
             a = new_view.new_annotation(n)
-            a.add_feature("start", ent.start)
-            a.add_feature("end", ent.end)
+            a.start = ent.start
+            a.end = ent.end
             a.add_feature("text", ent.text)
             a.add_feature("category", ent.label_)
         contain = new_view.new_contain(AnnotationTypes.Tokens)
