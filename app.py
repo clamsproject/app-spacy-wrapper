@@ -54,6 +54,7 @@ class Spacy(ClamApp):
             p1 = tok.idx
             p2 = p1 + len(tok.text)
             a = new_view.new_annotation(n)
+            a.attype = Uri.TOKEN
             a.add_feature("pos", pos)
             a.add_feature("lemma", lemma)
             a.add_feature("text", tok.text)
@@ -61,15 +62,18 @@ class Spacy(ClamApp):
         # TODO: need to translate to character offsets or refer to token identifiers
         for (n, chunk) in enumerate(spacy_output.noun_chunks):
             a = new_view.new_annotation(n)
+            a.attype = Uri.NCHUNK
             a.start = chunk.start
             a.end = chunk.end
         for (n, sent) in enumerate(spacy_output.sents):
             a = new_view.new_annotation(n)
+            attype = Uri.SENTENCE
             a.start = sent.start
             a.end = sent.end
             a.add_feature("text", sent.text)
         for (n, ent) in enumerate(spacy_output.ents):
             a = new_view.new_annotation(n)
+            a.attype = Uri.NE
             a.start = ent.start
             a.end = ent.end
             a.add_feature("text", ent.text)
