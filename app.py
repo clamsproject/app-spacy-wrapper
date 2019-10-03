@@ -48,30 +48,38 @@ class Spacy(ClamApp):
         new_view.new_contain(Uri.NCHUNK, "SpacyNLP")
         new_view.new_contain(Uri.SENTENCE, "SpacyNLP")
         new_view.new_contain(Uri.NE, "SpacyNLP")
+        # to keep track of char offsets of all tokens
+        tok_idx = {}
         for (n, tok) in enumerate(spacy_output):
             pos = tok.tag_
             lemma = tok.lemma_
             p1 = tok.idx
             p2 = p1 + len(tok.text)
-            a = new_view.new_annotation(n)
+            a = new_view.new_annotation("tok_" + str(n))
+            a.attype = Uri.TOKEN
+            a.start = p1
+            a.end = p2
+            tok_idx[n] = (p1, p2)
             a.add_feature("pos", pos)
             a.add_feature("lemma", lemma)
             a.add_feature("text", tok.text)
-        # TODO: start and end are not character offsets but token offsets
-        # TODO: need to translate to character offsets or refer to token identifiers
         for (n, chunk) in enumerate(spacy_output.noun_chunks):
-            a = new_view.new_annotation(n)
-            a.add_feature("start", chunk.start)
-            a.add_feature("end", chunk.end)
+            a = new_view.new_annotation("nchunk_" + str(n))
+            a.attype = Uri.NCHUNK
+            a.start = tok_idx[chunk.start][0]
+            a.end = tok_idx[chunk.end - 1][1]
+            a.add_feature("text", chunk.text)
         for (n, sent) in enumerate(spacy_output.sents):
-            a = new_view.new_annotation(n)
-            a.add_feature("start", sent.start)
-            a.add_feature("end", sent.end)
+            a = new_view.new_annotation("s_" + str(n))
+            a.attype = Uri.SENTENCE
+            a.start = tok_idx[sent.start][0]
+            a.end = tok_idx[sent.end - 1][1]
             a.add_feature("text", sent.text)
         for (n, ent) in enumerate(spacy_output.ents):
-            a = new_view.new_annotation(n)
-            a.add_feature("start", ent.start)
-            a.add_feature("end", ent.end)
+            a = new_view.new_annotation("ne_" + str(n))
+            a.attype = Uri.NE
+            a.start = tok_idx[ent.start][0]
+            a.end = tok_idx[ent.end - 1][1]
             a.add_feature("text", ent.text)
             a.add_feature("category", ent.label_)
         contain = new_view.new_contain(AnnotationTypes.Tokens)
