@@ -82,7 +82,6 @@ class Spacy(ClamApp):
             a.end = tok_idx[ent.end - 1][1]
             a.add_feature("text", ent.text)
             a.add_feature("category", ent.label_)
-        contain = new_view.new_contain(AnnotationTypes.Tokens)
         contain.producer = self.__class__
 
         for contain in new_view.contains.keys():
