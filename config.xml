@@ -1,0 +1,15 @@
+<tool id="spacy" name="Spacy NLP" version="0.0.1">
+  <description>
+    Apply Spacy NLP to a transcript.
+  </description>
+  <command interpreter="python3">test.py $input $output</command>
+  <inputs>
+      <param name="input" type="data" format="json" label="M.Text"/>
+  </inputs>
+  <outputs>
+    <data name="output" format="json" label="Spacy annotations"/>
+  </outputs>
+  <help>
+      spacy
+  </help>
+</tool>
