@@ -82,11 +82,10 @@ class Spacy(ClamApp):
             a.end = tok_idx[ent.end - 1][1]
             a.add_feature("text", ent.text)
             a.add_feature("category", ent.label_)
-        contain = new_view.new_contain(AnnotationTypes.Tokens)
-        contain.producer = self.__class__
 
-        for contain in new_view.contains.keys():
-            mmif.contains.update({contain: new_view.id})
+        for attype, contain in new_view.contains.items():
+            contain.producer = self.__class__.__name__
+            mmif.contains.update({attype: new_view.id})
         return mmif
 
 
