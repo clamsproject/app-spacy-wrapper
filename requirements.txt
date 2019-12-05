@@ -4,5 +4,5 @@ Flask-DebugToolbar==0.10.1
 Flask-RESTful==0.3.7
 Flask-WTF==0.14.2
 lapps==0.0.2
-git+https://github.com/clamsproject/clams-python-sdk.git@develop
+git+https://github.com/clamsproject/clams-python-sdk.git@dev
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.1.0/en_core_web_sm-2.1.0.tar.gz#egg=en_core_web_sm
