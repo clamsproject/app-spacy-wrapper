@@ -9,7 +9,5 @@
   <outputs>
     <data name="output" format="json" label="Spacy annotations"/>
   </outputs>
-  <help>
-      spacy
-  </help>
+  <help>Text</help>
 </tool>
