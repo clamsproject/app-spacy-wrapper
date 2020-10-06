@@ -7,6 +7,7 @@ entities.
 
 import os
 import collections
+import json
 
 import spacy
 
@@ -30,8 +31,8 @@ DEBUG = False
 
 class SpacyApp(ClamsApp):
 
-    def appmetadata(self):
-        metadata = {
+    def __init__(self):
+        self.metadata = {
             "name": "Spacy Wrapper",
             "app": 'https://tools.clams.ai/spacy_nlp',
             "wrapper_version": "0.0.2",
@@ -43,7 +44,9 @@ class SpacyApp(ClamsApp):
             "requires": [DocumentTypes.TextDocument.value],
             "produces": [Uri.TOKEN, Uri.POS, Uri.LEMMA, Uri.NCHUNK, Uri.SENTENCE, Uri.NE],
         }
-        return metadata
+
+    def appmetadata(self):
+        return json.dumps(self.metadata)
 
     def sniff(self, mmif):
         # this mock-up method always returns true
@@ -65,11 +68,11 @@ class SpacyApp(ClamsApp):
                 for doc in docs:
                     doc_id = view.id + ':' + doc.id
                     self._add_tool_output(doc, new_view, doc_id=doc_id)
-        return self.mmif
+        return str(self.mmif)
 
     def _new_view(self, docid=None):
         view = self.mmif.new_view()
-        view.metadata.app = self.appmetadata()['app']
+        view.metadata.app = self.metadata['app']
         properties = {} if docid is None else {'document': docid}
         for attype in (Uri.TOKEN, Uri.POS, Uri.LEMMA,
                        Uri.NCHUNK, Uri.SENTENCE, Uri.NE):
