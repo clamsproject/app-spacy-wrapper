@@ -40,7 +40,7 @@ class SpacyApp(ClamsApp):
             "mmif-sdk-version": "0.2.0",
             "description": "This tool applies spacy tools to all text documents in an MMIF file.",
             "vendor": "Team CLAMS",
-            "requires": [DocumentTypes.TextDocument],
+            "requires": [DocumentTypes.TextDocument.value],
             "produces": [Uri.TOKEN, Uri.POS, Uri.LEMMA, Uri.NCHUNK, Uri.SENTENCE, Uri.NE],
         }
         return metadata
