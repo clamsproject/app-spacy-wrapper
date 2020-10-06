@@ -1,9 +1,11 @@
 """app.py
 
-Wrapping spaCy NLP to extract tokens, tags, lemmas, sentences, chunks and named entities.
+Wrapping Spacy NLP to extract tokens, tags, lemmas, sentences, chunks and named
+entities.
 
 """
 
+import os
 import collections
 
 import spacy
@@ -20,25 +22,23 @@ from lapps.discriminators import Uri  # TODO move to clams
 # Load English tokenizer, tagger, parser, NER and word vectors
 nlp = spacy.load("en_core_web_sm")
 
-# example transcript data are on shannon: /data/clams/wgbh/transcripts
-
-# TOD): this should not be needed
-TEXT_DOCUMENT = 'TextDocument'
-
+# We need this to find the text documents in the documents list
+TEXT_DOCUMENT = os.path.basename(DocumentTypes.TextDocument.value)
 
 DEBUG = False
 
 
-class Spacy(ClamsApp):
+class SpacyApp(ClamsApp):
 
     def appmetadata(self):
         metadata = {
             "name": "Spacy Wrapper",
             "app": 'https://tools.clams.ai/spacy_nlp',
-            "wrapper_version": "1.0.3",
+            "wrapper_version": "0.0.2",
             "tool_version": "2.3.2",
+            "mmif-spec-version": "0.2.1",
+            "mmif-sdk-version": "0.2.0",
             "description": "This tool applies spacy tools to all text documents in an MMIF file.",
-            "mmif-version": "0.2.1",
             "vendor": "Team CLAMS",
             "requires": [DocumentTypes.TextDocument],
             "produces": [Uri.TOKEN, Uri.POS, Uri.LEMMA, Uri.NCHUNK, Uri.SENTENCE, Uri.NE],
@@ -50,50 +50,47 @@ class Spacy(ClamsApp):
         return True
 
     def annotate(self, mmif):
+        Identifiers.reset()
         self.mmif = mmif if type(mmif) is Mmif else Mmif(mmif)
-        gdocs = GroupedDocuments(self.mmif)
-        if DEBUG:
-            self.print_documents()
-            gdocs.pp()
-        for view_id, textdocs in gdocs:
-            if textdocs:
-                spacy_view = self.new_spacy_view()
-            for textdoc in textdocs:
-                text = self.read_text(textdoc)
-                doc_id = textdoc.id
-                if view_id is not None:
-                    doc_id = view_id + ':' + doc_id
-                if DEBUG:
-                    print('>>> %s%s' % (text.strip()[:100],
-                                        ('...' if len(text) > 100 else '')))
-                spacy_doc = nlp(text)
-                self.add_spacy_elements_to_view(spacy_view, spacy_doc, doc_id)
+        # process the text documents in the documents list
+        for doc in text_documents(self.mmif.documents):
+            new_view = self._new_view(doc.id)
+            self._add_tool_output(doc, new_view)
+        # process the text documents in all the views, we copy the views into a
+        # list because self.mmif.views will be changed
+        for view in list(self.mmif.views):
+            docs = self.mmif.get_documents_in_view(view.id)
+            if docs:
+                new_view = self._new_view()
+                for doc in docs:
+                    doc_id = view.id + ':' + doc.id
+                    self._add_tool_output(doc, new_view, doc_id=doc_id)
         return self.mmif
 
-    def new_spacy_view(self):
+    def _new_view(self, docid=None):
         view = self.mmif.new_view()
         view.metadata.app = self.appmetadata()['app']
-        view.new_contain(Uri.TOKEN)
-        view.new_contain(Uri.POS)
-        view.new_contain(Uri.LEMMA)
-        view.new_contain(Uri.NCHUNK)
-        view.new_contain(Uri.SENTENCE)
-        view.new_contain(Uri.NE)
+        properties = {} if docid is None else {'document': docid}
+        for attype in (Uri.TOKEN, Uri.POS, Uri.LEMMA,
+                       Uri.NCHUNK, Uri.SENTENCE, Uri.NE):
+            view.new_contain(attype, properties)
         return view
 
-    def read_text(self, textdoc):
+    def _read_text(self, textdoc):
         """Read the text content from the document or the text value."""
-        # TODO: if a location is specified and the file cannot be opened then
-        # this should report an error.
-        fname = textdoc.location
-        try:
-            with open(fname) as fh:
-                return fh.read()
-        except FileNotFoundError as e:
-            return textdoc.properties.text.value
+        if textdoc.location:
+            with open(textdoc.location) as fh:
+                text = fh.read()
+        else:
+            text = textdoc.properties.text.value
+        if DEBUG:
+            print('>>> %s%s' % (text.strip()[:100],
+                                ('...' if len(text) > 100 else '')))
+        return text
 
-    def add_spacy_elements_to_view(self, view, spacy_doc, doc_id):
-        # to keep track of char offsets of all tokens
+    def _add_tool_output(self, doc, view, doc_id=None):
+        spacy_doc = nlp(self._read_text(doc))
+        # index to keep track of char offsets of all tokens
         tok_idx = {}
         for (n, tok) in enumerate(spacy_doc):
             p1 = tok.idx
@@ -125,39 +122,28 @@ class Spacy(ClamsApp):
                 doc.id, doc.at_type, doc.location, doc.properties.text.value))
 
 
+def text_documents(documents):
+    """Utility method to get all text documents from a list of documents."""
+    return [doc for doc in documents if doc.at_type.endswith(TEXT_DOCUMENT)]
+
+
 def add_annotation(view, attype, identifier, doc_id, start, end, properties):
+    """Utility method to add an annotation to a view."""
     a = view.new_annotation(identifier, attype)
-    a.add_property('document', doc_id)
+    if doc_id is not None:
+        a.add_property('document', doc_id)
     a.add_property('start', start)
     a.add_property('end', end)
     for prop, val in properties.items():
         a.add_property(prop, val)
 
 
-class GroupedDocuments(object):
-
-    """Groups all TextDocuments in the MMIF file on the identfier of the view they
-    are in. Any textDocument occurring in the documents list will have None as
-    the view identifier. The motivation for this grouping is that we create a
-    new view for (1) each TextDocument in the documents list and (2) each group
-    of TextDocuments in a view."""
-
-    def __init__(self, mmif):
-        self.docs = [(None, [doc for doc in mmif.documents
-                             if doc.at_type.endswith(TEXT_DOCUMENT)])]
-        for view in mmif.views:
-            docs = mmif.get_documents_in_view(view.id)
-            self.docs.append((view.id, docs))
-
-    def __getitem__(self, i):
-        return self.docs[i]
-
-    def pp(self):
-        for view_id, docs in self.docs:
-            print("%-4s  ==>  %s" % (view_id, ' '.join([doc.id for doc in docs])))
-
-
 class Identifiers(object):
+
+    """Utility class to generate annotation identifiers. You could, but don't have
+    to, reset this each time you start a new view. This works only for new views
+    since it does not check for identifiers of annotations already in the list
+    of annotations."""
 
     identifiers = collections.defaultdict(int)
 
@@ -173,6 +159,6 @@ class Identifiers(object):
 
 if __name__ == "__main__":
 
-    spacy_tool = Spacy()
-    spacy_service = Restifier(spacy_tool)
-    spacy_service.run()
+    app = SpacyApp()
+    service = Restifier(app)
+    service.run()
