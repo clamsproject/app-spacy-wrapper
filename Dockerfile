@@ -1,7 +1,4 @@
-FROM ubuntu:19.10
-
-RUN apt-get update && \
-    apt-get install -y git python3 python3-pip python3-setuptools
+FROM python:3.6-buster
 
 COPY ./ ./app
 WORKDIR ./app
