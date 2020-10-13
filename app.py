@@ -31,22 +31,20 @@ DEBUG = False
 
 class SpacyApp(ClamsApp):
 
-    def __init__(self):
-        self.metadata = {
+    def setupmetadata(self):
+        return {
             "name": "Spacy Wrapper",
             "app": 'https://tools.clams.ai/spacy_nlp',
             "wrapper_version": "0.0.2",
             "tool_version": "2.3.2",
             "mmif-spec-version": "0.2.1",
             "mmif-sdk-version": "0.2.0",
+            "clams-version": "0.1.3",
             "description": "This tool applies spacy tools to all text documents in an MMIF file.",
             "vendor": "Team CLAMS",
             "requires": [DocumentTypes.TextDocument.value],
             "produces": [Uri.TOKEN, Uri.POS, Uri.LEMMA, Uri.NCHUNK, Uri.SENTENCE, Uri.NE],
         }
-
-    def appmetadata(self):
-        return json.dumps(self.metadata)
 
     def sniff(self, mmif):
         # this mock-up method always returns true
@@ -128,6 +126,9 @@ class SpacyApp(ClamsApp):
 def text_documents(documents):
     """Utility method to get all text documents from a list of documents."""
     return [doc for doc in documents if doc.at_type.endswith(TEXT_DOCUMENT)]
+    # TODO: replace with the following line and remove TEXT_DOCUMENT variable
+    # when mmif-python is updated
+    # return [doc for doc in documents if doc.is_type(DocumentTypes.TextDocument)]
 
 
 def add_annotation(view, attype, identifier, doc_id, start, end, properties):
