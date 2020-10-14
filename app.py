@@ -66,7 +66,7 @@ class SpacyApp(ClamsApp):
                 for doc in docs:
                     doc_id = view.id + ':' + doc.id
                     self._add_tool_output(doc, new_view, doc_id=doc_id)
-        return str(self.mmif)
+        return self.mmif.serialize(pretty=True)
 
     def _new_view(self, docid=None):
         view = self.mmif.new_view()
