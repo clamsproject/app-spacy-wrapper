@@ -1,4 +1,4 @@
-<tool id="spacy" name="Spacy NLP" version="0.0.1">
+<tool id="spacy" name="Spacy NLP" version="0.0.2">
   <description>
     Apply Spacy NLP to a transcript.
   </description>
