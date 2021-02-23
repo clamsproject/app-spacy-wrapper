@@ -1,9 +1,8 @@
-FROM python:3.6-buster
+FROM clamsproject/clams-python:0.2.0
 
 COPY ./ ./app
 WORKDIR ./app
 
 RUN pip3 install -r requirements.txt
 
-ENTRYPOINT ["python3"]
-CMD ["app.py"]
+CMD ["python3", "app.py"]

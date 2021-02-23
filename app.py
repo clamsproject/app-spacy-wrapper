@@ -3,22 +3,35 @@
 Wrapping Spacy NLP to extract tokens, tags, lemmas, sentences, chunks and named
 entities.
 
+Usage:
+
+$ python app.py -t example-mmif.json out.json
+$ python app.py
+
+The first invocation is to just test the app without running a Flask server. The
+second is to start the Flask server, which you can ping with
+
+$ curl -H "Accept: application/json" -X POST -d@example-mmif.json http://0.0.0.0:5000/
+
+Normally you would run this in a Docker container, see README.md.
+
 """
 
 import os
+import sys
 import collections
 import json
 
 import spacy
 
-from clams.serve import ClamsApp
+from clams.app import ClamsApp
 from clams.restify import Restifier
 
 from mmif.serialize import *
 from mmif.vocabulary import AnnotationTypes
 from mmif.vocabulary import DocumentTypes
 
-from lapps.discriminators import Uri  # TODO move to clams
+from lapps.discriminators import Uri
 
 # Load English tokenizer, tagger, parser, NER and word vectors
 nlp = spacy.load("en_core_web_sm")
@@ -31,26 +44,24 @@ DEBUG = False
 
 class SpacyApp(ClamsApp):
 
-    def setupmetadata(self):
+    def _appmetadata(self):
         return {
             "name": "Spacy Wrapper",
             "app": 'https://tools.clams.ai/spacy_nlp',
-            "wrapper_version": "0.0.2",
+            "wrapper_version": "0.0.3",
             "tool_version": "2.3.2",
-            "mmif-spec-version": "0.2.1",
-            "mmif-sdk-version": "0.2.0",
-            "clams-version": "0.1.3",
+            "mmif-version": "0.2.2",
+            "mmif-python-version": "0.2.2",
+            "clams-python-version": "0.1.3",
             "description": "This tool applies spacy tools to all text documents in an MMIF file.",
             "vendor": "Team CLAMS",
-            "requires": [DocumentTypes.TextDocument.value],
-            "produces": [Uri.TOKEN, Uri.POS, Uri.LEMMA, Uri.NCHUNK, Uri.SENTENCE, Uri.NE],
+            "parameters": {},
+            "requires": [{"@type": DocumentTypes.TextDocument.value}],
+            "produces": [{"@type": Uri.TOKEN}, {"@type": Uri.POS}, {"@type": Uri.LEMMA},
+                         {"@type": Uri.NCHUNK}, {"@type": Uri.SENTENCE}, {"@type": Uri.NE}]
         }
 
-    def sniff(self, mmif):
-        # this mock-up method always returns true
-        return True
-
-    def annotate(self, mmif):
+    def _annotate(self, mmif):
         Identifiers.reset()
         self.mmif = mmif if type(mmif) is Mmif else Mmif(mmif)
         # process the text documents in the documents list
@@ -66,7 +77,7 @@ class SpacyApp(ClamsApp):
                 for doc in docs:
                     doc_id = view.id + ':' + doc.id
                     self._add_tool_output(doc, new_view, doc_id=doc_id)
-        return self.mmif.serialize(pretty=True)
+        return self.mmif
 
     def _new_view(self, docid=None):
         view = self.mmif.new_view()
@@ -161,8 +172,25 @@ class Identifiers(object):
         cls.identifiers = collections.defaultdict(int)
 
 
+
+def test():
+    """Run spacy on an input MMIF file. This bypasses the server and just pings
+    the annotate() method on the SpacyApp class. Prints a summary of the views
+    in the end result."""
+    with open(sys.argv[2]) as fh_in, open(sys.argv[3], 'w') as fh_out:
+        mmif_out_as_string = SpacyApp().annotate(fh_in.read(), pretty=True)
+        mmif_out = Mmif(mmif_out_as_string)
+        fh_out.write(mmif_out_as_string)
+        for view in mmif_out.views:
+            print("<View id=%s annotations=%s app=%s>"
+                  % (view.id, len(view.annotations), view.metadata['app']))
+
+
 if __name__ == "__main__":
 
-    app = SpacyApp()
-    service = Restifier(app)
-    service.run()
+    if len(sys.argv) > 3 and sys.argv[1] == '-t':
+        test()
+    else:
+        app = SpacyApp()
+        service = Restifier(app)
+        service.run()
