@@ -3,4 +3,7 @@
 *~
 **/*.pyc
 **/__pycache__
+*.md
 out*
+backup.sh*
+venv

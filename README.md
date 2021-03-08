@@ -10,7 +10,7 @@ spaCy is available at https://spacy.io/ and is distributed under the [MIT licens
 This requires Python 3.6 or higher. For local install of Python modules in a clean virtual environment do:
 
 ```bash
-$> pip install spacy==2.3.2
+$> pip install spacy==3.0.3
 $> python -m spacy download en_core_web_sm
 $> pip install clams-python==0.2.0
 $> pip install lapps==0.0.2

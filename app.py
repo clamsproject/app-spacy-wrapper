@@ -48,12 +48,12 @@ class SpacyApp(ClamsApp):
         return {
             "name": "Spacy Wrapper",
             "app": 'https://tools.clams.ai/spacy_nlp',
-            "wrapper_version": "0.0.3",
-            "tool_version": "2.3.2",
+            "wrapper_version": "0.0.4",
+            "tool-version": "3.0.3",
             "mmif-version": "0.2.2",
             "mmif-python-version": "0.2.2",
-            "clams-python-version": "0.1.3",
-            "description": "This tool applies spacy tools to all text documents in an MMIF file.",
+            "clams-python-version": "0.2.0",
+            "description": "Apply spaCy NLP to all text documents in an MMIF file.",
             "vendor": "Team CLAMS",
             "parameters": {},
             "requires": [{"@type": DocumentTypes.TextDocument.value}],
@@ -81,7 +81,8 @@ class SpacyApp(ClamsApp):
 
     def _new_view(self, docid=None):
         view = self.mmif.new_view()
-        view.metadata.app = self.metadata['app']
+        view.metadata.app = "%s/%s" % (self.metadata['app'],
+                                       self.metadata['tool-version'])
         properties = {} if docid is None else {'document': docid}
         for attype in (Uri.TOKEN, Uri.POS, Uri.LEMMA,
                        Uri.NCHUNK, Uri.SENTENCE, Uri.NE):
