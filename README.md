@@ -11,6 +11,7 @@ This requires Python 3.6 or higher. For local install of Python modules in a cle
 
 ```bash
 $> pip install spacy==3.0.3
+$> pip install spacy-dbpedia-spotlight==0.2.0
 $> python -m spacy download en_core_web_sm
 $> pip install clams-python==0.2.0
 $> pip install lapps==0.0.2
@@ -45,4 +46,3 @@ And to run it as a container:
 $> docker run --rm -d -p 5000:5000 clams-spacy-nlp
 $> curl -H "Accept: application/json" -X POST -d@example-mmif.json http://0.0.0.0:5000/
 ```
-

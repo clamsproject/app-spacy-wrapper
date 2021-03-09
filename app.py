@@ -24,6 +24,7 @@ import json
 
 import spacy
 
+
 from clams.app import ClamsApp
 from clams.restify import Restifier
 
@@ -35,6 +36,7 @@ from lapps.discriminators import Uri
 
 # Load English tokenizer, tagger, parser, NER and word vectors
 nlp = spacy.load("en_core_web_sm")
+nlp.add_pipe('dbpedia_spotlight')
 
 # We need this to find the text documents in the documents list
 TEXT_DOCUMENT = os.path.basename(DocumentTypes.TextDocument.value)
@@ -127,7 +129,7 @@ class SpacyApp(ClamsApp):
             add_annotation(
                 view, Uri.NE, Identifiers.new("ne"),
                 doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
-                { "text": ent.text, "category": ent.label_ })
+                { "text": ent.text, "category": ent.label_, "kb_id": ent.kb_id_})
 
     def print_documents(self):
         for doc in self.mmif.documents:

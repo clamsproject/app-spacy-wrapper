@@ -1,0 +1,775 @@
+{
+  "metadata": {
+    "mmif": "http://mmif.clams.ai/0.2.2"
+  },
+  "documents": [
+    {
+      "@type": "http://mmif.clams.ai/0.2.2/vocabulary/VideoDocument",
+      "properties": {
+        "mime": "video/mpeg",
+        "location": "example-video.mp4",
+        "id": "m1"
+      }
+    },
+    {
+      "@type": "http://mmif.clams.ai/0.2.2/vocabulary/TextDocument",
+      "properties": {
+        "mime": "text/plain",
+        "location": "example-transcript.txt",
+        "id": "m2"
+      }
+    }
+  ],
+  "views": [
+    {
+      "id": "v_1",
+      "metadata": {
+        "app": "http://mmif.clams.ai/apps/east/0.2.2",
+        "contains": {
+          "http://mmif.clams.ai/0.2.2/vocabulary/BoundingBox": {
+            "unit": "pixels",
+            "document": "m1"
+          }
+        }
+      },
+      "annotations": [
+        {
+          "@type": "http://mmif.clams.ai/0.2.2/vocabulary/BoundingBox",
+          "properties": {
+            "coordinates": [
+              [
+                10,
+                20
+              ],
+              [
+                40,
+                20
+              ],
+              [
+                10,
+                30
+              ],
+              [
+                40,
+                30
+              ]
+            ],
+            "timePoint": 1200,
+            "boxType": "text",
+            "id": "bb1"
+          }
+        },
+        {
+          "@type": "http://mmif.clams.ai/0.2.2/vocabulary/BoundingBox",
+          "properties": {
+            "coordinates": [
+              [
+                210,
+                220
+              ],
+              [
+                240,
+                220
+              ],
+              [
+                210,
+                230
+              ],
+              [
+                240,
+                230
+              ]
+            ],
+            "timePoint": 1900,
+            "boxType": "text",
+            "id": "bb2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v_2",
+      "metadata": {
+        "app": "http://mmif.clams.ai/apps/tesseract/0.2.2",
+        "contains": {
+          "http://mmif.clams.ai/0.1.0/TextDocument": {},
+          "http://mmif.clams.ai/0.1.0/Alignment": {}
+        }
+      },
+      "annotations": [
+        {
+          "@type": "http://mmif.clams.ai/0.2.2/vocabulary/TextDocument",
+          "properties": {
+            "text": {
+              "@value": "Fido barks in New York."
+            },
+            "id": "td1"
+          }
+        },
+        {
+          "@type": "http://mmif.clams.ai/0.2.2/vocabulary/Alignment",
+          "properties": {
+            "target": "td1",
+            "source": "v1:bb1",
+            "id": "a1"
+          }
+        },
+        {
+          "@type": "http://mmif.clams.ai/0.2.2/vocabulary/TextDocument",
+          "properties": {
+            "text": {
+              "@value": "yelp"
+            },
+            "id": "td2"
+          }
+        },
+        {
+          "@type": "http://mmif.clams.ai/0.2.2/vocabulary/Alignment",
+          "properties": {
+            "target": "td2",
+            "source": "v1:bb2",
+            "id": "a2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v_3",
+      "metadata": {
+        "timestamp": "2021-03-09T14:05:46.017056",
+        "app": "https://tools.clams.ai/spacy_nlp/3.0.3",
+        "contains": {
+          "http://vocab.lappsgrid.org/Token": {
+            "document": "m2"
+          },
+          "http://vocab.lappsgrid.org/Token#pos": {
+            "document": "m2"
+          },
+          "http://vocab.lappsgrid.org/Token#lemma": {
+            "document": "m2"
+          },
+          "http://vocab.lappsgrid.org/NounChunk": {
+            "document": "m2"
+          },
+          "http://vocab.lappsgrid.org/Sentence": {
+            "document": "m2"
+          },
+          "http://vocab.lappsgrid.org/NamedEntity": {
+            "document": "m2"
+          }
+        }
+      },
+      "annotations": [
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 0,
+            "end": 5,
+            "pos": "UH",
+            "lemma": "hello",
+            "text": "Hello",
+            "id": "t1"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 5,
+            "end": 6,
+            "pos": ",",
+            "lemma": ",",
+            "text": ",",
+            "id": "t2"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 7,
+            "end": 11,
+            "pos": "DT",
+            "lemma": "this",
+            "text": "this",
+            "id": "t3"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 12,
+            "end": 14,
+            "pos": "VBZ",
+            "lemma": "be",
+            "text": "is",
+            "id": "t4"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 15,
+            "end": 18,
+            "pos": "NNP",
+            "lemma": "Jim",
+            "text": "Jim",
+            "id": "t5"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 19,
+            "end": 25,
+            "pos": "NNP",
+            "lemma": "Lehrer",
+            "text": "Lehrer",
+            "id": "t6"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 26,
+            "end": 30,
+            "pos": "IN",
+            "lemma": "with",
+            "text": "with",
+            "id": "t7"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 31,
+            "end": 34,
+            "pos": "DT",
+            "lemma": "the",
+            "text": "the",
+            "id": "t8"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 35,
+            "end": 43,
+            "pos": "NNP",
+            "lemma": "NewsHour",
+            "text": "NewsHour",
+            "id": "t9"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 44,
+            "end": 46,
+            "pos": "IN",
+            "lemma": "on",
+            "text": "on",
+            "id": "t10"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 47,
+            "end": 50,
+            "pos": "NNP",
+            "lemma": "PBS",
+            "text": "PBS",
+            "id": "t11"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 50,
+            "end": 51,
+            "pos": ".",
+            "lemma": ".",
+            "text": ".",
+            "id": "t12"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 52,
+            "end": 54,
+            "pos": "IN",
+            "lemma": "in",
+            "text": "In",
+            "id": "t13"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 55,
+            "end": 58,
+            "pos": "DT",
+            "lemma": "the",
+            "text": "the",
+            "id": "t14"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 59,
+            "end": 67,
+            "pos": "CD",
+            "lemma": "nineteen",
+            "text": "nineteen",
+            "id": "t15"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 68,
+            "end": 76,
+            "pos": "NNS",
+            "lemma": "eighty",
+            "text": "eighties",
+            "id": "t16"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 76,
+            "end": 77,
+            "pos": ",",
+            "lemma": ",",
+            "text": ",",
+            "id": "t17"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 78,
+            "end": 85,
+            "pos": "VBG",
+            "lemma": "bark",
+            "text": "barking",
+            "id": "t18"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 86,
+            "end": 90,
+            "pos": "NNS",
+            "lemma": "dog",
+            "text": "dogs",
+            "id": "t19"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 91,
+            "end": 95,
+            "pos": "VBP",
+            "lemma": "have",
+            "text": "have",
+            "id": "t20"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 96,
+            "end": 108,
+            "pos": "RB",
+            "lemma": "increasingly",
+            "text": "increasingly",
+            "id": "t21"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 109,
+            "end": 115,
+            "pos": "VBN",
+            "lemma": "become",
+            "text": "become",
+            "id": "t22"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 116,
+            "end": 117,
+            "pos": "DT",
+            "lemma": "a",
+            "text": "a",
+            "id": "t23"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 118,
+            "end": 125,
+            "pos": "NN",
+            "lemma": "problem",
+            "text": "problem",
+            "id": "t24"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 126,
+            "end": 128,
+            "pos": "IN",
+            "lemma": "in",
+            "text": "in",
+            "id": "t25"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 129,
+            "end": 134,
+            "pos": "JJ",
+            "lemma": "urban",
+            "text": "urban",
+            "id": "t26"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 135,
+            "end": 140,
+            "pos": "NNS",
+            "lemma": "area",
+            "text": "areas",
+            "id": "t27"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 140,
+            "end": 141,
+            "pos": ".",
+            "lemma": ".",
+            "text": ".",
+            "id": "t28"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "start": 141,
+            "end": 142,
+            "pos": "_SP",
+            "lemma": "\n",
+            "text": "\n",
+            "id": "t29"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NounChunk",
+          "properties": {
+            "start": 15,
+            "end": 25,
+            "text": "Jim Lehrer",
+            "id": "nc1"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NounChunk",
+          "properties": {
+            "start": 31,
+            "end": 43,
+            "text": "the NewsHour",
+            "id": "nc2"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NounChunk",
+          "properties": {
+            "start": 47,
+            "end": 50,
+            "text": "PBS",
+            "id": "nc3"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NounChunk",
+          "properties": {
+            "start": 55,
+            "end": 76,
+            "text": "the nineteen eighties",
+            "id": "nc4"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NounChunk",
+          "properties": {
+            "start": 86,
+            "end": 90,
+            "text": "dogs",
+            "id": "nc5"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NounChunk",
+          "properties": {
+            "start": 116,
+            "end": 125,
+            "text": "a problem",
+            "id": "nc6"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NounChunk",
+          "properties": {
+            "start": 129,
+            "end": 140,
+            "text": "urban areas",
+            "id": "nc7"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Sentence",
+          "properties": {
+            "start": 0,
+            "end": 51,
+            "text": "Hello, this is Jim Lehrer with the NewsHour on PBS.",
+            "id": "s1"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Sentence",
+          "properties": {
+            "start": 52,
+            "end": 142,
+            "text": "In the nineteen eighties, barking dogs have increasingly become a problem in urban areas.\n",
+            "id": "s2"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NamedEntity",
+          "properties": {
+            "start": 15,
+            "end": 25,
+            "text": "Jim Lehrer",
+            "category": "DBPEDIA_ENT",
+            "kb_id": "http://dbpedia.org/resource/Jim_Lehrer",
+            "id": "ne1"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NamedEntity",
+          "properties": {
+            "start": 47,
+            "end": 50,
+            "text": "PBS",
+            "category": "DBPEDIA_ENT",
+            "kb_id": "http://dbpedia.org/resource/PBS",
+            "id": "ne2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "v_4",
+      "metadata": {
+        "timestamp": "2021-03-09T14:05:47.222576",
+        "app": "https://tools.clams.ai/spacy_nlp/3.0.3",
+        "contains": {
+          "http://vocab.lappsgrid.org/Token": {},
+          "http://vocab.lappsgrid.org/Token#pos": {},
+          "http://vocab.lappsgrid.org/Token#lemma": {},
+          "http://vocab.lappsgrid.org/NounChunk": {},
+          "http://vocab.lappsgrid.org/Sentence": {},
+          "http://vocab.lappsgrid.org/NamedEntity": {}
+        }
+      },
+      "annotations": [
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td1",
+            "start": 0,
+            "end": 4,
+            "pos": "NNP",
+            "lemma": "Fido",
+            "text": "Fido",
+            "id": "t30"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td1",
+            "start": 5,
+            "end": 10,
+            "pos": "NNS",
+            "lemma": "bark",
+            "text": "barks",
+            "id": "t31"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td1",
+            "start": 11,
+            "end": 13,
+            "pos": "IN",
+            "lemma": "in",
+            "text": "in",
+            "id": "t32"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td1",
+            "start": 14,
+            "end": 17,
+            "pos": "NNP",
+            "lemma": "New",
+            "text": "New",
+            "id": "t33"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td1",
+            "start": 18,
+            "end": 22,
+            "pos": "NNP",
+            "lemma": "York",
+            "text": "York",
+            "id": "t34"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td1",
+            "start": 22,
+            "end": 23,
+            "pos": ".",
+            "lemma": ".",
+            "text": ".",
+            "id": "t35"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NounChunk",
+          "properties": {
+            "document": "v_2:td1",
+            "start": 0,
+            "end": 4,
+            "text": "Fido",
+            "id": "nc8"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NounChunk",
+          "properties": {
+            "document": "v_2:td1",
+            "start": 14,
+            "end": 22,
+            "text": "New York",
+            "id": "nc9"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Sentence",
+          "properties": {
+            "document": "v_2:td1",
+            "start": 0,
+            "end": 23,
+            "text": "Fido barks in New York.",
+            "id": "s3"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NamedEntity",
+          "properties": {
+            "document": "v_2:td1",
+            "start": 0,
+            "end": 4,
+            "text": "Fido",
+            "category": "DBPEDIA_ENT",
+            "kb_id": "http://dbpedia.org/resource/Fido_Solutions",
+            "id": "ne3"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NamedEntity",
+          "properties": {
+            "document": "v_2:td1",
+            "start": 14,
+            "end": 22,
+            "text": "New York",
+            "category": "DBPEDIA_ENT",
+            "kb_id": "http://dbpedia.org/resource/New_York_City",
+            "id": "ne4"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td2",
+            "start": 0,
+            "end": 4,
+            "pos": "NN",
+            "lemma": "yelp",
+            "text": "yelp",
+            "id": "t36"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NounChunk",
+          "properties": {
+            "document": "v_2:td2",
+            "start": 0,
+            "end": 4,
+            "text": "yelp",
+            "id": "nc10"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Sentence",
+          "properties": {
+            "document": "v_2:td2",
+            "start": 0,
+            "end": 4,
+            "text": "yelp",
+            "id": "s4"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NamedEntity",
+          "properties": {
+            "document": "v_2:td2",
+            "start": 0,
+            "end": 4,
+            "text": "yelp",
+            "category": "DBPEDIA_ENT",
+            "kb_id": "http://dbpedia.org/resource/Yelp",
+            "id": "ne5"
+          }
+        }
+      ]
+    }
+  ]
+}
