@@ -54,8 +54,8 @@
                 30
               ]
             ],
-            "timePoint": 1200,
             "boxType": "text",
+            "timePoint": 1200,
             "id": "bb1"
           }
         },
@@ -80,8 +80,8 @@
                 230
               ]
             ],
-            "timePoint": 1900,
             "boxType": "text",
+            "timePoint": 1900,
             "id": "bb2"
           }
         }
@@ -109,8 +109,8 @@
         {
           "@type": "http://mmif.clams.ai/0.2.2/vocabulary/Alignment",
           "properties": {
-            "target": "td1",
             "source": "v1:bb1",
+            "target": "td1",
             "id": "a1"
           }
         },
@@ -126,8 +126,8 @@
         {
           "@type": "http://mmif.clams.ai/0.2.2/vocabulary/Alignment",
           "properties": {
-            "target": "td2",
             "source": "v1:bb2",
+            "target": "td2",
             "id": "a2"
           }
         }
@@ -136,7 +136,7 @@
     {
       "id": "v_3",
       "metadata": {
-        "timestamp": "2021-03-09T14:05:46.017056",
+        "timestamp": "2021-03-09T14:22:39.188595",
         "app": "https://tools.clams.ai/spacy_nlp/3.0.3",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {
@@ -566,9 +566,19 @@
             "start": 15,
             "end": 25,
             "text": "Jim Lehrer",
-            "category": "DBPEDIA_ENT",
+            "category": "PERSON",
             "kb_id": "http://dbpedia.org/resource/Jim_Lehrer",
             "id": "ne1"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NamedEntity",
+          "properties": {
+            "start": 35,
+            "end": 43,
+            "text": "NewsHour",
+            "category": "PRODUCT",
+            "id": "ne3"
           }
         },
         {
@@ -577,9 +587,19 @@
             "start": 47,
             "end": 50,
             "text": "PBS",
-            "category": "DBPEDIA_ENT",
+            "category": "ORG",
             "kb_id": "http://dbpedia.org/resource/PBS",
-            "id": "ne2"
+            "id": "ne4"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NamedEntity",
+          "properties": {
+            "start": 55,
+            "end": 76,
+            "text": "the nineteen eighties",
+            "category": "DATE",
+            "id": "ne6"
           }
         }
       ]
@@ -587,7 +607,7 @@
     {
       "id": "v_4",
       "metadata": {
-        "timestamp": "2021-03-09T14:05:47.222576",
+        "timestamp": "2021-03-09T14:22:40.395774",
         "app": "https://tools.clams.ai/spacy_nlp/3.0.3",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {},
@@ -705,24 +725,12 @@
           "@type": "http://vocab.lappsgrid.org/NamedEntity",
           "properties": {
             "document": "v_2:td1",
-            "start": 0,
-            "end": 4,
-            "text": "Fido",
-            "category": "DBPEDIA_ENT",
-            "kb_id": "http://dbpedia.org/resource/Fido_Solutions",
-            "id": "ne3"
-          }
-        },
-        {
-          "@type": "http://vocab.lappsgrid.org/NamedEntity",
-          "properties": {
-            "document": "v_2:td1",
             "start": 14,
             "end": 22,
             "text": "New York",
-            "category": "DBPEDIA_ENT",
+            "category": "GPE",
             "kb_id": "http://dbpedia.org/resource/New_York_City",
-            "id": "ne4"
+            "id": "ne7"
           }
         },
         {
@@ -766,7 +774,7 @@
             "text": "yelp",
             "category": "DBPEDIA_ENT",
             "kb_id": "http://dbpedia.org/resource/Yelp",
-            "id": "ne5"
+            "id": "ne8"
           }
         }
       ]

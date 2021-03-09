@@ -36,7 +36,7 @@ from lapps.discriminators import Uri
 
 # Load English tokenizer, tagger, parser, NER and word vectors
 nlp = spacy.load("en_core_web_sm")
-nlp.add_pipe('dbpedia_spotlight')
+nlp.add_pipe('dbpedia_spotlight', config={'overwrite_ents':False})
 
 # We need this to find the text documents in the documents list
 TEXT_DOCUMENT = os.path.basename(DocumentTypes.TextDocument.value)
@@ -105,6 +105,7 @@ class SpacyApp(ClamsApp):
 
     def _add_tool_output(self, doc, view, doc_id=None):
         spacy_doc = nlp(self._read_text(doc))
+        dbpedia_ents = {d.text:d.kb_id_ for d in spacy_doc.spans['dbpedia_ents']}
         # index to keep track of char offsets of all tokens
         tok_idx = {}
         for (n, tok) in enumerate(spacy_doc):
@@ -126,10 +127,16 @@ class SpacyApp(ClamsApp):
                 doc_id, tok_idx[sent.start][0], tok_idx[sent.end - 1][1],
                 { "text": sent.text })
         for (n, ent) in enumerate(spacy_doc.ents):
-            add_annotation(
-                view, Uri.NE, Identifiers.new("ne"),
-                doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
-                { "text": ent.text, "category": ent.label_, "kb_id": ent.kb_id_})
+            try:
+                add_annotation(
+                    view, Uri.NE, Identifiers.new("ne"),
+                    doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
+                    { "text": ent.text, "category": ent.label_, "kb_id": dbpedia_ents[ent.text]})
+            except KeyError:
+                add_annotation(
+                    view, Uri.NE, Identifiers.new("ne"),
+                    doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
+                    {"text": ent.text, "category": ent.label_})
 
     def print_documents(self):
         for doc in self.mmif.documents:
