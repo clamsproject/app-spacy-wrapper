@@ -36,7 +36,7 @@ from lapps.discriminators import Uri
 
 # Load English tokenizer, tagger, parser, NER and word vectors
 nlp = spacy.load("en_core_web_sm")
-nlp.add_pipe('dbpedia_spotlight', config={'overwrite_ents':False})
+nlp.add_pipe('dbpedia_spotlight', config={'overwrite_ents':False, 'dbpedia_rest_endpoint': 'http://localhost:2222/rest'})
 
 # We need this to find the text documents in the documents list
 TEXT_DOCUMENT = os.path.basename(DocumentTypes.TextDocument.value)
