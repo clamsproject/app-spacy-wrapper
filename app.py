@@ -7,11 +7,15 @@ Usage:
 
 $ python app.py -t example-mmif.json out.json
 $ python app.py
+$ python app.py --dbpedia
 
-The first invocation is to just test the app without running a Flask server. The
-second is to start the Flask server, which you can ping with
+The first invocation is to just test the app without running a Flask server and
+without attempting to link entities to DBPedia. The second and third are to
+start the Flask server, which you can ping with
 
 $ curl -H "Accept: application/json" -X POST -d@example-mmif.json http://0.0.0.0:5000/
+
+With the --dbpedia option the app will attempt to link entities to DBPedia.
 
 Normally you would run this in a Docker container, see README.md.
 
@@ -21,6 +25,7 @@ import os
 import sys
 import collections
 import json
+import urllib
 
 import spacy
 
@@ -34,9 +39,11 @@ from mmif.vocabulary import DocumentTypes
 
 from lapps.discriminators import Uri
 
-# Load English tokenizer, tagger, parser, NER and word vectors
+# Load small English core model
 nlp = spacy.load("en_core_web_sm")
-nlp.add_pipe('dbpedia_spotlight', config={'overwrite_ents':False, 'dbpedia_rest_endpoint': 'http://localhost:2222/rest'})
+
+# default is to not attempt linking to DBPedia
+dbpedia = False
 
 # We need this to find the text documents in the documents list
 TEXT_DOCUMENT = os.path.basename(DocumentTypes.TextDocument.value)
@@ -48,13 +55,13 @@ class SpacyApp(ClamsApp):
 
     def _appmetadata(self):
         return {
-            "name": "Spacy Wrapper",
+           "name": "Spacy Wrapper",
             "app": 'https://tools.clams.ai/spacy_nlp',
-            "wrapper_version": "0.0.4",
+            "wrapper_version": "0.0.5",
             "tool-version": "3.0.3",
-            "mmif-version": "0.2.2",
-            "mmif-python-version": "0.2.2",
-            "clams-python-version": "0.2.0",
+            "mmif-version": "0.3.0",
+            "mmif-python-version": "0.3.1",
+            "clams-python-version": "0.2.2",
             "description": "Apply spaCy NLP to all text documents in an MMIF file.",
             "vendor": "Team CLAMS",
             "parameters": {},
@@ -63,15 +70,12 @@ class SpacyApp(ClamsApp):
                          {"@type": Uri.NCHUNK}, {"@type": Uri.SENTENCE}, {"@type": Uri.NE}]
         }
 
-    def _annotate(self, mmif):
+    def _annotate(self, mmif, **kwargs):
         Identifiers.reset()
         self.mmif = mmif if type(mmif) is Mmif else Mmif(mmif)
-        # process the text documents in the documents list
         for doc in text_documents(self.mmif.documents):
             new_view = self._new_view(doc.id)
             self._add_tool_output(doc, new_view)
-        # process the text documents in all the views, we copy the views into a
-        # list because self.mmif.views will be changed
         for view in list(self.mmif.views):
             docs = self.mmif.get_documents_in_view(view.id)
             if docs:
@@ -94,8 +98,8 @@ class SpacyApp(ClamsApp):
     def _read_text(self, textdoc):
         """Read the text content from the document or the text value."""
         if textdoc.location:
-            with open(textdoc.location) as fh:
-                text = fh.read()
+            fh = urllib.request.urlopen(textdoc.location)
+            text = fh.read().decode('utf8')
         else:
             text = textdoc.properties.text.value
         if DEBUG:
@@ -105,8 +109,10 @@ class SpacyApp(ClamsApp):
 
     def _add_tool_output(self, doc, view, doc_id=None):
         spacy_doc = nlp(self._read_text(doc))
-        dbpedia_ents = {d.text:d.kb_id_ for d in spacy_doc.spans['dbpedia_ents']}
-        # index to keep track of char offsets of all tokens
+        dbpedia_ents = {}
+        if dbpedia:
+            dbpedia_ents = {d.text:d.kb_id_ for d in spacy_doc.spans['dbpedia_ents']}
+        # keep track of char offsets of all tokens
         tok_idx = {}
         for (n, tok) in enumerate(spacy_doc):
             p1 = tok.idx
@@ -198,9 +204,15 @@ def test():
 
 if __name__ == "__main__":
 
-    if len(sys.argv) > 3 and sys.argv[1] == '-t':
+    if len(sys.argv) > 3 and '-t' in sys.argv:
         test()
     else:
+        if '--dbpedia' in sys.argv:
+            dbpedia = True
+            nlp.add_pipe(
+                'dbpedia_spotlight',
+                config={'overwrite_ents':False,
+                        'dbpedia_rest_endpoint': 'http://localhost:2222/rest'})
         app = SpacyApp()
         service = Restifier(app)
         service.run()

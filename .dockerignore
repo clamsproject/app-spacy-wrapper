@@ -7,3 +7,6 @@
 out*
 backup.sh*
 venv
+dbpedia-spotlight-1.0.0.jar
+en.tar.gz
+en
