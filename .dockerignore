@@ -1,0 +1,12 @@
+.git/
+.gitignore
+*~
+**/*.pyc
+**/__pycache__
+*.md
+out*
+backup.sh*
+venv
+dbpedia-spotlight-1.0.0.jar
+en.tar.gz
+en

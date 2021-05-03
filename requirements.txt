@@ -1,5 +1,5 @@
-spacy==2.3.2
+clams-python==0.2.2
 lapps==0.0.2
-clams-python==0.1.3
-mmif-python>=0.2.0
-https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz#egg=en_core_web_sm
+spacy==3.0.3
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz#egg=en_core_web_sm
+spacy-dbpedia-spotlight==0.2.0
