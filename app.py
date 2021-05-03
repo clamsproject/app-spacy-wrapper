@@ -56,7 +56,7 @@ class SpacyApp(ClamsApp):
     def _appmetadata(self):
         return {
            "name": "Spacy Wrapper",
-            "app": 'https://tools.clams.ai/spacy_nlp',
+            "app": 'https://apps.clams.ai/spacy_nlp',
             "wrapper_version": "0.0.5",
             "tool-version": "3.0.3",
             "mmif-version": "0.3.0",
@@ -87,8 +87,7 @@ class SpacyApp(ClamsApp):
 
     def _new_view(self, docid=None):
         view = self.mmif.new_view()
-        view.metadata.app = "%s/%s" % (self.metadata['app'],
-                                       self.metadata['tool-version'])
+        view.metadata.app = self.metadata['app']
         properties = {} if docid is None else {'document': docid}
         for attype in (Uri.TOKEN, Uri.POS, Uri.LEMMA,
                        Uri.NCHUNK, Uri.SENTENCE, Uri.NE):
