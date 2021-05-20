@@ -55,15 +55,14 @@ class SpacyApp(ClamsApp):
 
     def _appmetadata(self):
         return {
-           "name": "Spacy Wrapper",
-            "app": 'https://apps.clams.ai/spacy_nlp',
-            "wrapper_version": "0.0.5",
+            "name": "Spacy NLP",
+            "iri": 'https://apps.clams.ai/spacy_nlp',
+            "wrapper_version": "0.0.6",
             "tool-version": "3.0.3",
-            "mmif-version": "0.3.0",
-            "mmif-python-version": "0.3.1",
-            "clams-python-version": "0.2.2",
-            "description": "Apply spaCy NLP to all text documents in an MMIF file.",
-            "vendor": "Team CLAMS",
+            "mmif-version": "0.3.1",
+            "mmif-python-version": "0.3.3",
+            "clams-python-version": "0.2.4",
+            "description": "Apply spaCy NLP to all text documents in a MMIF file.",
             "parameters": {},
             "requires": [{"@type": DocumentTypes.TextDocument.value}],
             "produces": [{"@type": Uri.TOKEN}, {"@type": Uri.POS}, {"@type": Uri.LEMMA},
@@ -71,6 +70,8 @@ class SpacyApp(ClamsApp):
         }
 
     def _annotate(self, mmif, **kwargs):
+        #if 'error' in kwargs:
+        #    raise Exception("spaCy error - %s" % kwargs['error'])
         Identifiers.reset()
         self.mmif = mmif if type(mmif) is Mmif else Mmif(mmif)
         for doc in text_documents(self.mmif.documents):
@@ -87,7 +88,7 @@ class SpacyApp(ClamsApp):
 
     def _new_view(self, docid=None):
         view = self.mmif.new_view()
-        view.metadata.app = self.metadata['app']
+        view.metadata.app = self.metadata['iri']
         properties = {} if docid is None else {'document': docid}
         for attype in (Uri.TOKEN, Uri.POS, Uri.LEMMA,
                        Uri.NCHUNK, Uri.SENTENCE, Uri.NE):
