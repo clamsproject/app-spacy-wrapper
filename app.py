@@ -57,21 +57,19 @@ class SpacyApp(ClamsApp):
         return {
             "name": "Spacy NLP",
             "iri": 'https://apps.clams.ai/spacy_nlp',
-            "wrapper_version": "0.0.6",
+            "wrapper-version": "0.0.6",
             "tool-version": "3.0.3",
             "mmif-version": "0.3.1",
             "mmif-python-version": "0.3.3",
             "clams-python-version": "0.2.4",
             "description": "Apply spaCy NLP to all text documents in a MMIF file.",
             "parameters": {},
-            "requires": [{"@type": DocumentTypes.TextDocument.value}],
-            "produces": [{"@type": Uri.TOKEN}, {"@type": Uri.POS}, {"@type": Uri.LEMMA},
-                         {"@type": Uri.NCHUNK}, {"@type": Uri.SENTENCE}, {"@type": Uri.NE}]
+            "input": [{"@type": DocumentTypes.TextDocument.value}],
+            "output": [{"@type": Uri.TOKEN}, {"@type": Uri.POS}, {"@type": Uri.LEMMA},
+                       {"@type": Uri.NCHUNK}, {"@type": Uri.SENTENCE}, {"@type": Uri.NE}]
         }
 
     def _annotate(self, mmif, **kwargs):
-        #if 'error' in kwargs:
-        #    raise Exception("spaCy error - %s" % kwargs['error'])
         Identifiers.reset()
         self.mmif = mmif if type(mmif) is Mmif else Mmif(mmif)
         for doc in text_documents(self.mmif.documents):
