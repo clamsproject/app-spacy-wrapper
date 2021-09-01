@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "mmif": "http://mmif.clams.ai/0.3.1"
+    "mmif": "http://mmif.clams.ai/0.4.0"
   },
   "documents": [
     {
-      "@type": "http://mmif.clams.ai/0.3.1/vocabulary/VideoDocument",
+      "@type": "http://mmif.clams.ai/0.4.0/vocabulary/VideoDocument",
       "properties": {
         "mime": "video/mpeg",
         "id": "m1",
@@ -12,7 +12,7 @@
       }
     },
     {
-      "@type": "http://mmif.clams.ai/0.3.1/vocabulary/TextDocument",
+      "@type": "http://mmif.clams.ai/0.4.0/vocabulary/TextDocument",
       "properties": {
         "text": {
           "@value": "Hello, this is Jim Lehrer with the NewsHour on PBS. In the nineteen eighties, barking dogs have increasingly become a problem in urban areas."
@@ -27,7 +27,7 @@
       "metadata": {
         "app": "http://mmif.clams.ai/apps/east/0.2.1",
         "contains": {
-          "http://mmif.clams.ai/0.3.1/vocabulary/BoundingBox": {
+          "http://mmif.clams.ai/0.4.0/vocabulary/BoundingBox": {
             "unit": "pixels",
             "document": "m1"
           }
@@ -35,7 +35,7 @@
       },
       "annotations": [
         {
-          "@type": "http://mmif.clams.ai/0.3.1/vocabulary/BoundingBox",
+          "@type": "http://mmif.clams.ai/0.4.0/vocabulary/BoundingBox",
           "properties": {
             "boxType": "text",
             "coordinates": [
@@ -57,11 +57,12 @@
               ]
             ],
             "timePoint": 1200,
+            "boxType": "text",
             "id": "bb1"
           }
         },
         {
-          "@type": "http://mmif.clams.ai/0.3.1/vocabulary/BoundingBox",
+          "@type": "http://mmif.clams.ai/0.4.0/vocabulary/BoundingBox",
           "properties": {
             "boxType": "text",
             "coordinates": [
@@ -83,6 +84,7 @@
               ]
             ],
             "timePoint": 1900,
+            "boxType": "text",
             "id": "bb2"
           }
         }
@@ -93,13 +95,13 @@
       "metadata": {
         "app": "http://mmif.clams.ai/apps/tesseract/0.2.1",
         "contains": {
-          "http://mmif.clams.ai/0.1.0/TextDocument": {},
-          "http://mmif.clams.ai/0.1.0/Alignment": {}
+          "http://mmif.clams.ai/vocabulary/TextDocument": {},
+          "http://mmif.clams.ai/vocabulary/Alignment": {}
         }
       },
       "annotations": [
         {
-          "@type": "http://mmif.clams.ai/0.3.1/vocabulary/TextDocument",
+          "@type": "http://mmif.clams.ai/0.4.0/vocabulary/TextDocument",
           "properties": {
             "text": {
               "@value": "Fido barks in New York."
@@ -108,7 +110,7 @@
           }
         },
         {
-          "@type": "http://mmif.clams.ai/0.3.1/vocabulary/Alignment",
+          "@type": "http://mmif.clams.ai/0.4.0/vocabulary/Alignment",
           "properties": {
             "source": "v1:bb1",
             "target": "td1",
@@ -116,7 +118,7 @@
           }
         },
         {
-          "@type": "http://mmif.clams.ai/0.3.1/vocabulary/TextDocument",
+          "@type": "http://mmif.clams.ai/0.4.0/vocabulary/TextDocument",
           "properties": {
             "text": {
               "@value": "yelp"
@@ -125,7 +127,7 @@
           }
         },
         {
-          "@type": "http://mmif.clams.ai/0.3.1/vocabulary/Alignment",
+          "@type": "http://mmif.clams.ai/0.4.0/vocabulary/Alignment",
           "properties": {
             "source": "v1:bb2",
             "target": "td2",
@@ -137,7 +139,7 @@
     {
       "id": "v_3",
       "metadata": {
-        "timestamp": "2021-06-30T09:36:11.782593",
+        "timestamp": "2021-07-14T12:48:09.274591",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {
@@ -595,7 +597,7 @@
     {
       "id": "v_4",
       "metadata": {
-        "timestamp": "2021-06-30T09:36:11.795937",
+        "timestamp": "2021-07-14T12:48:09.289963",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {},

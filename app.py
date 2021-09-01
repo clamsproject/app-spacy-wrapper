@@ -6,16 +6,19 @@ entities.
 Usage:
 
 $ python app.py -t example-mmif.json out.json
-$ python app.py
-$ python app.py --dbpedia
+$ python app.py [--develop]
+$ python app.py --dbpedia [--develop]
 
-The first invocation is to just test the app without running a Flask server and
+The first invocation is to just test the app without running a server and
 without attempting to link entities to DBPedia. The second and third are to
-start the Flask server, which you can ping with
+start a server, which you can ping with
 
 $ curl -H "Accept: application/json" -X POST -d@example-mmif.json http://0.0.0.0:5000/
 
 With the --dbpedia option the app will attempt to link entities to DBPedia.
+
+With the --develop option you get a FLask server running in development mode,
+without it Gunicorn will be used for a more stable server.
 
 Normally you would run this in a Docker container, see README.md.
 
@@ -26,27 +29,32 @@ import sys
 import collections
 import json
 import urllib
+import argparse
 
 import spacy
 
-
 from clams.app import ClamsApp
 from clams.restify import Restifier
-
-from mmif.serialize import *
-from mmif.vocabulary import AnnotationTypes
-from mmif.vocabulary import DocumentTypes
-
+from clams.appmetadata import AppMetadata
+from mmif.serialize import Mmif
+from mmif.vocabulary import AnnotationTypes, DocumentTypes
 from lapps.discriminators import Uri
 
 # Load small English core model
 nlp = spacy.load("en_core_web_sm")
 
+VERSION = '0.0.7'
+MMIF_VERSION = '0.4.0'
+MMIF_PYTHON_VERSION = '0.4.5'
+CLAMS_PYTHON_VERSION = '0.4.4'
+SPACY_VERSION = '3.0.3'
+
+
 # default is to not attempt linking to DBPedia
-dbpedia = False
+use_dbpedia = False
 
 # We need this to find the text documents in the documents list
-TEXT_DOCUMENT = os.path.basename(DocumentTypes.TextDocument.value)
+TEXT_DOCUMENT = os.path.basename(str(DocumentTypes.TextDocument))
 
 DEBUG = False
 
@@ -54,20 +62,24 @@ DEBUG = False
 class SpacyApp(ClamsApp):
 
     def _appmetadata(self):
-        return {
-            "name": "Spacy NLP",
-            "iri": 'https://apps.clams.ai/spacy_nlp',
-            "wrapper-version": "0.0.6",
-            "tool-version": "3.0.3",
-            "mmif-version": "0.3.1",
-            "mmif-python-version": "0.3.3",
-            "clams-python-version": "0.2.4",
-            "description": "Apply spaCy NLP to all text documents in a MMIF file.",
-            "parameters": {},
-            "input": [{"@type": DocumentTypes.TextDocument.value}],
-            "output": [{"@type": Uri.TOKEN}, {"@type": Uri.POS}, {"@type": Uri.LEMMA},
-                       {"@type": Uri.NCHUNK}, {"@type": Uri.SENTENCE}, {"@type": Uri.NE}]
-        }
+        metadata = AppMetadata(
+            identifier='https://apps.clams.ai/spacy_nlp',
+            name="Spacy NLP",
+            description="Apply spaCy NLP to all text documents in a MMIF file.",
+            app_version=VERSION,
+            wrappee_version=SPACY_VERSION,
+            wrappee_license='MIT',
+            mmif_version=MMIF_VERSION,
+            license='Apache 2.0'
+        )
+        metadata.add_input(DocumentTypes.TextDocument)
+        metadata.add_output(Uri.TOKEN)
+        metadata.add_output(Uri.POS)
+        metadata.add_output(Uri.LEMMA)
+        metadata.add_output(Uri.NCHUNK)
+        metadata.add_output(Uri.SENTENCE)
+        metadata.add_output(Uri.NE)
+        return metadata
 
     def _annotate(self, mmif, **kwargs):
         Identifiers.reset()
@@ -86,11 +98,10 @@ class SpacyApp(ClamsApp):
 
     def _new_view(self, docid=None):
         view = self.mmif.new_view()
-        view.metadata.app = self.metadata['iri']
-        properties = {} if docid is None else {'document': docid}
+        self.sign_view(view)
         for attype in (Uri.TOKEN, Uri.POS, Uri.LEMMA,
                        Uri.NCHUNK, Uri.SENTENCE, Uri.NE):
-            view.new_contain(attype, properties)
+            view.new_contain(attype, document=docid)
         return view
 
     def _read_text(self, textdoc):
@@ -108,7 +119,7 @@ class SpacyApp(ClamsApp):
     def _add_tool_output(self, doc, view, doc_id=None):
         spacy_doc = nlp(self._read_text(doc))
         dbpedia_ents = {}
-        if dbpedia:
+        if use_dbpedia:
             dbpedia_ents = {d.text:d.kb_id_ for d in spacy_doc.spans['dbpedia_ents']}
         # keep track of char offsets of all tokens
         tok_idx = {}
@@ -150,7 +161,7 @@ class SpacyApp(ClamsApp):
 
 def text_documents(documents):
     """Utility method to get all text documents from a list of documents."""
-    return [doc for doc in documents if doc.at_type.endswith(TEXT_DOCUMENT)]
+    return [doc for doc in documents if str(doc.at_type).endswith(TEXT_DOCUMENT)]
     # TODO: replace with the following line and remove TEXT_DOCUMENT variable
     # when mmif-python is updated
     # return [doc for doc in documents if doc.is_type(DocumentTypes.TextDocument)]
@@ -158,7 +169,7 @@ def text_documents(documents):
 
 def add_annotation(view, attype, identifier, doc_id, start, end, properties):
     """Utility method to add an annotation to a view."""
-    a = view.new_annotation(identifier, attype)
+    a = view.new_annotation(attype, identifier)
     if doc_id is not None:
         a.add_property('document', doc_id)
     a.add_property('start', start)
@@ -187,11 +198,12 @@ class Identifiers(object):
 
 
 
-def test():
+def test(infile, outfile):
     """Run spacy on an input MMIF file. This bypasses the server and just pings
     the annotate() method on the SpacyApp class. Prints a summary of the views
     in the end result."""
-    with open(sys.argv[2]) as fh_in, open(sys.argv[3], 'w') as fh_out:
+    print(SpacyApp().appmetadata(pretty=True))
+    with open(infile) as fh_in, open(outfile, 'w') as fh_out:
         mmif_out_as_string = SpacyApp().annotate(fh_in.read(), pretty=True)
         mmif_out = Mmif(mmif_out_as_string)
         fh_out.write(mmif_out_as_string)
@@ -202,15 +214,26 @@ def test():
 
 if __name__ == "__main__":
 
-    if len(sys.argv) > 3 and '-t' in sys.argv:
-        test()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-t', '--test',  action='store_true', help="bypass the server")
+    parser.add_argument('--develop',  action='store_true', help="start a development server")
+    parser.add_argument('--dbpedia',  action='store_true', help="start a production server")
+    parser.add_argument('infile', nargs='?', help="input MMIF file")
+    parser.add_argument('outfile', nargs='?', help="output file")
+    args = parser.parse_args()
+
+    if args.test:
+        test(args.infile, args.outfile)
     else:
-        if '--dbpedia' in sys.argv:
-            dbpedia = True
+        if args.dbpedia:
+            use_dbpedia = True
             nlp.add_pipe(
                 'dbpedia_spotlight',
                 config={'overwrite_ents':False,
                         'dbpedia_rest_endpoint': 'http://localhost:2222/rest'})
         app = SpacyApp()
         service = Restifier(app)
-        service.run()
+        if args.develop:
+            service.run()
+        else:
+            service.serve_production()
