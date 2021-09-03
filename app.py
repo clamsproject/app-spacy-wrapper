@@ -43,12 +43,13 @@ from lapps.discriminators import Uri
 # Load small English core model
 nlp = spacy.load("en_core_web_sm")
 
-VERSION = '0.0.7'
+APP_VERSION = '0.0.7'
+APP_LICENSE='Apache 2.0'
 MMIF_VERSION = '0.4.0'
 MMIF_PYTHON_VERSION = '0.4.5'
-CLAMS_PYTHON_VERSION = '0.4.4'
+CLAMS_PYTHON_VERSION = '0.5.0'
 SPACY_VERSION = '3.0.3'
-
+SPACY_LICENSE='MIT'
 
 # default is to not attempt linking to DBPedia
 use_dbpedia = False
@@ -64,13 +65,14 @@ class SpacyApp(ClamsApp):
     def _appmetadata(self):
         metadata = AppMetadata(
             identifier='https://apps.clams.ai/spacy_nlp',
+            url='https://github.com/clamsproject/app-spacy-nlp',
             name="Spacy NLP",
             description="Apply spaCy NLP to all text documents in a MMIF file.",
-            app_version=VERSION,
-            wrappee_version=SPACY_VERSION,
-            wrappee_license='MIT',
-            mmif_version=MMIF_VERSION,
-            license='Apache 2.0'
+            app_version=APP_VERSION,
+            app_license=APP_LICENSE,
+            analyzer_version=SPACY_VERSION,
+            analyzer_license=SPACY_LICENSE,
+            mmif_version=MMIF_VERSION
         )
         metadata.add_input(DocumentTypes.TextDocument)
         metadata.add_output(Uri.TOKEN)
