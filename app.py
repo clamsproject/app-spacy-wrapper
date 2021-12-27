@@ -7,15 +7,11 @@ Usage:
 
 $ python app.py -t example-mmif.json out.json
 $ python app.py [--develop]
-$ python app.py --dbpedia [--develop]
 
-The first invocation is to just test the app without running a server and
-without attempting to link entities to DBPedia. The second and third are to
-start a server, which you can ping with
+The first invocation is to just test the app without running a server. The
+second is to start a server, which you can ping with
 
 $ curl -H "Accept: application/json" -X POST -d@example-mmif.json http://0.0.0.0:5000/
-
-With the --dbpedia option the app will attempt to link entities to DBPedia.
 
 With the --develop option you get a FLask server running in development mode,
 without it Gunicorn will be used for a more stable server.
@@ -44,15 +40,13 @@ from lapps.discriminators import Uri
 nlp = spacy.load("en_core_web_sm")
 
 APP_VERSION = '0.0.7'
-APP_LICENSE='Apache 2.0'
+APP_LICENSE = 'Apache 2.0'
 MMIF_VERSION = '0.4.0'
 MMIF_PYTHON_VERSION = '0.4.5'
 CLAMS_PYTHON_VERSION = '0.5.0'
 SPACY_VERSION = '3.0.3'
-SPACY_LICENSE='MIT'
+SPACY_LICENSE = 'MIT'
 
-# default is to not attempt linking to DBPedia
-use_dbpedia = False
 
 # We need this to find the text documents in the documents list
 TEXT_DOCUMENT = os.path.basename(str(DocumentTypes.TextDocument))
@@ -120,9 +114,6 @@ class SpacyApp(ClamsApp):
 
     def _add_tool_output(self, doc, view, doc_id=None):
         spacy_doc = nlp(self._read_text(doc))
-        dbpedia_ents = {}
-        if use_dbpedia:
-            dbpedia_ents = {d.text:d.kb_id_ for d in spacy_doc.spans['dbpedia_ents']}
         # keep track of char offsets of all tokens
         tok_idx = {}
         for (n, tok) in enumerate(spacy_doc):
@@ -148,7 +139,7 @@ class SpacyApp(ClamsApp):
                 add_annotation(
                     view, Uri.NE, Identifiers.new("ne"),
                     doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
-                    { "text": ent.text, "category": ent.label_, "kb_id": dbpedia_ents[ent.text]})
+                    { "text": ent.text, "category": ent.label_ })
             except KeyError:
                 add_annotation(
                     view, Uri.NE, Identifiers.new("ne"),
@@ -219,7 +210,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-t', '--test',  action='store_true', help="bypass the server")
     parser.add_argument('--develop',  action='store_true', help="start a development server")
-    parser.add_argument('--dbpedia',  action='store_true', help="start a production server")
     parser.add_argument('infile', nargs='?', help="input MMIF file")
     parser.add_argument('outfile', nargs='?', help="output file")
     args = parser.parse_args()
@@ -227,12 +217,6 @@ if __name__ == "__main__":
     if args.test:
         test(args.infile, args.outfile)
     else:
-        if args.dbpedia:
-            use_dbpedia = True
-            nlp.add_pipe(
-                'dbpedia_spotlight',
-                config={'overwrite_ents':False,
-                        'dbpedia_rest_endpoint': 'http://localhost:2222/rest'})
         app = SpacyApp()
         service = Restifier(app)
         if args.develop:

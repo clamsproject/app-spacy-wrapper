@@ -37,7 +37,6 @@
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/BoundingBox",
           "properties": {
-            "boxType": "text",
             "coordinates": [
               [
                 10,
@@ -64,7 +63,6 @@
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/BoundingBox",
           "properties": {
-            "boxType": "text",
             "coordinates": [
               [
                 210,
@@ -139,7 +137,7 @@
     {
       "id": "v_3",
       "metadata": {
-        "timestamp": "2021-07-14T12:48:09.274591",
+        "timestamp": "2021-12-27T12:38:07.845424",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {
@@ -559,7 +557,7 @@
             "end": 25,
             "text": "Jim Lehrer",
             "category": "PERSON",
-            "id": "ne2"
+            "id": "ne1"
           }
         },
         {
@@ -569,7 +567,7 @@
             "end": 43,
             "text": "NewsHour",
             "category": "PRODUCT",
-            "id": "ne4"
+            "id": "ne2"
           }
         },
         {
@@ -579,7 +577,7 @@
             "end": 50,
             "text": "PBS",
             "category": "ORG",
-            "id": "ne6"
+            "id": "ne3"
           }
         },
         {
@@ -589,7 +587,7 @@
             "end": 76,
             "text": "the nineteen eighties",
             "category": "DATE",
-            "id": "ne8"
+            "id": "ne4"
           }
         }
       ]
@@ -597,7 +595,7 @@
     {
       "id": "v_4",
       "metadata": {
-        "timestamp": "2021-07-14T12:48:09.289963",
+        "timestamp": "2021-12-27T12:38:07.860202",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {},
@@ -719,7 +717,7 @@
             "end": 22,
             "text": "New York",
             "category": "GPE",
-            "id": "ne10"
+            "id": "ne5"
           }
         },
         {
