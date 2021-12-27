@@ -5,15 +5,17 @@ The spaCy NLP tool wrapped as a CLAMS service, spaCy is distributed under the [M
 This requires Python 3.6 or higher. For local install of required Python modules do:
 
 ```bash
-$ pip install clams-python==0.4.4
-$ pip install click==7.1.1
-$ pip install lapps==0.0.2
-$ pip install spacy==3.0.3
-$ pip install spacy-dbpedia-spotlight==0.2.0
-$ python -m spacy download en_core_web_sm
+$ pip install clams-python==0.5.0
+$ pip install spacy==3.1.2
 ```
 
-A more recent version of spaCy most likely will work too. The installation of `click==7.1.1` is added because `clams-python==0.4.3` installs version 8.0.1, which is incompatible with the version needed by spaCy (because version 8.0.1 removes `click._bashcomplete`).
+In an earlier version of this application we had to manually install click==7.1.1 because clams-python installed version 8.0.1 and spaCy was not compatible with that version. The spacy install now does that automatically.
+
+You also need the small spaCy model.
+
+```bash
+$ python -m spacy download en_core_web_sm
+```
 
 ## Using this service
 
@@ -32,7 +34,7 @@ $ curl -H "Accept: application/json" -X POST -d@example-mmif.json http://0.0.0.0
 
 In CLAMS you usually run this in a Docker container. To create a Docker image
 
-```
+```bash
 $ docker build -t clams-spacy-nlp .
 ```
 
@@ -43,7 +45,7 @@ $ docker run --rm -d -p 5000:5000 clams-spacy-nlp
 $ curl -H "Accept: application/json" -X POST -d@example-mmif.json http://0.0.0.0:5000/
 ```
 
-The spaCy code will run on each text document in the input. The example file `example-mmif.json` has one text document in the top level `documents` property and two text documents in one of the views. The text documents all look as follows:
+The spaCy code will run on each text document in the input MMIF file. The file `example-mmif.json` has one text document in the top level `documents` property and two text documents in one of the views. The text documents all look as follows:
 
 ```json
 {
@@ -56,20 +58,5 @@ The spaCy code will run on each text document in the input. The example file `ex
   }
 }
 ```
-Instead of a `text:@value` property the text could in an external file, which would be given as a URI in the `location` property.
+Instead of a `text:@value` property the text could in an external file, which would be given as a URI in the `location` property. See the readme file in [https://github.com/clamsproject/app-nlp-example](https://github.com/clamsproject/app-nlp-example) on how to do this.
 
-## Entity Linking
-
-Code for entity linking is in progress. To run the local server do
-
-```bash
-$ python app.py --dbpedia
-```
-
-For building a Docker image use `Dockerfile-dbpedia`.
-
-```bash
-$ docker build -f Dockerfile-dbpedia -t clams-spacy-nlp-linking .
-```
-
-Neither of these work at the moment.
