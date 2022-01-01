@@ -1,4 +1,4 @@
-FROM clamsproject/clams-python:0.4.4
+FROM clamsproject/clams-python:0.5.0
 
 RUN apt-get update && apt-get -y install vim curl
 
