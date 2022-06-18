@@ -8,5 +8,6 @@ out*
 backup.sh*
 venv
 dbpedia-spotlight-1.0.0.jar
+entity-linking
 en.tar.gz
 en

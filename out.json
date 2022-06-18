@@ -55,8 +55,8 @@
                 30
               ]
             ],
-            "timePoint": 1200,
             "boxType": "text",
+            "timePoint": 1200,
             "id": "bb1"
           }
         },
@@ -81,8 +81,8 @@
                 230
               ]
             ],
-            "timePoint": 1900,
             "boxType": "text",
+            "timePoint": 1900,
             "id": "bb2"
           }
         }
@@ -137,7 +137,7 @@
     {
       "id": "v_3",
       "metadata": {
-        "timestamp": "2021-12-27T12:38:07.845424",
+        "timestamp": "2022-06-18T08:16:24.171545",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {
@@ -566,7 +566,7 @@
             "start": 35,
             "end": 43,
             "text": "NewsHour",
-            "category": "PRODUCT",
+            "category": "ORG",
             "id": "ne2"
           }
         },
@@ -595,7 +595,7 @@
     {
       "id": "v_4",
       "metadata": {
-        "timestamp": "2021-12-27T12:38:07.860202",
+        "timestamp": "2022-06-18T08:16:24.189774",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {},
@@ -613,8 +613,8 @@
             "document": "v_2:td1",
             "start": 0,
             "end": 4,
-            "pos": "NNP",
-            "lemma": "Fido",
+            "pos": "JJ",
+            "lemma": "fido",
             "text": "Fido",
             "id": "t29"
           }
@@ -684,8 +684,8 @@
           "properties": {
             "document": "v_2:td1",
             "start": 0,
-            "end": 4,
-            "text": "Fido",
+            "end": 10,
+            "text": "Fido barks",
             "id": "nc8"
           }
         },

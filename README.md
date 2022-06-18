@@ -5,7 +5,7 @@ The spaCy NLP tool wrapped as a CLAMS service, spaCy is distributed under the [M
 This requires Python 3.6 or higher. For local install of required Python modules do:
 
 ```bash
-$ pip install clams-python==0.5.0
+$ pip install clams-python==0.5.1
 $ pip install spacy==3.1.2
 ```
 
