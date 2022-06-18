@@ -39,12 +39,12 @@ from lapps.discriminators import Uri
 # Load small English core model
 nlp = spacy.load("en_core_web_sm")
 
-APP_VERSION = '0.0.7'
+APP_VERSION = '0.0.8'
 APP_LICENSE = 'Apache 2.0'
 MMIF_VERSION = '0.4.0'
-MMIF_PYTHON_VERSION = '0.4.5'
-CLAMS_PYTHON_VERSION = '0.5.0'
-SPACY_VERSION = '3.0.3'
+MMIF_PYTHON_VERSION = '0.4.6'
+CLAMS_PYTHON_VERSION = '0.5.1'
+SPACY_VERSION = '3.1.2'
 SPACY_LICENSE = 'MIT'
 
 
