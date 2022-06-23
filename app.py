@@ -39,6 +39,9 @@ from lapps.discriminators import Uri
 # Load small English core model
 nlp = spacy.load("en_core_web_sm")
 
+# Jinny: Load trained NER model
+ner = spacy.load("ner_models/model-best-uncased-sm")
+
 APP_VERSION = '0.0.8'
 APP_LICENSE = 'Apache 2.0'
 MMIF_VERSION = '0.4.0'
@@ -134,17 +137,22 @@ class SpacyApp(ClamsApp):
                 view, Uri.SENTENCE, Identifiers.new("s"),
                 doc_id, tok_idx[sent.start][0], tok_idx[sent.end - 1][1],
                 { "text": sent.text })
+
+        # Jinny: the off-the-shelf spaCy model does not recognize 'jim lehrer' (lowercased) as a person
+        # but the spaCy NER model trained on CoNLL does. Since our real data (Kaldi transcripts) are
+        # in lowercase, I would use the trained NER model for this task
+        spacy_doc = ner((self._read_text(doc)).lower())
+        # keep track of char offsets of all tokens
+        tok_idx = {}
+        for (n, tok) in enumerate(spacy_doc):
+            p1 = tok.idx
+            p2 = p1 + len(tok.text)
+            tok_idx[n] = (p1, p2)
         for (n, ent) in enumerate(spacy_doc.ents):
-            try:
-                add_annotation(
-                    view, Uri.NE, Identifiers.new("ne"),
-                    doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
-                    { "text": ent.text, "category": ent.label_ })
-            except KeyError:
-                add_annotation(
-                    view, Uri.NE, Identifiers.new("ne"),
-                    doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
-                    {"text": ent.text, "category": ent.label_})
+            add_annotation(
+                view, Uri.NE, Identifiers.new("ne"),
+                doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
+                { "text": ent.text, "category": ent.label_ })
 
     def print_documents(self):
         for doc in self.mmif.documents:

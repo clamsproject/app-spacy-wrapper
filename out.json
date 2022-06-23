@@ -55,8 +55,8 @@
                 30
               ]
             ],
-            "boxType": "text",
             "timePoint": 1200,
+            "boxType": "text",
             "id": "bb1"
           }
         },
@@ -81,8 +81,8 @@
                 230
               ]
             ],
-            "boxType": "text",
             "timePoint": 1900,
+            "boxType": "text",
             "id": "bb2"
           }
         }
@@ -137,7 +137,7 @@
     {
       "id": "v_3",
       "metadata": {
-        "timestamp": "2022-06-18T08:16:24.171545",
+        "timestamp": "2022-06-23T04:03:11.830004",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {
@@ -472,10 +472,19 @@
         {
           "@type": "http://vocab.lappsgrid.org/NounChunk",
           "properties": {
+            "start": 7,
+            "end": 11,
+            "text": "this",
+            "id": "nc1"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NounChunk",
+          "properties": {
             "start": 15,
             "end": 25,
             "text": "Jim Lehrer",
-            "id": "nc1"
+            "id": "nc2"
           }
         },
         {
@@ -484,7 +493,7 @@
             "start": 31,
             "end": 43,
             "text": "the NewsHour",
-            "id": "nc2"
+            "id": "nc3"
           }
         },
         {
@@ -493,7 +502,7 @@
             "start": 47,
             "end": 50,
             "text": "PBS",
-            "id": "nc3"
+            "id": "nc4"
           }
         },
         {
@@ -502,7 +511,7 @@
             "start": 55,
             "end": 76,
             "text": "the nineteen eighties",
-            "id": "nc4"
+            "id": "nc5"
           }
         },
         {
@@ -511,7 +520,7 @@
             "start": 86,
             "end": 90,
             "text": "dogs",
-            "id": "nc5"
+            "id": "nc6"
           }
         },
         {
@@ -520,7 +529,7 @@
             "start": 116,
             "end": 125,
             "text": "a problem",
-            "id": "nc6"
+            "id": "nc7"
           }
         },
         {
@@ -529,7 +538,7 @@
             "start": 129,
             "end": 140,
             "text": "urban areas",
-            "id": "nc7"
+            "id": "nc8"
           }
         },
         {
@@ -553,20 +562,20 @@
         {
           "@type": "http://vocab.lappsgrid.org/NamedEntity",
           "properties": {
-            "start": 15,
-            "end": 25,
-            "text": "Jim Lehrer",
-            "category": "PERSON",
+            "start": 0,
+            "end": 5,
+            "text": "hello",
+            "category": "PER",
             "id": "ne1"
           }
         },
         {
           "@type": "http://vocab.lappsgrid.org/NamedEntity",
           "properties": {
-            "start": 35,
-            "end": 43,
-            "text": "NewsHour",
-            "category": "ORG",
+            "start": 15,
+            "end": 25,
+            "text": "jim lehrer",
+            "category": "PER",
             "id": "ne2"
           }
         },
@@ -575,19 +584,9 @@
           "properties": {
             "start": 47,
             "end": 50,
-            "text": "PBS",
+            "text": "pbs",
             "category": "ORG",
             "id": "ne3"
-          }
-        },
-        {
-          "@type": "http://vocab.lappsgrid.org/NamedEntity",
-          "properties": {
-            "start": 55,
-            "end": 76,
-            "text": "the nineteen eighties",
-            "category": "DATE",
-            "id": "ne4"
           }
         }
       ]
@@ -595,7 +594,7 @@
     {
       "id": "v_4",
       "metadata": {
-        "timestamp": "2022-06-18T08:16:24.189774",
+        "timestamp": "2022-06-23T04:03:11.854684",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {},
@@ -613,7 +612,7 @@
             "document": "v_2:td1",
             "start": 0,
             "end": 4,
-            "pos": "JJ",
+            "pos": "NN",
             "lemma": "fido",
             "text": "Fido",
             "id": "t29"
@@ -686,7 +685,7 @@
             "start": 0,
             "end": 10,
             "text": "Fido barks",
-            "id": "nc8"
+            "id": "nc9"
           }
         },
         {
@@ -696,7 +695,7 @@
             "start": 14,
             "end": 22,
             "text": "New York",
-            "id": "nc9"
+            "id": "nc10"
           }
         },
         {
@@ -713,10 +712,21 @@
           "@type": "http://vocab.lappsgrid.org/NamedEntity",
           "properties": {
             "document": "v_2:td1",
+            "start": 0,
+            "end": 10,
+            "text": "fido barks",
+            "category": "PER",
+            "id": "ne4"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NamedEntity",
+          "properties": {
+            "document": "v_2:td1",
             "start": 14,
             "end": 22,
-            "text": "New York",
-            "category": "GPE",
+            "text": "new york",
+            "category": "LOC",
             "id": "ne5"
           }
         },
@@ -739,7 +749,7 @@
             "start": 0,
             "end": 4,
             "text": "yelp",
-            "id": "nc10"
+            "id": "nc11"
           }
         },
         {
