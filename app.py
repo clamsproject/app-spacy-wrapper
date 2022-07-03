@@ -39,8 +39,8 @@ from lapps.discriminators import Uri
 # Load small English core model
 nlp = spacy.load("en_core_web_sm")
 
-# Jinny: Load trained NER model
-ner = spacy.load("ner_models/model-best-uncased-sm")
+# Jinny: Define NER model that would be loaded if args.uncased == True
+ner = None
 
 APP_VERSION = '0.0.8'
 APP_LICENSE = 'Apache 2.0'
@@ -139,15 +139,17 @@ class SpacyApp(ClamsApp):
                 { "text": sent.text })
 
         # Jinny: the off-the-shelf spaCy model does not recognize 'jim lehrer' (lowercased) as a person
-        # but the spaCy NER model trained on CoNLL does. Since our real data (Kaldi transcripts) are
-        # in lowercase, I would use the trained NER model for this task
-        spacy_doc = ner((self._read_text(doc)).lower())
-        # keep track of char offsets of all tokens
-        tok_idx = {}
-        for (n, tok) in enumerate(spacy_doc):
-            p1 = tok.idx
-            p2 = p1 + len(tok.text)
-            tok_idx[n] = (p1, p2)
+        # but the spaCy NER model trained on CoNLL does. If the user specifies to use the uncased model,
+        # that model would be used instead of the off-the-shelf model
+        if(ner != None):
+            spacy_doc = ner((self._read_text(doc)).lower())
+            # keep track of char offsets of all tokens
+            tok_idx = {}
+            for (n, tok) in enumerate(spacy_doc):
+                p1 = tok.idx
+                p2 = p1 + len(tok.text)
+                tok_idx[n] = (p1, p2)
+    
         for (n, ent) in enumerate(spacy_doc.ents):
             add_annotation(
                 view, Uri.NE, Identifiers.new("ne"),
@@ -218,9 +220,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-t', '--test',  action='store_true', help="bypass the server")
     parser.add_argument('--develop',  action='store_true', help="start a development server")
+    parser.add_argument('-u', '--uncased',  action='store_true', help="select the NER model trained for uncased data")
     parser.add_argument('infile', nargs='?', help="input MMIF file")
     parser.add_argument('outfile', nargs='?', help="output file")
     args = parser.parse_args()
+
+    if args.uncased:
+        ner = spacy.load("ner_models/model-best-uncased-sm")
 
     if args.test:
         test(args.infile, args.outfile)
