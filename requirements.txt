@@ -19,7 +19,7 @@ itsdangerous==1.1.0
 Jinja2==2.11.3
 jsonschema==3.2.0
 lapps==0.0.2
-lxml==4.9.0
+lxml==4.9.1
 MarkupSafe==2.0.1
 mmif-python==0.4.6
 murmurhash==1.0.7
