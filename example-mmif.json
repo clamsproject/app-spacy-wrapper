@@ -97,6 +97,23 @@
             "source": "v1:bb2",
             "target": "td2"
           }
+        },
+		{
+          "@type": "http://mmif.clams.ai/0.4.0/vocabulary/TextDocument",
+          "properties": {
+            "id": "td3",
+            "text": {
+              "@value": "Clinton advised Jim Lehrer against leaving PBS."
+            }
+          }
+        },
+        {
+          "@type": "http://mmif.clams.ai/0.4.0/vocabulary/Alignment",
+          "properties": {
+            "id": "a3",
+            "source": "v1:bb3",
+            "target": "td3"
+          }
         }
       ]
     }

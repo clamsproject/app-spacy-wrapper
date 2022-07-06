@@ -37,7 +37,6 @@
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/BoundingBox",
           "properties": {
-            "timePoint": 1200,
             "boxType": "text",
             "coordinates": [
               [
@@ -57,13 +56,13 @@
                 30
               ]
             ],
+            "timePoint": 1200,
             "id": "bb1"
           }
         },
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/BoundingBox",
           "properties": {
-            "timePoint": 1900,
             "boxType": "text",
             "coordinates": [
               [
@@ -83,6 +82,7 @@
                 230
               ]
             ],
+            "timePoint": 1900,
             "id": "bb2"
           }
         }
@@ -110,8 +110,8 @@
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/Alignment",
           "properties": {
-            "target": "td1",
             "source": "v1:bb1",
+            "target": "td1",
             "id": "a1"
           }
         },
@@ -127,9 +127,26 @@
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/Alignment",
           "properties": {
-            "target": "td2",
             "source": "v1:bb2",
+            "target": "td2",
             "id": "a2"
+          }
+        },
+        {
+          "@type": "http://mmif.clams.ai/0.4.0/vocabulary/TextDocument",
+          "properties": {
+            "text": {
+              "@value": "Clinton advised Jim Lehrer against leaving PBS."
+            },
+            "id": "td3"
+          }
+        },
+        {
+          "@type": "http://mmif.clams.ai/0.4.0/vocabulary/Alignment",
+          "properties": {
+            "source": "v1:bb3",
+            "target": "td3",
+            "id": "a3"
           }
         }
       ]
@@ -137,7 +154,7 @@
     {
       "id": "v_3",
       "metadata": {
-        "timestamp": "2022-07-03T22:13:38.849046",
+        "timestamp": "2022-07-06T18:33:15.858972",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {
@@ -169,6 +186,7 @@
             "pos": "UH",
             "lemma": "hello",
             "text": "Hello",
+            "i": 0,
             "id": "t1"
           }
         },
@@ -180,6 +198,7 @@
             "pos": ",",
             "lemma": ",",
             "text": ",",
+            "i": 1,
             "id": "t2"
           }
         },
@@ -191,6 +210,7 @@
             "pos": "DT",
             "lemma": "this",
             "text": "this",
+            "i": 2,
             "id": "t3"
           }
         },
@@ -202,6 +222,7 @@
             "pos": "VBZ",
             "lemma": "be",
             "text": "is",
+            "i": 3,
             "id": "t4"
           }
         },
@@ -213,6 +234,7 @@
             "pos": "NNP",
             "lemma": "Jim",
             "text": "Jim",
+            "i": 4,
             "id": "t5"
           }
         },
@@ -224,6 +246,7 @@
             "pos": "NNP",
             "lemma": "Lehrer",
             "text": "Lehrer",
+            "i": 5,
             "id": "t6"
           }
         },
@@ -235,6 +258,7 @@
             "pos": "IN",
             "lemma": "with",
             "text": "with",
+            "i": 6,
             "id": "t7"
           }
         },
@@ -246,6 +270,7 @@
             "pos": "DT",
             "lemma": "the",
             "text": "the",
+            "i": 7,
             "id": "t8"
           }
         },
@@ -257,6 +282,7 @@
             "pos": "NNP",
             "lemma": "NewsHour",
             "text": "NewsHour",
+            "i": 8,
             "id": "t9"
           }
         },
@@ -268,6 +294,7 @@
             "pos": "IN",
             "lemma": "on",
             "text": "on",
+            "i": 9,
             "id": "t10"
           }
         },
@@ -279,6 +306,7 @@
             "pos": "NNP",
             "lemma": "PBS",
             "text": "PBS",
+            "i": 10,
             "id": "t11"
           }
         },
@@ -290,6 +318,7 @@
             "pos": ".",
             "lemma": ".",
             "text": ".",
+            "i": 11,
             "id": "t12"
           }
         },
@@ -301,6 +330,7 @@
             "pos": "IN",
             "lemma": "in",
             "text": "In",
+            "i": 12,
             "id": "t13"
           }
         },
@@ -312,6 +342,7 @@
             "pos": "DT",
             "lemma": "the",
             "text": "the",
+            "i": 13,
             "id": "t14"
           }
         },
@@ -323,6 +354,7 @@
             "pos": "CD",
             "lemma": "nineteen",
             "text": "nineteen",
+            "i": 14,
             "id": "t15"
           }
         },
@@ -334,6 +366,7 @@
             "pos": "NNS",
             "lemma": "eighty",
             "text": "eighties",
+            "i": 15,
             "id": "t16"
           }
         },
@@ -345,6 +378,7 @@
             "pos": ",",
             "lemma": ",",
             "text": ",",
+            "i": 16,
             "id": "t17"
           }
         },
@@ -356,6 +390,7 @@
             "pos": "VBG",
             "lemma": "bark",
             "text": "barking",
+            "i": 17,
             "id": "t18"
           }
         },
@@ -367,6 +402,7 @@
             "pos": "NNS",
             "lemma": "dog",
             "text": "dogs",
+            "i": 18,
             "id": "t19"
           }
         },
@@ -378,6 +414,7 @@
             "pos": "VBP",
             "lemma": "have",
             "text": "have",
+            "i": 19,
             "id": "t20"
           }
         },
@@ -389,6 +426,7 @@
             "pos": "RB",
             "lemma": "increasingly",
             "text": "increasingly",
+            "i": 20,
             "id": "t21"
           }
         },
@@ -400,6 +438,7 @@
             "pos": "VBN",
             "lemma": "become",
             "text": "become",
+            "i": 21,
             "id": "t22"
           }
         },
@@ -411,6 +450,7 @@
             "pos": "DT",
             "lemma": "a",
             "text": "a",
+            "i": 22,
             "id": "t23"
           }
         },
@@ -422,6 +462,7 @@
             "pos": "NN",
             "lemma": "problem",
             "text": "problem",
+            "i": 23,
             "id": "t24"
           }
         },
@@ -433,6 +474,7 @@
             "pos": "IN",
             "lemma": "in",
             "text": "in",
+            "i": 24,
             "id": "t25"
           }
         },
@@ -444,6 +486,7 @@
             "pos": "JJ",
             "lemma": "urban",
             "text": "urban",
+            "i": 25,
             "id": "t26"
           }
         },
@@ -455,6 +498,7 @@
             "pos": "NNS",
             "lemma": "area",
             "text": "areas",
+            "i": 26,
             "id": "t27"
           }
         },
@@ -466,6 +510,7 @@
             "pos": ".",
             "lemma": ".",
             "text": ".",
+            "i": 27,
             "id": "t28"
           }
         },
@@ -566,6 +611,7 @@
             "end": 5,
             "text": "hello",
             "category": "PER",
+            "root_i": 0,
             "id": "ne1"
           }
         },
@@ -576,6 +622,7 @@
             "end": 25,
             "text": "jim lehrer",
             "category": "PER",
+            "root_i": 4,
             "id": "ne2"
           }
         },
@@ -586,6 +633,7 @@
             "end": 50,
             "text": "pbs",
             "category": "ORG",
+            "root_i": 10,
             "id": "ne3"
           }
         }
@@ -594,7 +642,7 @@
     {
       "id": "v_4",
       "metadata": {
-        "timestamp": "2022-07-03T22:13:38.871009",
+        "timestamp": "2022-07-06T18:33:15.891201",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {},
@@ -615,6 +663,7 @@
             "pos": "NN",
             "lemma": "fido",
             "text": "Fido",
+            "i": 0,
             "id": "t29"
           }
         },
@@ -627,6 +676,7 @@
             "pos": "NNS",
             "lemma": "bark",
             "text": "barks",
+            "i": 1,
             "id": "t30"
           }
         },
@@ -639,6 +689,7 @@
             "pos": "IN",
             "lemma": "in",
             "text": "in",
+            "i": 2,
             "id": "t31"
           }
         },
@@ -651,6 +702,7 @@
             "pos": "NNP",
             "lemma": "New",
             "text": "New",
+            "i": 3,
             "id": "t32"
           }
         },
@@ -663,6 +715,7 @@
             "pos": "NNP",
             "lemma": "York",
             "text": "York",
+            "i": 4,
             "id": "t33"
           }
         },
@@ -675,6 +728,7 @@
             "pos": ".",
             "lemma": ".",
             "text": ".",
+            "i": 5,
             "id": "t34"
           }
         },
@@ -716,6 +770,7 @@
             "end": 10,
             "text": "fido barks",
             "category": "PER",
+            "root_i": 0,
             "id": "ne4"
           }
         },
@@ -727,6 +782,7 @@
             "end": 22,
             "text": "new york",
             "category": "LOC",
+            "root_i": 3,
             "id": "ne5"
           }
         },
@@ -739,6 +795,7 @@
             "pos": "NN",
             "lemma": "yelp",
             "text": "yelp",
+            "i": 0,
             "id": "t35"
           }
         },
@@ -760,6 +817,186 @@
             "end": 4,
             "text": "yelp",
             "id": "s4"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 0,
+            "end": 7,
+            "pos": "NNP",
+            "lemma": "Clinton",
+            "text": "Clinton",
+            "i": 0,
+            "id": "t36"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 8,
+            "end": 15,
+            "pos": "VBD",
+            "lemma": "advise",
+            "text": "advised",
+            "i": 1,
+            "id": "t37"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 16,
+            "end": 19,
+            "pos": "NNP",
+            "lemma": "Jim",
+            "text": "Jim",
+            "i": 2,
+            "id": "t38"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 20,
+            "end": 26,
+            "pos": "NNP",
+            "lemma": "Lehrer",
+            "text": "Lehrer",
+            "i": 3,
+            "id": "t39"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 27,
+            "end": 34,
+            "pos": "IN",
+            "lemma": "against",
+            "text": "against",
+            "i": 4,
+            "id": "t40"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 35,
+            "end": 42,
+            "pos": "VBG",
+            "lemma": "leave",
+            "text": "leaving",
+            "i": 5,
+            "id": "t41"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 43,
+            "end": 46,
+            "pos": "NNP",
+            "lemma": "PBS",
+            "text": "PBS",
+            "i": 6,
+            "id": "t42"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Token",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 46,
+            "end": 47,
+            "pos": ".",
+            "lemma": ".",
+            "text": ".",
+            "i": 7,
+            "id": "t43"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NounChunk",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 0,
+            "end": 7,
+            "text": "Clinton",
+            "id": "nc12"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NounChunk",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 16,
+            "end": 26,
+            "text": "Jim Lehrer",
+            "id": "nc13"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NounChunk",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 43,
+            "end": 46,
+            "text": "PBS",
+            "id": "nc14"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Sentence",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 0,
+            "end": 47,
+            "text": "Clinton advised Jim Lehrer against leaving PBS.",
+            "id": "s5"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NamedEntity",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 0,
+            "end": 7,
+            "text": "clinton",
+            "category": "PER",
+            "root_i": 0,
+            "id": "ne6"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NamedEntity",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 16,
+            "end": 26,
+            "text": "jim lehrer",
+            "category": "PER",
+            "root_i": 2,
+            "id": "ne7"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/NamedEntity",
+          "properties": {
+            "document": "v_2:td3",
+            "start": 43,
+            "end": 46,
+            "text": "pbs",
+            "category": "ORG",
+            "root_i": 6,
+            "id": "ne8"
           }
         }
       ]

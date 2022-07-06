@@ -1,7 +1,7 @@
 """app.py
 
-Wrapping Spacy NLP to extract tokens, tags, lemmas, sentences, chunks and named
-entities.
+Wrapping Spacy NLP to extract tokens, tags, lemmas, sentences, chunks, named
+entities, and (if specified so) syntactic relations.
 
 Usage:
 
@@ -42,6 +42,9 @@ nlp = spacy.load("en_core_web_sm")
 # Jinny: Define NER model that would be loaded if args.uncased == True
 ner = None
 
+# Define Uri_DEP since it is not on lappsgrid.org yet
+Uri_DEP = "http://vocab.lappsgrid.org/SyntacticRelation"
+
 APP_VERSION = '0.0.8'
 APP_LICENSE = 'Apache 2.0'
 MMIF_VERSION = '0.4.0'
@@ -55,6 +58,7 @@ SPACY_LICENSE = 'MIT'
 TEXT_DOCUMENT = os.path.basename(str(DocumentTypes.TextDocument))
 
 DEBUG = False
+dep_choice = False # choice to use dependency parser
 
 
 class SpacyApp(ClamsApp):
@@ -78,6 +82,8 @@ class SpacyApp(ClamsApp):
         metadata.add_output(Uri.NCHUNK)
         metadata.add_output(Uri.SENTENCE)
         metadata.add_output(Uri.NE)
+        if(dep_choice == True):
+            metadata.add_output(Uri_DEP)
         return metadata
 
     def _annotate(self, mmif, **kwargs):
@@ -101,6 +107,8 @@ class SpacyApp(ClamsApp):
         for attype in (Uri.TOKEN, Uri.POS, Uri.LEMMA,
                        Uri.NCHUNK, Uri.SENTENCE, Uri.NE):
             view.new_contain(attype, document=docid)
+        if(dep_choice == True):
+            view.new_contain(Uri_DEP, document=docid)
         return view
 
     def _read_text(self, textdoc):
@@ -126,12 +134,12 @@ class SpacyApp(ClamsApp):
             add_annotation(
                 view, Uri.TOKEN, Identifiers.new("t"),
                 doc_id, p1, p2,
-                { "pos": tok.tag_, "lemma": tok.lemma_, "text": tok.text })
+                { "pos": tok.tag_, "lemma": tok.lemma_, "text": tok.text , "i": tok.i})
         for (n, chunk) in enumerate(spacy_doc.noun_chunks):
             add_annotation(
                 view, Uri.NCHUNK, Identifiers.new("nc"),
                 doc_id, tok_idx[chunk.start][0], tok_idx[chunk.end - 1][1],
-                { "text": chunk.text })
+                { "text": chunk.text })     
         for (n, sent) in enumerate(spacy_doc.sents):
             add_annotation(
                 view, Uri.SENTENCE, Identifiers.new("s"),
@@ -142,19 +150,35 @@ class SpacyApp(ClamsApp):
         # but the spaCy NER model trained on CoNLL does. If the user specifies to use the uncased model,
         # that model would be used instead of the off-the-shelf model
         if(ner != None):
-            spacy_doc = ner((self._read_text(doc)).lower())
+            spacy_doc_ner = ner((self._read_text(doc)).lower())
             # keep track of char offsets of all tokens
-            tok_idx = {}
-            for (n, tok) in enumerate(spacy_doc):
+            tok_idx_ner = {}
+            for (n, tok) in enumerate(spacy_doc_ner):
                 p1 = tok.idx
                 p2 = p1 + len(tok.text)
-                tok_idx[n] = (p1, p2)
+                tok_idx_ner[n] = (p1, p2)
     
-        for (n, ent) in enumerate(spacy_doc.ents):
-            add_annotation(
-                view, Uri.NE, Identifiers.new("ne"),
-                doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
-                { "text": ent.text, "category": ent.label_ })
+            for (n, ent) in enumerate(spacy_doc_ner.ents):
+                add_annotation(
+                    view, Uri.NE, Identifiers.new("ne"),
+                    doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
+                    { "text": ent.text, "category": ent.label_ , "root_i": ent.root.i})
+        # if the user doesn't want to use the uncased model, then the normal cased model will be used to
+        # add the NER annotations
+        else:
+            for (n, ent) in enumerate(spacy_doc.ents):
+                add_annotation(
+                    view, Uri.NE, Identifiers.new("ne"),
+                    doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
+                    { "text": ent.text, "category": ent.label_ , "root_i": ent.root.i})
+
+        if(dep_choice == True):
+            for (n, tok) in enumerate(spacy_doc):
+                add_annotation(
+                    view, Uri_DEP, Identifiers.new("dep"),
+                    doc_id, None, None,
+                    { "child_text": tok.text, "child_lemma": tok.lemma_, "child_i": tok.i, "dep": tok.dep_, \
+                      "head_text": tok.head.text, "head_lemma": tok.head.lemma_, "head_i": tok.head.i})
 
     def print_documents(self):
         for doc in self.mmif.documents:
@@ -175,11 +199,12 @@ def add_annotation(view, attype, identifier, doc_id, start, end, properties):
     a = view.new_annotation(attype, identifier)
     if doc_id is not None:
         a.add_property('document', doc_id)
-    a.add_property('start', start)
-    a.add_property('end', end)
+    if start is not None:
+        a.add_property('start', start)
+    if end is not None:
+        a.add_property('end', end)
     for prop, val in properties.items():
         a.add_property(prop, val)
-
 
 class Identifiers(object):
 
@@ -221,12 +246,16 @@ if __name__ == "__main__":
     parser.add_argument('-t', '--test',  action='store_true', help="bypass the server")
     parser.add_argument('--develop',  action='store_true', help="start a development server")
     parser.add_argument('-u', '--uncased',  action='store_true', help="select the NER model trained for uncased data")
+    parser.add_argument('--dep', action='store_true', help="use the dependency parser")
     parser.add_argument('infile', nargs='?', help="input MMIF file")
     parser.add_argument('outfile', nargs='?', help="output file")
     args = parser.parse_args()
+    print(args)
 
     if args.uncased:
         ner = spacy.load("ner_models/model-best-uncased-sm")
+    if args.dep:
+        dep_choice = True
 
     if args.test:
         test(args.infile, args.outfile)
