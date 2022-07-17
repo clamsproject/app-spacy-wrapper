@@ -42,9 +42,6 @@ nlp = spacy.load("en_core_web_sm")
 # Jinny: Define NER model that would be loaded if args.uncased == True
 ner = None
 
-# Define Uri_DEP since it is not on lappsgrid.org yet
-Uri_DEP = "http://vocab.lappsgrid.org/SyntacticRelation"
-
 APP_VERSION = '0.0.8'
 APP_LICENSE = 'Apache 2.0'
 MMIF_VERSION = '0.4.0'
@@ -83,7 +80,7 @@ class SpacyApp(ClamsApp):
         metadata.add_output(Uri.SENTENCE)
         metadata.add_output(Uri.NE)
         if(dep_choice == True):
-            metadata.add_output(Uri_DEP)
+            metadata.add_output(Uri.DEPENDENCY)
         return metadata
 
     def _annotate(self, mmif, **kwargs):
@@ -108,7 +105,7 @@ class SpacyApp(ClamsApp):
                        Uri.NCHUNK, Uri.SENTENCE, Uri.NE):
             view.new_contain(attype, document=docid)
         if(dep_choice == True):
-            view.new_contain(Uri_DEP, document=docid)
+            view.new_contain(Uri.DEPENDENCY, document=docid)
         return view
 
     def _read_text(self, textdoc):
@@ -150,7 +147,8 @@ class SpacyApp(ClamsApp):
         # but the spaCy NER model trained on CoNLL does. If the user specifies to use the uncased model,
         # that model would be used instead of the off-the-shelf model
         if(ner != None):
-            spacy_doc_ner = ner((self._read_text(doc)).lower())
+            spacy_doc_ner = ner(self._read_text(doc))
+            #spacy_doc_ner = ner((self._read_text(doc)).lower())
             # keep track of char offsets of all tokens
             tok_idx_ner = {}
             for (n, tok) in enumerate(spacy_doc_ner):
@@ -162,7 +160,8 @@ class SpacyApp(ClamsApp):
                 add_annotation(
                     view, Uri.NE, Identifiers.new("ne"),
                     doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
-                    { "text": ent.text, "category": ent.label_ , "root_i": ent.root.i})
+                    { "text": ent.text, "category": ent.label_ , "start_i": ent.start, "end_i": (ent.end - 1)})
+                    # we have to be careful not to use ent.root.i since the uncased NER model can't recognize that
         # if the user doesn't want to use the uncased model, then the normal cased model will be used to
         # add the NER annotations
         else:
@@ -170,15 +169,15 @@ class SpacyApp(ClamsApp):
                 add_annotation(
                     view, Uri.NE, Identifiers.new("ne"),
                     doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
-                    { "text": ent.text, "category": ent.label_ , "root_i": ent.root.i})
+                    { "text": ent.text, "category": ent.label_ , "start_i": ent.start, "end_i": (ent.end - 1)})
 
         if(dep_choice == True):
             for (n, tok) in enumerate(spacy_doc):
                 add_annotation(
-                    view, Uri_DEP, Identifiers.new("dep"),
+                    view, Uri.DEPENDENCY, Identifiers.new("dep"),
                     doc_id, None, None,
-                    { "child_text": tok.text, "child_lemma": tok.lemma_, "child_i": tok.i, "dep": tok.dep_, \
-                      "head_text": tok.head.text, "head_lemma": tok.head.lemma_, "head_i": tok.head.i})
+                    { "dependent_text": tok.text, "dependent_lemma": tok.lemma_, "dependent_i": tok.i, "dep": tok.dep_, \
+                      "governer_text": tok.head.text, "governer_lemma": tok.head.lemma_, "governer_i": tok.head.i})
 
     def print_documents(self):
         for doc in self.mmif.documents:
@@ -250,7 +249,6 @@ if __name__ == "__main__":
     parser.add_argument('infile', nargs='?', help="input MMIF file")
     parser.add_argument('outfile', nargs='?', help="output file")
     args = parser.parse_args()
-    print(args)
 
     if args.uncased:
         ner = spacy.load("ner_models/model-best-uncased-sm")

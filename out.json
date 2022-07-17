@@ -37,6 +37,7 @@
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/BoundingBox",
           "properties": {
+            "boxType": "text",
             "coordinates": [
               [
                 10,
@@ -56,13 +57,13 @@
               ]
             ],
             "timePoint": 1200,
-            "boxType": "text",
             "id": "bb1"
           }
         },
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/BoundingBox",
           "properties": {
+            "boxType": "text",
             "coordinates": [
               [
                 210,
@@ -82,7 +83,6 @@
               ]
             ],
             "timePoint": 1900,
-            "boxType": "text",
             "id": "bb2"
           }
         }
@@ -110,8 +110,8 @@
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/Alignment",
           "properties": {
-            "source": "v1:bb1",
             "target": "td1",
+            "source": "v1:bb1",
             "id": "a1"
           }
         },
@@ -127,8 +127,8 @@
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/Alignment",
           "properties": {
-            "source": "v1:bb2",
             "target": "td2",
+            "source": "v1:bb2",
             "id": "a2"
           }
         },
@@ -144,8 +144,8 @@
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/Alignment",
           "properties": {
-            "source": "v1:bb3",
             "target": "td3",
+            "source": "v1:bb3",
             "id": "a3"
           }
         }
@@ -154,7 +154,7 @@
     {
       "id": "v_3",
       "metadata": {
-        "timestamp": "2022-07-06T18:27:54.399465",
+        "timestamp": "2022-07-18T00:31:26.127290",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {
@@ -175,7 +175,7 @@
           "http://vocab.lappsgrid.org/NamedEntity": {
             "document": "m2"
           },
-          "http://vocab.lappsgrid.org/SyntacticRelation": {
+          "http://vocab.lappsgrid.org/Dependency": {
             "document": "m2"
           }
         }
@@ -614,7 +614,8 @@
             "end": 25,
             "text": "Jim Lehrer",
             "category": "PERSON",
-            "root_i": 5,
+            "start_i": 4,
+            "end_i": 5,
             "id": "ne1"
           }
         },
@@ -625,7 +626,8 @@
             "end": 50,
             "text": "PBS",
             "category": "ORG",
-            "root_i": 10,
+            "start_i": 10,
+            "end_i": 10,
             "id": "ne2"
           }
         },
@@ -636,371 +638,372 @@
             "end": 76,
             "text": "the nineteen eighties",
             "category": "DATE",
-            "root_i": 15,
+            "start_i": 13,
+            "end_i": 15,
             "id": "ne3"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "Hello",
-            "child_lemma": "hello",
-            "child_i": 0,
+            "dependent_text": "Hello",
+            "dependent_lemma": "hello",
+            "dependent_i": 0,
             "dep": "intj",
-            "head_text": "is",
-            "head_lemma": "be",
-            "head_i": 3,
+            "governer_text": "is",
+            "governer_lemma": "be",
+            "governer_i": 3,
             "id": "dep1"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": ",",
-            "child_lemma": ",",
-            "child_i": 1,
+            "dependent_text": ",",
+            "dependent_lemma": ",",
+            "dependent_i": 1,
             "dep": "punct",
-            "head_text": "is",
-            "head_lemma": "be",
-            "head_i": 3,
+            "governer_text": "is",
+            "governer_lemma": "be",
+            "governer_i": 3,
             "id": "dep2"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "this",
-            "child_lemma": "this",
-            "child_i": 2,
+            "dependent_text": "this",
+            "dependent_lemma": "this",
+            "dependent_i": 2,
             "dep": "nsubj",
-            "head_text": "is",
-            "head_lemma": "be",
-            "head_i": 3,
+            "governer_text": "is",
+            "governer_lemma": "be",
+            "governer_i": 3,
             "id": "dep3"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "is",
-            "child_lemma": "be",
-            "child_i": 3,
+            "dependent_text": "is",
+            "dependent_lemma": "be",
+            "dependent_i": 3,
             "dep": "ROOT",
-            "head_text": "is",
-            "head_lemma": "be",
-            "head_i": 3,
+            "governer_text": "is",
+            "governer_lemma": "be",
+            "governer_i": 3,
             "id": "dep4"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "Jim",
-            "child_lemma": "Jim",
-            "child_i": 4,
+            "dependent_text": "Jim",
+            "dependent_lemma": "Jim",
+            "dependent_i": 4,
             "dep": "compound",
-            "head_text": "Lehrer",
-            "head_lemma": "Lehrer",
-            "head_i": 5,
+            "governer_text": "Lehrer",
+            "governer_lemma": "Lehrer",
+            "governer_i": 5,
             "id": "dep5"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "Lehrer",
-            "child_lemma": "Lehrer",
-            "child_i": 5,
+            "dependent_text": "Lehrer",
+            "dependent_lemma": "Lehrer",
+            "dependent_i": 5,
             "dep": "attr",
-            "head_text": "is",
-            "head_lemma": "be",
-            "head_i": 3,
+            "governer_text": "is",
+            "governer_lemma": "be",
+            "governer_i": 3,
             "id": "dep6"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "with",
-            "child_lemma": "with",
-            "child_i": 6,
+            "dependent_text": "with",
+            "dependent_lemma": "with",
+            "dependent_i": 6,
             "dep": "prep",
-            "head_text": "Lehrer",
-            "head_lemma": "Lehrer",
-            "head_i": 5,
+            "governer_text": "Lehrer",
+            "governer_lemma": "Lehrer",
+            "governer_i": 5,
             "id": "dep7"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "the",
-            "child_lemma": "the",
-            "child_i": 7,
+            "dependent_text": "the",
+            "dependent_lemma": "the",
+            "dependent_i": 7,
             "dep": "det",
-            "head_text": "NewsHour",
-            "head_lemma": "NewsHour",
-            "head_i": 8,
+            "governer_text": "NewsHour",
+            "governer_lemma": "NewsHour",
+            "governer_i": 8,
             "id": "dep8"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "NewsHour",
-            "child_lemma": "NewsHour",
-            "child_i": 8,
+            "dependent_text": "NewsHour",
+            "dependent_lemma": "NewsHour",
+            "dependent_i": 8,
             "dep": "pobj",
-            "head_text": "with",
-            "head_lemma": "with",
-            "head_i": 6,
+            "governer_text": "with",
+            "governer_lemma": "with",
+            "governer_i": 6,
             "id": "dep9"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "on",
-            "child_lemma": "on",
-            "child_i": 9,
+            "dependent_text": "on",
+            "dependent_lemma": "on",
+            "dependent_i": 9,
             "dep": "prep",
-            "head_text": "is",
-            "head_lemma": "be",
-            "head_i": 3,
+            "governer_text": "is",
+            "governer_lemma": "be",
+            "governer_i": 3,
             "id": "dep10"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "PBS",
-            "child_lemma": "PBS",
-            "child_i": 10,
+            "dependent_text": "PBS",
+            "dependent_lemma": "PBS",
+            "dependent_i": 10,
             "dep": "pobj",
-            "head_text": "on",
-            "head_lemma": "on",
-            "head_i": 9,
+            "governer_text": "on",
+            "governer_lemma": "on",
+            "governer_i": 9,
             "id": "dep11"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": ".",
-            "child_lemma": ".",
-            "child_i": 11,
+            "dependent_text": ".",
+            "dependent_lemma": ".",
+            "dependent_i": 11,
             "dep": "punct",
-            "head_text": "is",
-            "head_lemma": "be",
-            "head_i": 3,
+            "governer_text": "is",
+            "governer_lemma": "be",
+            "governer_i": 3,
             "id": "dep12"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "In",
-            "child_lemma": "in",
-            "child_i": 12,
+            "dependent_text": "In",
+            "dependent_lemma": "in",
+            "dependent_i": 12,
             "dep": "prep",
-            "head_text": "become",
-            "head_lemma": "become",
-            "head_i": 21,
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
             "id": "dep13"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "the",
-            "child_lemma": "the",
-            "child_i": 13,
+            "dependent_text": "the",
+            "dependent_lemma": "the",
+            "dependent_i": 13,
             "dep": "det",
-            "head_text": "eighties",
-            "head_lemma": "eighty",
-            "head_i": 15,
+            "governer_text": "eighties",
+            "governer_lemma": "eighty",
+            "governer_i": 15,
             "id": "dep14"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "nineteen",
-            "child_lemma": "nineteen",
-            "child_i": 14,
+            "dependent_text": "nineteen",
+            "dependent_lemma": "nineteen",
+            "dependent_i": 14,
             "dep": "nummod",
-            "head_text": "eighties",
-            "head_lemma": "eighty",
-            "head_i": 15,
+            "governer_text": "eighties",
+            "governer_lemma": "eighty",
+            "governer_i": 15,
             "id": "dep15"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "eighties",
-            "child_lemma": "eighty",
-            "child_i": 15,
+            "dependent_text": "eighties",
+            "dependent_lemma": "eighty",
+            "dependent_i": 15,
             "dep": "pobj",
-            "head_text": "In",
-            "head_lemma": "in",
-            "head_i": 12,
+            "governer_text": "In",
+            "governer_lemma": "in",
+            "governer_i": 12,
             "id": "dep16"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": ",",
-            "child_lemma": ",",
-            "child_i": 16,
+            "dependent_text": ",",
+            "dependent_lemma": ",",
+            "dependent_i": 16,
             "dep": "punct",
-            "head_text": "become",
-            "head_lemma": "become",
-            "head_i": 21,
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
             "id": "dep17"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "barking",
-            "child_lemma": "bark",
-            "child_i": 17,
+            "dependent_text": "barking",
+            "dependent_lemma": "bark",
+            "dependent_i": 17,
             "dep": "csubj",
-            "head_text": "become",
-            "head_lemma": "become",
-            "head_i": 21,
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
             "id": "dep18"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "dogs",
-            "child_lemma": "dog",
-            "child_i": 18,
+            "dependent_text": "dogs",
+            "dependent_lemma": "dog",
+            "dependent_i": 18,
             "dep": "dobj",
-            "head_text": "barking",
-            "head_lemma": "bark",
-            "head_i": 17,
+            "governer_text": "barking",
+            "governer_lemma": "bark",
+            "governer_i": 17,
             "id": "dep19"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "have",
-            "child_lemma": "have",
-            "child_i": 19,
+            "dependent_text": "have",
+            "dependent_lemma": "have",
+            "dependent_i": 19,
             "dep": "aux",
-            "head_text": "become",
-            "head_lemma": "become",
-            "head_i": 21,
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
             "id": "dep20"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "increasingly",
-            "child_lemma": "increasingly",
-            "child_i": 20,
+            "dependent_text": "increasingly",
+            "dependent_lemma": "increasingly",
+            "dependent_i": 20,
             "dep": "advmod",
-            "head_text": "become",
-            "head_lemma": "become",
-            "head_i": 21,
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
             "id": "dep21"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "become",
-            "child_lemma": "become",
-            "child_i": 21,
+            "dependent_text": "become",
+            "dependent_lemma": "become",
+            "dependent_i": 21,
             "dep": "ROOT",
-            "head_text": "become",
-            "head_lemma": "become",
-            "head_i": 21,
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
             "id": "dep22"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "a",
-            "child_lemma": "a",
-            "child_i": 22,
+            "dependent_text": "a",
+            "dependent_lemma": "a",
+            "dependent_i": 22,
             "dep": "det",
-            "head_text": "problem",
-            "head_lemma": "problem",
-            "head_i": 23,
+            "governer_text": "problem",
+            "governer_lemma": "problem",
+            "governer_i": 23,
             "id": "dep23"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "problem",
-            "child_lemma": "problem",
-            "child_i": 23,
+            "dependent_text": "problem",
+            "dependent_lemma": "problem",
+            "dependent_i": 23,
             "dep": "attr",
-            "head_text": "become",
-            "head_lemma": "become",
-            "head_i": 21,
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
             "id": "dep24"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "in",
-            "child_lemma": "in",
-            "child_i": 24,
+            "dependent_text": "in",
+            "dependent_lemma": "in",
+            "dependent_i": 24,
             "dep": "prep",
-            "head_text": "problem",
-            "head_lemma": "problem",
-            "head_i": 23,
+            "governer_text": "problem",
+            "governer_lemma": "problem",
+            "governer_i": 23,
             "id": "dep25"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "urban",
-            "child_lemma": "urban",
-            "child_i": 25,
+            "dependent_text": "urban",
+            "dependent_lemma": "urban",
+            "dependent_i": 25,
             "dep": "amod",
-            "head_text": "areas",
-            "head_lemma": "area",
-            "head_i": 26,
+            "governer_text": "areas",
+            "governer_lemma": "area",
+            "governer_i": 26,
             "id": "dep26"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": "areas",
-            "child_lemma": "area",
-            "child_i": 26,
+            "dependent_text": "areas",
+            "dependent_lemma": "area",
+            "dependent_i": 26,
             "dep": "pobj",
-            "head_text": "in",
-            "head_lemma": "in",
-            "head_i": 24,
+            "governer_text": "in",
+            "governer_lemma": "in",
+            "governer_i": 24,
             "id": "dep27"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
-            "child_text": ".",
-            "child_lemma": ".",
-            "child_i": 27,
+            "dependent_text": ".",
+            "dependent_lemma": ".",
+            "dependent_i": 27,
             "dep": "punct",
-            "head_text": "become",
-            "head_lemma": "become",
-            "head_i": 21,
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
             "id": "dep28"
           }
         }
@@ -1009,7 +1012,7 @@
     {
       "id": "v_4",
       "metadata": {
-        "timestamp": "2022-07-06T18:27:54.423940",
+        "timestamp": "2022-07-18T00:31:26.143670",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {},
@@ -1018,7 +1021,7 @@
           "http://vocab.lappsgrid.org/NounChunk": {},
           "http://vocab.lappsgrid.org/Sentence": {},
           "http://vocab.lappsgrid.org/NamedEntity": {},
-          "http://vocab.lappsgrid.org/SyntacticRelation": {}
+          "http://vocab.lappsgrid.org/Dependency": {}
         }
       },
       "annotations": [
@@ -1138,91 +1141,92 @@
             "end": 22,
             "text": "New York",
             "category": "GPE",
-            "root_i": 4,
+            "start_i": 3,
+            "end_i": 4,
             "id": "ne4"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td1",
-            "child_text": "Fido",
-            "child_lemma": "fido",
-            "child_i": 0,
+            "dependent_text": "Fido",
+            "dependent_lemma": "fido",
+            "dependent_i": 0,
             "dep": "compound",
-            "head_text": "barks",
-            "head_lemma": "bark",
-            "head_i": 1,
+            "governer_text": "barks",
+            "governer_lemma": "bark",
+            "governer_i": 1,
             "id": "dep29"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td1",
-            "child_text": "barks",
-            "child_lemma": "bark",
-            "child_i": 1,
+            "dependent_text": "barks",
+            "dependent_lemma": "bark",
+            "dependent_i": 1,
             "dep": "ROOT",
-            "head_text": "barks",
-            "head_lemma": "bark",
-            "head_i": 1,
+            "governer_text": "barks",
+            "governer_lemma": "bark",
+            "governer_i": 1,
             "id": "dep30"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td1",
-            "child_text": "in",
-            "child_lemma": "in",
-            "child_i": 2,
+            "dependent_text": "in",
+            "dependent_lemma": "in",
+            "dependent_i": 2,
             "dep": "prep",
-            "head_text": "barks",
-            "head_lemma": "bark",
-            "head_i": 1,
+            "governer_text": "barks",
+            "governer_lemma": "bark",
+            "governer_i": 1,
             "id": "dep31"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td1",
-            "child_text": "New",
-            "child_lemma": "New",
-            "child_i": 3,
+            "dependent_text": "New",
+            "dependent_lemma": "New",
+            "dependent_i": 3,
             "dep": "compound",
-            "head_text": "York",
-            "head_lemma": "York",
-            "head_i": 4,
+            "governer_text": "York",
+            "governer_lemma": "York",
+            "governer_i": 4,
             "id": "dep32"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td1",
-            "child_text": "York",
-            "child_lemma": "York",
-            "child_i": 4,
+            "dependent_text": "York",
+            "dependent_lemma": "York",
+            "dependent_i": 4,
             "dep": "pobj",
-            "head_text": "in",
-            "head_lemma": "in",
-            "head_i": 2,
+            "governer_text": "in",
+            "governer_lemma": "in",
+            "governer_i": 2,
             "id": "dep33"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td1",
-            "child_text": ".",
-            "child_lemma": ".",
-            "child_i": 5,
+            "dependent_text": ".",
+            "dependent_lemma": ".",
+            "dependent_i": 5,
             "dep": "punct",
-            "head_text": "barks",
-            "head_lemma": "bark",
-            "head_i": 1,
+            "governer_text": "barks",
+            "governer_lemma": "bark",
+            "governer_i": 1,
             "id": "dep34"
           }
         },
@@ -1260,16 +1264,16 @@
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td2",
-            "child_text": "yelp",
-            "child_lemma": "yelp",
-            "child_i": 0,
+            "dependent_text": "yelp",
+            "dependent_lemma": "yelp",
+            "dependent_i": 0,
             "dep": "ROOT",
-            "head_text": "yelp",
-            "head_lemma": "yelp",
-            "head_i": 0,
+            "governer_text": "yelp",
+            "governer_lemma": "yelp",
+            "governer_i": 0,
             "id": "dep35"
           }
         },
@@ -1425,7 +1429,8 @@
             "end": 7,
             "text": "Clinton",
             "category": "PERSON",
-            "root_i": 0,
+            "start_i": 0,
+            "end_i": 0,
             "id": "ne5"
           }
         },
@@ -1437,7 +1442,8 @@
             "end": 26,
             "text": "Jim Lehrer",
             "category": "PERSON",
-            "root_i": 3,
+            "start_i": 2,
+            "end_i": 3,
             "id": "ne6"
           }
         },
@@ -1449,119 +1455,120 @@
             "end": 46,
             "text": "PBS",
             "category": "ORG",
-            "root_i": 6,
+            "start_i": 6,
+            "end_i": 6,
             "id": "ne7"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td3",
-            "child_text": "Clinton",
-            "child_lemma": "Clinton",
-            "child_i": 0,
+            "dependent_text": "Clinton",
+            "dependent_lemma": "Clinton",
+            "dependent_i": 0,
             "dep": "nsubj",
-            "head_text": "advised",
-            "head_lemma": "advise",
-            "head_i": 1,
+            "governer_text": "advised",
+            "governer_lemma": "advise",
+            "governer_i": 1,
             "id": "dep36"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td3",
-            "child_text": "advised",
-            "child_lemma": "advise",
-            "child_i": 1,
+            "dependent_text": "advised",
+            "dependent_lemma": "advise",
+            "dependent_i": 1,
             "dep": "ROOT",
-            "head_text": "advised",
-            "head_lemma": "advise",
-            "head_i": 1,
+            "governer_text": "advised",
+            "governer_lemma": "advise",
+            "governer_i": 1,
             "id": "dep37"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td3",
-            "child_text": "Jim",
-            "child_lemma": "Jim",
-            "child_i": 2,
+            "dependent_text": "Jim",
+            "dependent_lemma": "Jim",
+            "dependent_i": 2,
             "dep": "compound",
-            "head_text": "Lehrer",
-            "head_lemma": "Lehrer",
-            "head_i": 3,
+            "governer_text": "Lehrer",
+            "governer_lemma": "Lehrer",
+            "governer_i": 3,
             "id": "dep38"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td3",
-            "child_text": "Lehrer",
-            "child_lemma": "Lehrer",
-            "child_i": 3,
+            "dependent_text": "Lehrer",
+            "dependent_lemma": "Lehrer",
+            "dependent_i": 3,
             "dep": "dobj",
-            "head_text": "advised",
-            "head_lemma": "advise",
-            "head_i": 1,
+            "governer_text": "advised",
+            "governer_lemma": "advise",
+            "governer_i": 1,
             "id": "dep39"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td3",
-            "child_text": "against",
-            "child_lemma": "against",
-            "child_i": 4,
+            "dependent_text": "against",
+            "dependent_lemma": "against",
+            "dependent_i": 4,
             "dep": "prep",
-            "head_text": "advised",
-            "head_lemma": "advise",
-            "head_i": 1,
+            "governer_text": "advised",
+            "governer_lemma": "advise",
+            "governer_i": 1,
             "id": "dep40"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td3",
-            "child_text": "leaving",
-            "child_lemma": "leave",
-            "child_i": 5,
+            "dependent_text": "leaving",
+            "dependent_lemma": "leave",
+            "dependent_i": 5,
             "dep": "pcomp",
-            "head_text": "against",
-            "head_lemma": "against",
-            "head_i": 4,
+            "governer_text": "against",
+            "governer_lemma": "against",
+            "governer_i": 4,
             "id": "dep41"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td3",
-            "child_text": "PBS",
-            "child_lemma": "PBS",
-            "child_i": 6,
+            "dependent_text": "PBS",
+            "dependent_lemma": "PBS",
+            "dependent_i": 6,
             "dep": "dobj",
-            "head_text": "leaving",
-            "head_lemma": "leave",
-            "head_i": 5,
+            "governer_text": "leaving",
+            "governer_lemma": "leave",
+            "governer_i": 5,
             "id": "dep42"
           }
         },
         {
-          "@type": "http://vocab.lappsgrid.org/SyntacticRelation",
+          "@type": "http://vocab.lappsgrid.org/Dependency",
           "properties": {
             "document": "v_2:td3",
-            "child_text": ".",
-            "child_lemma": ".",
-            "child_i": 7,
+            "dependent_text": ".",
+            "dependent_lemma": ".",
+            "dependent_i": 7,
             "dep": "punct",
-            "head_text": "advised",
-            "head_lemma": "advise",
-            "head_i": 1,
+            "governer_text": "advised",
+            "governer_lemma": "advise",
+            "governer_i": 1,
             "id": "dep43"
           }
         }

@@ -15,7 +15,7 @@
       "@type": "http://mmif.clams.ai/0.4.0/vocabulary/TextDocument",
       "properties": {
         "text": {
-          "@value": "Hello, this is Jim Lehrer with the NewsHour on PBS. In the nineteen eighties, barking dogs have increasingly become a problem in urban areas."
+          "@value": "hello, this is jim lehrer with the newshour on pbs. in the nineteen eighties, barking dogs have increasingly become a problem in urban areas."
         },
         "id": "m2"
       }
@@ -37,6 +37,7 @@
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/BoundingBox",
           "properties": {
+            "timePoint": 1200,
             "boxType": "text",
             "coordinates": [
               [
@@ -56,13 +57,13 @@
                 30
               ]
             ],
-            "timePoint": 1200,
             "id": "bb1"
           }
         },
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/BoundingBox",
           "properties": {
+            "timePoint": 1900,
             "boxType": "text",
             "coordinates": [
               [
@@ -82,7 +83,6 @@
                 230
               ]
             ],
-            "timePoint": 1900,
             "id": "bb2"
           }
         }
@@ -102,7 +102,7 @@
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/TextDocument",
           "properties": {
             "text": {
-              "@value": "Fido barks in New York."
+              "@value": "fido barks in new york."
             },
             "id": "td1"
           }
@@ -110,8 +110,8 @@
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/Alignment",
           "properties": {
-            "source": "v1:bb1",
             "target": "td1",
+            "source": "v1:bb1",
             "id": "a1"
           }
         },
@@ -127,8 +127,8 @@
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/Alignment",
           "properties": {
-            "source": "v1:bb2",
             "target": "td2",
+            "source": "v1:bb2",
             "id": "a2"
           }
         },
@@ -136,7 +136,7 @@
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/TextDocument",
           "properties": {
             "text": {
-              "@value": "Clinton advised Jim Lehrer against leaving PBS."
+              "@value": "clinton advised jim lehrer against leaving pbs."
             },
             "id": "td3"
           }
@@ -144,8 +144,8 @@
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/Alignment",
           "properties": {
-            "source": "v1:bb3",
             "target": "td3",
+            "source": "v1:bb3",
             "id": "a3"
           }
         }
@@ -154,7 +154,7 @@
     {
       "id": "v_3",
       "metadata": {
-        "timestamp": "2022-07-06T18:33:15.858972",
+        "timestamp": "2022-07-18T00:35:48.402581",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {
@@ -174,6 +174,9 @@
           },
           "http://vocab.lappsgrid.org/NamedEntity": {
             "document": "m2"
+          },
+          "http://vocab.lappsgrid.org/Dependency": {
+            "document": "m2"
           }
         }
       },
@@ -185,7 +188,7 @@
             "end": 5,
             "pos": "UH",
             "lemma": "hello",
-            "text": "Hello",
+            "text": "hello",
             "i": 0,
             "id": "t1"
           }
@@ -232,8 +235,8 @@
             "start": 15,
             "end": 18,
             "pos": "NNP",
-            "lemma": "Jim",
-            "text": "Jim",
+            "lemma": "jim",
+            "text": "jim",
             "i": 4,
             "id": "t5"
           }
@@ -243,9 +246,9 @@
           "properties": {
             "start": 19,
             "end": 25,
-            "pos": "NNP",
-            "lemma": "Lehrer",
-            "text": "Lehrer",
+            "pos": "NN",
+            "lemma": "lehrer",
+            "text": "lehrer",
             "i": 5,
             "id": "t6"
           }
@@ -279,9 +282,9 @@
           "properties": {
             "start": 35,
             "end": 43,
-            "pos": "NNP",
-            "lemma": "NewsHour",
-            "text": "NewsHour",
+            "pos": "NN",
+            "lemma": "newshour",
+            "text": "newshour",
             "i": 8,
             "id": "t9"
           }
@@ -304,8 +307,8 @@
             "start": 47,
             "end": 50,
             "pos": "NNP",
-            "lemma": "PBS",
-            "text": "PBS",
+            "lemma": "pbs",
+            "text": "pbs",
             "i": 10,
             "id": "t11"
           }
@@ -329,7 +332,7 @@
             "end": 54,
             "pos": "IN",
             "lemma": "in",
-            "text": "In",
+            "text": "in",
             "i": 12,
             "id": "t13"
           }
@@ -528,7 +531,7 @@
           "properties": {
             "start": 15,
             "end": 25,
-            "text": "Jim Lehrer",
+            "text": "jim lehrer",
             "id": "nc2"
           }
         },
@@ -537,7 +540,7 @@
           "properties": {
             "start": 31,
             "end": 43,
-            "text": "the NewsHour",
+            "text": "the newshour",
             "id": "nc3"
           }
         },
@@ -546,7 +549,7 @@
           "properties": {
             "start": 47,
             "end": 50,
-            "text": "PBS",
+            "text": "pbs",
             "id": "nc4"
           }
         },
@@ -591,7 +594,7 @@
           "properties": {
             "start": 0,
             "end": 51,
-            "text": "Hello, this is Jim Lehrer with the NewsHour on PBS.",
+            "text": "hello, this is jim lehrer with the newshour on pbs.",
             "id": "s1"
           }
         },
@@ -600,7 +603,7 @@
           "properties": {
             "start": 52,
             "end": 141,
-            "text": "In the nineteen eighties, barking dogs have increasingly become a problem in urban areas.",
+            "text": "in the nineteen eighties, barking dogs have increasingly become a problem in urban areas.",
             "id": "s2"
           }
         },
@@ -611,7 +614,8 @@
             "end": 5,
             "text": "hello",
             "category": "PER",
-            "root_i": 0,
+            "start_i": 0,
+            "end_i": 0,
             "id": "ne1"
           }
         },
@@ -622,7 +626,8 @@
             "end": 25,
             "text": "jim lehrer",
             "category": "PER",
-            "root_i": 4,
+            "start_i": 4,
+            "end_i": 5,
             "id": "ne2"
           }
         },
@@ -633,8 +638,373 @@
             "end": 50,
             "text": "pbs",
             "category": "ORG",
-            "root_i": 10,
+            "start_i": 10,
+            "end_i": 10,
             "id": "ne3"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "hello",
+            "dependent_lemma": "hello",
+            "dependent_i": 0,
+            "dep": "intj",
+            "governer_text": "is",
+            "governer_lemma": "be",
+            "governer_i": 3,
+            "id": "dep1"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": ",",
+            "dependent_lemma": ",",
+            "dependent_i": 1,
+            "dep": "punct",
+            "governer_text": "is",
+            "governer_lemma": "be",
+            "governer_i": 3,
+            "id": "dep2"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "this",
+            "dependent_lemma": "this",
+            "dependent_i": 2,
+            "dep": "nsubj",
+            "governer_text": "is",
+            "governer_lemma": "be",
+            "governer_i": 3,
+            "id": "dep3"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "is",
+            "dependent_lemma": "be",
+            "dependent_i": 3,
+            "dep": "ROOT",
+            "governer_text": "is",
+            "governer_lemma": "be",
+            "governer_i": 3,
+            "id": "dep4"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "jim",
+            "dependent_lemma": "jim",
+            "dependent_i": 4,
+            "dep": "compound",
+            "governer_text": "lehrer",
+            "governer_lemma": "lehrer",
+            "governer_i": 5,
+            "id": "dep5"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "lehrer",
+            "dependent_lemma": "lehrer",
+            "dependent_i": 5,
+            "dep": "attr",
+            "governer_text": "is",
+            "governer_lemma": "be",
+            "governer_i": 3,
+            "id": "dep6"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "with",
+            "dependent_lemma": "with",
+            "dependent_i": 6,
+            "dep": "prep",
+            "governer_text": "lehrer",
+            "governer_lemma": "lehrer",
+            "governer_i": 5,
+            "id": "dep7"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "the",
+            "dependent_lemma": "the",
+            "dependent_i": 7,
+            "dep": "det",
+            "governer_text": "newshour",
+            "governer_lemma": "newshour",
+            "governer_i": 8,
+            "id": "dep8"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "newshour",
+            "dependent_lemma": "newshour",
+            "dependent_i": 8,
+            "dep": "pobj",
+            "governer_text": "with",
+            "governer_lemma": "with",
+            "governer_i": 6,
+            "id": "dep9"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "on",
+            "dependent_lemma": "on",
+            "dependent_i": 9,
+            "dep": "prep",
+            "governer_text": "is",
+            "governer_lemma": "be",
+            "governer_i": 3,
+            "id": "dep10"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "pbs",
+            "dependent_lemma": "pbs",
+            "dependent_i": 10,
+            "dep": "pobj",
+            "governer_text": "on",
+            "governer_lemma": "on",
+            "governer_i": 9,
+            "id": "dep11"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": ".",
+            "dependent_lemma": ".",
+            "dependent_i": 11,
+            "dep": "punct",
+            "governer_text": "is",
+            "governer_lemma": "be",
+            "governer_i": 3,
+            "id": "dep12"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "in",
+            "dependent_lemma": "in",
+            "dependent_i": 12,
+            "dep": "prep",
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
+            "id": "dep13"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "the",
+            "dependent_lemma": "the",
+            "dependent_i": 13,
+            "dep": "det",
+            "governer_text": "eighties",
+            "governer_lemma": "eighty",
+            "governer_i": 15,
+            "id": "dep14"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "nineteen",
+            "dependent_lemma": "nineteen",
+            "dependent_i": 14,
+            "dep": "nummod",
+            "governer_text": "eighties",
+            "governer_lemma": "eighty",
+            "governer_i": 15,
+            "id": "dep15"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "eighties",
+            "dependent_lemma": "eighty",
+            "dependent_i": 15,
+            "dep": "pobj",
+            "governer_text": "in",
+            "governer_lemma": "in",
+            "governer_i": 12,
+            "id": "dep16"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": ",",
+            "dependent_lemma": ",",
+            "dependent_i": 16,
+            "dep": "punct",
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
+            "id": "dep17"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "barking",
+            "dependent_lemma": "bark",
+            "dependent_i": 17,
+            "dep": "csubj",
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
+            "id": "dep18"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "dogs",
+            "dependent_lemma": "dog",
+            "dependent_i": 18,
+            "dep": "dobj",
+            "governer_text": "barking",
+            "governer_lemma": "bark",
+            "governer_i": 17,
+            "id": "dep19"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "have",
+            "dependent_lemma": "have",
+            "dependent_i": 19,
+            "dep": "aux",
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
+            "id": "dep20"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "increasingly",
+            "dependent_lemma": "increasingly",
+            "dependent_i": 20,
+            "dep": "advmod",
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
+            "id": "dep21"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "become",
+            "dependent_lemma": "become",
+            "dependent_i": 21,
+            "dep": "ROOT",
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
+            "id": "dep22"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "a",
+            "dependent_lemma": "a",
+            "dependent_i": 22,
+            "dep": "det",
+            "governer_text": "problem",
+            "governer_lemma": "problem",
+            "governer_i": 23,
+            "id": "dep23"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "problem",
+            "dependent_lemma": "problem",
+            "dependent_i": 23,
+            "dep": "attr",
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
+            "id": "dep24"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "in",
+            "dependent_lemma": "in",
+            "dependent_i": 24,
+            "dep": "prep",
+            "governer_text": "problem",
+            "governer_lemma": "problem",
+            "governer_i": 23,
+            "id": "dep25"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "urban",
+            "dependent_lemma": "urban",
+            "dependent_i": 25,
+            "dep": "amod",
+            "governer_text": "areas",
+            "governer_lemma": "area",
+            "governer_i": 26,
+            "id": "dep26"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": "areas",
+            "dependent_lemma": "area",
+            "dependent_i": 26,
+            "dep": "pobj",
+            "governer_text": "in",
+            "governer_lemma": "in",
+            "governer_i": 24,
+            "id": "dep27"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "dependent_text": ".",
+            "dependent_lemma": ".",
+            "dependent_i": 27,
+            "dep": "punct",
+            "governer_text": "become",
+            "governer_lemma": "become",
+            "governer_i": 21,
+            "id": "dep28"
           }
         }
       ]
@@ -642,7 +1012,7 @@
     {
       "id": "v_4",
       "metadata": {
-        "timestamp": "2022-07-06T18:33:15.891201",
+        "timestamp": "2022-07-18T00:35:48.433150",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {},
@@ -650,7 +1020,8 @@
           "http://vocab.lappsgrid.org/Token#lemma": {},
           "http://vocab.lappsgrid.org/NounChunk": {},
           "http://vocab.lappsgrid.org/Sentence": {},
-          "http://vocab.lappsgrid.org/NamedEntity": {}
+          "http://vocab.lappsgrid.org/NamedEntity": {},
+          "http://vocab.lappsgrid.org/Dependency": {}
         }
       },
       "annotations": [
@@ -662,7 +1033,7 @@
             "end": 4,
             "pos": "NN",
             "lemma": "fido",
-            "text": "Fido",
+            "text": "fido",
             "i": 0,
             "id": "t29"
           }
@@ -700,8 +1071,8 @@
             "start": 14,
             "end": 17,
             "pos": "NNP",
-            "lemma": "New",
-            "text": "New",
+            "lemma": "new",
+            "text": "new",
             "i": 3,
             "id": "t32"
           }
@@ -713,8 +1084,8 @@
             "start": 18,
             "end": 22,
             "pos": "NNP",
-            "lemma": "York",
-            "text": "York",
+            "lemma": "york",
+            "text": "york",
             "i": 4,
             "id": "t33"
           }
@@ -738,7 +1109,7 @@
             "document": "v_2:td1",
             "start": 0,
             "end": 10,
-            "text": "Fido barks",
+            "text": "fido barks",
             "id": "nc9"
           }
         },
@@ -748,7 +1119,7 @@
             "document": "v_2:td1",
             "start": 14,
             "end": 22,
-            "text": "New York",
+            "text": "new york",
             "id": "nc10"
           }
         },
@@ -758,7 +1129,7 @@
             "document": "v_2:td1",
             "start": 0,
             "end": 23,
-            "text": "Fido barks in New York.",
+            "text": "fido barks in new york.",
             "id": "s3"
           }
         },
@@ -770,7 +1141,8 @@
             "end": 10,
             "text": "fido barks",
             "category": "PER",
-            "root_i": 0,
+            "start_i": 0,
+            "end_i": 1,
             "id": "ne4"
           }
         },
@@ -782,8 +1154,93 @@
             "end": 22,
             "text": "new york",
             "category": "LOC",
-            "root_i": 3,
+            "start_i": 3,
+            "end_i": 4,
             "id": "ne5"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td1",
+            "dependent_text": "fido",
+            "dependent_lemma": "fido",
+            "dependent_i": 0,
+            "dep": "compound",
+            "governer_text": "barks",
+            "governer_lemma": "bark",
+            "governer_i": 1,
+            "id": "dep29"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td1",
+            "dependent_text": "barks",
+            "dependent_lemma": "bark",
+            "dependent_i": 1,
+            "dep": "ROOT",
+            "governer_text": "barks",
+            "governer_lemma": "bark",
+            "governer_i": 1,
+            "id": "dep30"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td1",
+            "dependent_text": "in",
+            "dependent_lemma": "in",
+            "dependent_i": 2,
+            "dep": "prep",
+            "governer_text": "barks",
+            "governer_lemma": "bark",
+            "governer_i": 1,
+            "id": "dep31"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td1",
+            "dependent_text": "new",
+            "dependent_lemma": "new",
+            "dependent_i": 3,
+            "dep": "compound",
+            "governer_text": "york",
+            "governer_lemma": "york",
+            "governer_i": 4,
+            "id": "dep32"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td1",
+            "dependent_text": "york",
+            "dependent_lemma": "york",
+            "dependent_i": 4,
+            "dep": "pobj",
+            "governer_text": "in",
+            "governer_lemma": "in",
+            "governer_i": 2,
+            "id": "dep33"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td1",
+            "dependent_text": ".",
+            "dependent_lemma": ".",
+            "dependent_i": 5,
+            "dep": "punct",
+            "governer_text": "barks",
+            "governer_lemma": "bark",
+            "governer_i": 1,
+            "id": "dep34"
           }
         },
         {
@@ -820,14 +1277,28 @@
           }
         },
         {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td2",
+            "dependent_text": "yelp",
+            "dependent_lemma": "yelp",
+            "dependent_i": 0,
+            "dep": "ROOT",
+            "governer_text": "yelp",
+            "governer_lemma": "yelp",
+            "governer_i": 0,
+            "id": "dep35"
+          }
+        },
+        {
           "@type": "http://vocab.lappsgrid.org/Token",
           "properties": {
             "document": "v_2:td3",
             "start": 0,
             "end": 7,
             "pos": "NNP",
-            "lemma": "Clinton",
-            "text": "Clinton",
+            "lemma": "clinton",
+            "text": "clinton",
             "i": 0,
             "id": "t36"
           }
@@ -852,8 +1323,8 @@
             "start": 16,
             "end": 19,
             "pos": "NNP",
-            "lemma": "Jim",
-            "text": "Jim",
+            "lemma": "jim",
+            "text": "jim",
             "i": 2,
             "id": "t38"
           }
@@ -864,9 +1335,9 @@
             "document": "v_2:td3",
             "start": 20,
             "end": 26,
-            "pos": "NNP",
-            "lemma": "Lehrer",
-            "text": "Lehrer",
+            "pos": "NN",
+            "lemma": "lehrer",
+            "text": "lehrer",
             "i": 3,
             "id": "t39"
           }
@@ -904,8 +1375,8 @@
             "start": 43,
             "end": 46,
             "pos": "NNP",
-            "lemma": "PBS",
-            "text": "PBS",
+            "lemma": "pbs",
+            "text": "pbs",
             "i": 6,
             "id": "t42"
           }
@@ -929,7 +1400,7 @@
             "document": "v_2:td3",
             "start": 0,
             "end": 7,
-            "text": "Clinton",
+            "text": "clinton",
             "id": "nc12"
           }
         },
@@ -939,7 +1410,7 @@
             "document": "v_2:td3",
             "start": 16,
             "end": 26,
-            "text": "Jim Lehrer",
+            "text": "jim lehrer",
             "id": "nc13"
           }
         },
@@ -949,7 +1420,7 @@
             "document": "v_2:td3",
             "start": 43,
             "end": 46,
-            "text": "PBS",
+            "text": "pbs",
             "id": "nc14"
           }
         },
@@ -959,7 +1430,7 @@
             "document": "v_2:td3",
             "start": 0,
             "end": 47,
-            "text": "Clinton advised Jim Lehrer against leaving PBS.",
+            "text": "clinton advised jim lehrer against leaving pbs.",
             "id": "s5"
           }
         },
@@ -971,7 +1442,8 @@
             "end": 7,
             "text": "clinton",
             "category": "PER",
-            "root_i": 0,
+            "start_i": 0,
+            "end_i": 0,
             "id": "ne6"
           }
         },
@@ -983,7 +1455,8 @@
             "end": 26,
             "text": "jim lehrer",
             "category": "PER",
-            "root_i": 2,
+            "start_i": 2,
+            "end_i": 3,
             "id": "ne7"
           }
         },
@@ -995,8 +1468,121 @@
             "end": 46,
             "text": "pbs",
             "category": "ORG",
-            "root_i": 6,
+            "start_i": 6,
+            "end_i": 6,
             "id": "ne8"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td3",
+            "dependent_text": "clinton",
+            "dependent_lemma": "clinton",
+            "dependent_i": 0,
+            "dep": "nsubj",
+            "governer_text": "advised",
+            "governer_lemma": "advise",
+            "governer_i": 1,
+            "id": "dep36"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td3",
+            "dependent_text": "advised",
+            "dependent_lemma": "advise",
+            "dependent_i": 1,
+            "dep": "ROOT",
+            "governer_text": "advised",
+            "governer_lemma": "advise",
+            "governer_i": 1,
+            "id": "dep37"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td3",
+            "dependent_text": "jim",
+            "dependent_lemma": "jim",
+            "dependent_i": 2,
+            "dep": "compound",
+            "governer_text": "lehrer",
+            "governer_lemma": "lehrer",
+            "governer_i": 3,
+            "id": "dep38"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td3",
+            "dependent_text": "lehrer",
+            "dependent_lemma": "lehrer",
+            "dependent_i": 3,
+            "dep": "dobj",
+            "governer_text": "advised",
+            "governer_lemma": "advise",
+            "governer_i": 1,
+            "id": "dep39"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td3",
+            "dependent_text": "against",
+            "dependent_lemma": "against",
+            "dependent_i": 4,
+            "dep": "prep",
+            "governer_text": "advised",
+            "governer_lemma": "advise",
+            "governer_i": 1,
+            "id": "dep40"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td3",
+            "dependent_text": "leaving",
+            "dependent_lemma": "leave",
+            "dependent_i": 5,
+            "dep": "pcomp",
+            "governer_text": "against",
+            "governer_lemma": "against",
+            "governer_i": 4,
+            "id": "dep41"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td3",
+            "dependent_text": "pbs",
+            "dependent_lemma": "pbs",
+            "dependent_i": 6,
+            "dep": "dobj",
+            "governer_text": "leaving",
+            "governer_lemma": "leave",
+            "governer_i": 5,
+            "id": "dep42"
+          }
+        },
+        {
+          "@type": "http://vocab.lappsgrid.org/Dependency",
+          "properties": {
+            "document": "v_2:td3",
+            "dependent_text": ".",
+            "dependent_lemma": ".",
+            "dependent_i": 7,
+            "dep": "punct",
+            "governer_text": "advised",
+            "governer_lemma": "advise",
+            "governer_i": 1,
+            "id": "dep43"
           }
         }
       ]
