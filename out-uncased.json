@@ -37,8 +37,6 @@
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/BoundingBox",
           "properties": {
-            "timePoint": 1200,
-            "boxType": "text",
             "coordinates": [
               [
                 10,
@@ -57,14 +55,14 @@
                 30
               ]
             ],
+            "boxType": "text",
+            "timePoint": 1200,
             "id": "bb1"
           }
         },
         {
           "@type": "http://mmif.clams.ai/0.4.0/vocabulary/BoundingBox",
           "properties": {
-            "timePoint": 1900,
-            "boxType": "text",
             "coordinates": [
               [
                 210,
@@ -83,6 +81,8 @@
                 230
               ]
             ],
+            "boxType": "text",
+            "timePoint": 1900,
             "id": "bb2"
           }
         }
@@ -154,7 +154,7 @@
     {
       "id": "v_3",
       "metadata": {
-        "timestamp": "2022-07-18T00:35:48.402581",
+        "timestamp": "2022-07-20T02:16:40.486133",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {
@@ -614,8 +614,6 @@
             "end": 5,
             "text": "hello",
             "category": "PER",
-            "start_i": 0,
-            "end_i": 0,
             "id": "ne1"
           }
         },
@@ -626,8 +624,6 @@
             "end": 25,
             "text": "jim lehrer",
             "category": "PER",
-            "start_i": 4,
-            "end_i": 5,
             "id": "ne2"
           }
         },
@@ -638,8 +634,6 @@
             "end": 50,
             "text": "pbs",
             "category": "ORG",
-            "start_i": 10,
-            "end_i": 10,
             "id": "ne3"
           }
         },
@@ -648,11 +642,13 @@
           "properties": {
             "dependent_text": "hello",
             "dependent_lemma": "hello",
-            "dependent_i": 0,
+            "dependent_start": 0,
+            "dependent_end": 5,
             "dep": "intj",
             "governer_text": "is",
             "governer_lemma": "be",
-            "governer_i": 3,
+            "governer_start": 12,
+            "governer_end": 14,
             "id": "dep1"
           }
         },
@@ -661,11 +657,13 @@
           "properties": {
             "dependent_text": ",",
             "dependent_lemma": ",",
-            "dependent_i": 1,
+            "dependent_start": 5,
+            "dependent_end": 6,
             "dep": "punct",
             "governer_text": "is",
             "governer_lemma": "be",
-            "governer_i": 3,
+            "governer_start": 12,
+            "governer_end": 14,
             "id": "dep2"
           }
         },
@@ -674,11 +672,13 @@
           "properties": {
             "dependent_text": "this",
             "dependent_lemma": "this",
-            "dependent_i": 2,
+            "dependent_start": 7,
+            "dependent_end": 11,
             "dep": "nsubj",
             "governer_text": "is",
             "governer_lemma": "be",
-            "governer_i": 3,
+            "governer_start": 12,
+            "governer_end": 14,
             "id": "dep3"
           }
         },
@@ -687,11 +687,13 @@
           "properties": {
             "dependent_text": "is",
             "dependent_lemma": "be",
-            "dependent_i": 3,
+            "dependent_start": 12,
+            "dependent_end": 14,
             "dep": "ROOT",
             "governer_text": "is",
             "governer_lemma": "be",
-            "governer_i": 3,
+            "governer_start": 12,
+            "governer_end": 14,
             "id": "dep4"
           }
         },
@@ -700,11 +702,13 @@
           "properties": {
             "dependent_text": "jim",
             "dependent_lemma": "jim",
-            "dependent_i": 4,
+            "dependent_start": 15,
+            "dependent_end": 18,
             "dep": "compound",
             "governer_text": "lehrer",
             "governer_lemma": "lehrer",
-            "governer_i": 5,
+            "governer_start": 19,
+            "governer_end": 25,
             "id": "dep5"
           }
         },
@@ -713,11 +717,13 @@
           "properties": {
             "dependent_text": "lehrer",
             "dependent_lemma": "lehrer",
-            "dependent_i": 5,
+            "dependent_start": 19,
+            "dependent_end": 25,
             "dep": "attr",
             "governer_text": "is",
             "governer_lemma": "be",
-            "governer_i": 3,
+            "governer_start": 12,
+            "governer_end": 14,
             "id": "dep6"
           }
         },
@@ -726,11 +732,13 @@
           "properties": {
             "dependent_text": "with",
             "dependent_lemma": "with",
-            "dependent_i": 6,
+            "dependent_start": 26,
+            "dependent_end": 30,
             "dep": "prep",
             "governer_text": "lehrer",
             "governer_lemma": "lehrer",
-            "governer_i": 5,
+            "governer_start": 19,
+            "governer_end": 25,
             "id": "dep7"
           }
         },
@@ -739,11 +747,13 @@
           "properties": {
             "dependent_text": "the",
             "dependent_lemma": "the",
-            "dependent_i": 7,
+            "dependent_start": 31,
+            "dependent_end": 34,
             "dep": "det",
             "governer_text": "newshour",
             "governer_lemma": "newshour",
-            "governer_i": 8,
+            "governer_start": 35,
+            "governer_end": 43,
             "id": "dep8"
           }
         },
@@ -752,11 +762,13 @@
           "properties": {
             "dependent_text": "newshour",
             "dependent_lemma": "newshour",
-            "dependent_i": 8,
+            "dependent_start": 35,
+            "dependent_end": 43,
             "dep": "pobj",
             "governer_text": "with",
             "governer_lemma": "with",
-            "governer_i": 6,
+            "governer_start": 26,
+            "governer_end": 30,
             "id": "dep9"
           }
         },
@@ -765,11 +777,13 @@
           "properties": {
             "dependent_text": "on",
             "dependent_lemma": "on",
-            "dependent_i": 9,
+            "dependent_start": 44,
+            "dependent_end": 46,
             "dep": "prep",
             "governer_text": "is",
             "governer_lemma": "be",
-            "governer_i": 3,
+            "governer_start": 12,
+            "governer_end": 14,
             "id": "dep10"
           }
         },
@@ -778,11 +792,13 @@
           "properties": {
             "dependent_text": "pbs",
             "dependent_lemma": "pbs",
-            "dependent_i": 10,
+            "dependent_start": 47,
+            "dependent_end": 50,
             "dep": "pobj",
             "governer_text": "on",
             "governer_lemma": "on",
-            "governer_i": 9,
+            "governer_start": 44,
+            "governer_end": 46,
             "id": "dep11"
           }
         },
@@ -791,11 +807,13 @@
           "properties": {
             "dependent_text": ".",
             "dependent_lemma": ".",
-            "dependent_i": 11,
+            "dependent_start": 50,
+            "dependent_end": 51,
             "dep": "punct",
             "governer_text": "is",
             "governer_lemma": "be",
-            "governer_i": 3,
+            "governer_start": 12,
+            "governer_end": 14,
             "id": "dep12"
           }
         },
@@ -804,11 +822,13 @@
           "properties": {
             "dependent_text": "in",
             "dependent_lemma": "in",
-            "dependent_i": 12,
+            "dependent_start": 52,
+            "dependent_end": 54,
             "dep": "prep",
             "governer_text": "become",
             "governer_lemma": "become",
-            "governer_i": 21,
+            "governer_start": 109,
+            "governer_end": 115,
             "id": "dep13"
           }
         },
@@ -817,11 +837,13 @@
           "properties": {
             "dependent_text": "the",
             "dependent_lemma": "the",
-            "dependent_i": 13,
+            "dependent_start": 55,
+            "dependent_end": 58,
             "dep": "det",
             "governer_text": "eighties",
             "governer_lemma": "eighty",
-            "governer_i": 15,
+            "governer_start": 68,
+            "governer_end": 76,
             "id": "dep14"
           }
         },
@@ -830,11 +852,13 @@
           "properties": {
             "dependent_text": "nineteen",
             "dependent_lemma": "nineteen",
-            "dependent_i": 14,
+            "dependent_start": 59,
+            "dependent_end": 67,
             "dep": "nummod",
             "governer_text": "eighties",
             "governer_lemma": "eighty",
-            "governer_i": 15,
+            "governer_start": 68,
+            "governer_end": 76,
             "id": "dep15"
           }
         },
@@ -843,11 +867,13 @@
           "properties": {
             "dependent_text": "eighties",
             "dependent_lemma": "eighty",
-            "dependent_i": 15,
+            "dependent_start": 68,
+            "dependent_end": 76,
             "dep": "pobj",
             "governer_text": "in",
             "governer_lemma": "in",
-            "governer_i": 12,
+            "governer_start": 52,
+            "governer_end": 54,
             "id": "dep16"
           }
         },
@@ -856,11 +882,13 @@
           "properties": {
             "dependent_text": ",",
             "dependent_lemma": ",",
-            "dependent_i": 16,
+            "dependent_start": 76,
+            "dependent_end": 77,
             "dep": "punct",
             "governer_text": "become",
             "governer_lemma": "become",
-            "governer_i": 21,
+            "governer_start": 109,
+            "governer_end": 115,
             "id": "dep17"
           }
         },
@@ -869,11 +897,13 @@
           "properties": {
             "dependent_text": "barking",
             "dependent_lemma": "bark",
-            "dependent_i": 17,
+            "dependent_start": 78,
+            "dependent_end": 85,
             "dep": "csubj",
             "governer_text": "become",
             "governer_lemma": "become",
-            "governer_i": 21,
+            "governer_start": 109,
+            "governer_end": 115,
             "id": "dep18"
           }
         },
@@ -882,11 +912,13 @@
           "properties": {
             "dependent_text": "dogs",
             "dependent_lemma": "dog",
-            "dependent_i": 18,
+            "dependent_start": 86,
+            "dependent_end": 90,
             "dep": "dobj",
             "governer_text": "barking",
             "governer_lemma": "bark",
-            "governer_i": 17,
+            "governer_start": 78,
+            "governer_end": 85,
             "id": "dep19"
           }
         },
@@ -895,11 +927,13 @@
           "properties": {
             "dependent_text": "have",
             "dependent_lemma": "have",
-            "dependent_i": 19,
+            "dependent_start": 91,
+            "dependent_end": 95,
             "dep": "aux",
             "governer_text": "become",
             "governer_lemma": "become",
-            "governer_i": 21,
+            "governer_start": 109,
+            "governer_end": 115,
             "id": "dep20"
           }
         },
@@ -908,11 +942,13 @@
           "properties": {
             "dependent_text": "increasingly",
             "dependent_lemma": "increasingly",
-            "dependent_i": 20,
+            "dependent_start": 96,
+            "dependent_end": 108,
             "dep": "advmod",
             "governer_text": "become",
             "governer_lemma": "become",
-            "governer_i": 21,
+            "governer_start": 109,
+            "governer_end": 115,
             "id": "dep21"
           }
         },
@@ -921,11 +957,13 @@
           "properties": {
             "dependent_text": "become",
             "dependent_lemma": "become",
-            "dependent_i": 21,
+            "dependent_start": 109,
+            "dependent_end": 115,
             "dep": "ROOT",
             "governer_text": "become",
             "governer_lemma": "become",
-            "governer_i": 21,
+            "governer_start": 109,
+            "governer_end": 115,
             "id": "dep22"
           }
         },
@@ -934,11 +972,13 @@
           "properties": {
             "dependent_text": "a",
             "dependent_lemma": "a",
-            "dependent_i": 22,
+            "dependent_start": 116,
+            "dependent_end": 117,
             "dep": "det",
             "governer_text": "problem",
             "governer_lemma": "problem",
-            "governer_i": 23,
+            "governer_start": 118,
+            "governer_end": 125,
             "id": "dep23"
           }
         },
@@ -947,11 +987,13 @@
           "properties": {
             "dependent_text": "problem",
             "dependent_lemma": "problem",
-            "dependent_i": 23,
+            "dependent_start": 118,
+            "dependent_end": 125,
             "dep": "attr",
             "governer_text": "become",
             "governer_lemma": "become",
-            "governer_i": 21,
+            "governer_start": 109,
+            "governer_end": 115,
             "id": "dep24"
           }
         },
@@ -960,11 +1002,13 @@
           "properties": {
             "dependent_text": "in",
             "dependent_lemma": "in",
-            "dependent_i": 24,
+            "dependent_start": 126,
+            "dependent_end": 128,
             "dep": "prep",
             "governer_text": "problem",
             "governer_lemma": "problem",
-            "governer_i": 23,
+            "governer_start": 118,
+            "governer_end": 125,
             "id": "dep25"
           }
         },
@@ -973,11 +1017,13 @@
           "properties": {
             "dependent_text": "urban",
             "dependent_lemma": "urban",
-            "dependent_i": 25,
+            "dependent_start": 129,
+            "dependent_end": 134,
             "dep": "amod",
             "governer_text": "areas",
             "governer_lemma": "area",
-            "governer_i": 26,
+            "governer_start": 135,
+            "governer_end": 140,
             "id": "dep26"
           }
         },
@@ -986,11 +1032,13 @@
           "properties": {
             "dependent_text": "areas",
             "dependent_lemma": "area",
-            "dependent_i": 26,
+            "dependent_start": 135,
+            "dependent_end": 140,
             "dep": "pobj",
             "governer_text": "in",
             "governer_lemma": "in",
-            "governer_i": 24,
+            "governer_start": 126,
+            "governer_end": 128,
             "id": "dep27"
           }
         },
@@ -999,11 +1047,13 @@
           "properties": {
             "dependent_text": ".",
             "dependent_lemma": ".",
-            "dependent_i": 27,
+            "dependent_start": 140,
+            "dependent_end": 141,
             "dep": "punct",
             "governer_text": "become",
             "governer_lemma": "become",
-            "governer_i": 21,
+            "governer_start": 109,
+            "governer_end": 115,
             "id": "dep28"
           }
         }
@@ -1012,7 +1062,7 @@
     {
       "id": "v_4",
       "metadata": {
-        "timestamp": "2022-07-18T00:35:48.433150",
+        "timestamp": "2022-07-20T02:16:40.508576",
         "app": "https://apps.clams.ai/spacy_nlp",
         "contains": {
           "http://vocab.lappsgrid.org/Token": {},
@@ -1141,8 +1191,6 @@
             "end": 10,
             "text": "fido barks",
             "category": "PER",
-            "start_i": 0,
-            "end_i": 1,
             "id": "ne4"
           }
         },
@@ -1154,8 +1202,6 @@
             "end": 22,
             "text": "new york",
             "category": "LOC",
-            "start_i": 3,
-            "end_i": 4,
             "id": "ne5"
           }
         },
@@ -1165,11 +1211,13 @@
             "document": "v_2:td1",
             "dependent_text": "fido",
             "dependent_lemma": "fido",
-            "dependent_i": 0,
+            "dependent_start": 0,
+            "dependent_end": 4,
             "dep": "compound",
             "governer_text": "barks",
             "governer_lemma": "bark",
-            "governer_i": 1,
+            "governer_start": 5,
+            "governer_end": 10,
             "id": "dep29"
           }
         },
@@ -1179,11 +1227,13 @@
             "document": "v_2:td1",
             "dependent_text": "barks",
             "dependent_lemma": "bark",
-            "dependent_i": 1,
+            "dependent_start": 5,
+            "dependent_end": 10,
             "dep": "ROOT",
             "governer_text": "barks",
             "governer_lemma": "bark",
-            "governer_i": 1,
+            "governer_start": 5,
+            "governer_end": 10,
             "id": "dep30"
           }
         },
@@ -1193,11 +1243,13 @@
             "document": "v_2:td1",
             "dependent_text": "in",
             "dependent_lemma": "in",
-            "dependent_i": 2,
+            "dependent_start": 11,
+            "dependent_end": 13,
             "dep": "prep",
             "governer_text": "barks",
             "governer_lemma": "bark",
-            "governer_i": 1,
+            "governer_start": 5,
+            "governer_end": 10,
             "id": "dep31"
           }
         },
@@ -1207,11 +1259,13 @@
             "document": "v_2:td1",
             "dependent_text": "new",
             "dependent_lemma": "new",
-            "dependent_i": 3,
+            "dependent_start": 14,
+            "dependent_end": 17,
             "dep": "compound",
             "governer_text": "york",
             "governer_lemma": "york",
-            "governer_i": 4,
+            "governer_start": 18,
+            "governer_end": 22,
             "id": "dep32"
           }
         },
@@ -1221,11 +1275,13 @@
             "document": "v_2:td1",
             "dependent_text": "york",
             "dependent_lemma": "york",
-            "dependent_i": 4,
+            "dependent_start": 18,
+            "dependent_end": 22,
             "dep": "pobj",
             "governer_text": "in",
             "governer_lemma": "in",
-            "governer_i": 2,
+            "governer_start": 11,
+            "governer_end": 13,
             "id": "dep33"
           }
         },
@@ -1235,11 +1291,13 @@
             "document": "v_2:td1",
             "dependent_text": ".",
             "dependent_lemma": ".",
-            "dependent_i": 5,
+            "dependent_start": 22,
+            "dependent_end": 23,
             "dep": "punct",
             "governer_text": "barks",
             "governer_lemma": "bark",
-            "governer_i": 1,
+            "governer_start": 5,
+            "governer_end": 10,
             "id": "dep34"
           }
         },
@@ -1282,11 +1340,13 @@
             "document": "v_2:td2",
             "dependent_text": "yelp",
             "dependent_lemma": "yelp",
-            "dependent_i": 0,
+            "dependent_start": 0,
+            "dependent_end": 4,
             "dep": "ROOT",
             "governer_text": "yelp",
             "governer_lemma": "yelp",
-            "governer_i": 0,
+            "governer_start": 0,
+            "governer_end": 4,
             "id": "dep35"
           }
         },
@@ -1442,8 +1502,6 @@
             "end": 7,
             "text": "clinton",
             "category": "PER",
-            "start_i": 0,
-            "end_i": 0,
             "id": "ne6"
           }
         },
@@ -1455,8 +1513,6 @@
             "end": 26,
             "text": "jim lehrer",
             "category": "PER",
-            "start_i": 2,
-            "end_i": 3,
             "id": "ne7"
           }
         },
@@ -1468,8 +1524,6 @@
             "end": 46,
             "text": "pbs",
             "category": "ORG",
-            "start_i": 6,
-            "end_i": 6,
             "id": "ne8"
           }
         },
@@ -1479,11 +1533,13 @@
             "document": "v_2:td3",
             "dependent_text": "clinton",
             "dependent_lemma": "clinton",
-            "dependent_i": 0,
+            "dependent_start": 0,
+            "dependent_end": 7,
             "dep": "nsubj",
             "governer_text": "advised",
             "governer_lemma": "advise",
-            "governer_i": 1,
+            "governer_start": 8,
+            "governer_end": 15,
             "id": "dep36"
           }
         },
@@ -1493,11 +1549,13 @@
             "document": "v_2:td3",
             "dependent_text": "advised",
             "dependent_lemma": "advise",
-            "dependent_i": 1,
+            "dependent_start": 8,
+            "dependent_end": 15,
             "dep": "ROOT",
             "governer_text": "advised",
             "governer_lemma": "advise",
-            "governer_i": 1,
+            "governer_start": 8,
+            "governer_end": 15,
             "id": "dep37"
           }
         },
@@ -1507,11 +1565,13 @@
             "document": "v_2:td3",
             "dependent_text": "jim",
             "dependent_lemma": "jim",
-            "dependent_i": 2,
+            "dependent_start": 16,
+            "dependent_end": 19,
             "dep": "compound",
             "governer_text": "lehrer",
             "governer_lemma": "lehrer",
-            "governer_i": 3,
+            "governer_start": 20,
+            "governer_end": 26,
             "id": "dep38"
           }
         },
@@ -1521,11 +1581,13 @@
             "document": "v_2:td3",
             "dependent_text": "lehrer",
             "dependent_lemma": "lehrer",
-            "dependent_i": 3,
+            "dependent_start": 20,
+            "dependent_end": 26,
             "dep": "dobj",
             "governer_text": "advised",
             "governer_lemma": "advise",
-            "governer_i": 1,
+            "governer_start": 8,
+            "governer_end": 15,
             "id": "dep39"
           }
         },
@@ -1535,11 +1597,13 @@
             "document": "v_2:td3",
             "dependent_text": "against",
             "dependent_lemma": "against",
-            "dependent_i": 4,
+            "dependent_start": 27,
+            "dependent_end": 34,
             "dep": "prep",
             "governer_text": "advised",
             "governer_lemma": "advise",
-            "governer_i": 1,
+            "governer_start": 8,
+            "governer_end": 15,
             "id": "dep40"
           }
         },
@@ -1549,11 +1613,13 @@
             "document": "v_2:td3",
             "dependent_text": "leaving",
             "dependent_lemma": "leave",
-            "dependent_i": 5,
+            "dependent_start": 35,
+            "dependent_end": 42,
             "dep": "pcomp",
             "governer_text": "against",
             "governer_lemma": "against",
-            "governer_i": 4,
+            "governer_start": 27,
+            "governer_end": 34,
             "id": "dep41"
           }
         },
@@ -1563,11 +1629,13 @@
             "document": "v_2:td3",
             "dependent_text": "pbs",
             "dependent_lemma": "pbs",
-            "dependent_i": 6,
+            "dependent_start": 43,
+            "dependent_end": 46,
             "dep": "dobj",
             "governer_text": "leaving",
             "governer_lemma": "leave",
-            "governer_i": 5,
+            "governer_start": 35,
+            "governer_end": 42,
             "id": "dep42"
           }
         },
@@ -1577,11 +1645,13 @@
             "document": "v_2:td3",
             "dependent_text": ".",
             "dependent_lemma": ".",
-            "dependent_i": 7,
+            "dependent_start": 46,
+            "dependent_end": 47,
             "dep": "punct",
             "governer_text": "advised",
             "governer_lemma": "advise",
-            "governer_i": 1,
+            "governer_start": 8,
+            "governer_end": 15,
             "id": "dep43"
           }
         }

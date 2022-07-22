@@ -1,7 +1,7 @@
 """app.py
 
 Wrapping Spacy NLP to extract tokens, tags, lemmas, sentences, chunks, named
-entities, and (if specified so) syntactic relations.
+entities, and (if specified so) dependencies.
 
 Usage:
 
@@ -160,7 +160,7 @@ class SpacyApp(ClamsApp):
                 add_annotation(
                     view, Uri.NE, Identifiers.new("ne"),
                     doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
-                    { "text": ent.text, "category": ent.label_ , "start_i": ent.start, "end_i": (ent.end - 1)})
+                    { "text": ent.text, "category": ent.label_})
                     # we have to be careful not to use ent.root.i since the uncased NER model can't recognize that
         # if the user doesn't want to use the uncased model, then the normal cased model will be used to
         # add the NER annotations
@@ -169,15 +169,16 @@ class SpacyApp(ClamsApp):
                 add_annotation(
                     view, Uri.NE, Identifiers.new("ne"),
                     doc_id, tok_idx[ent.start][0], tok_idx[ent.end - 1][1],
-                    { "text": ent.text, "category": ent.label_ , "start_i": ent.start, "end_i": (ent.end - 1)})
+                    { "text": ent.text, "category": ent.label_})
 
         if(dep_choice == True):
             for (n, tok) in enumerate(spacy_doc):
                 add_annotation(
                     view, Uri.DEPENDENCY, Identifiers.new("dep"),
                     doc_id, None, None,
-                    { "dependent_text": tok.text, "dependent_lemma": tok.lemma_, "dependent_i": tok.i, "dep": tok.dep_, \
-                      "governer_text": tok.head.text, "governer_lemma": tok.head.lemma_, "governer_i": tok.head.i})
+                    { "dependent_text": tok.text, "dependent_lemma": tok.lemma_, "dependent_start": tok.idx, \
+                      "dependent_end": (tok.idx + len(tok.text)), "dep": tok.dep_, "governer_text": tok.head.text, \
+                      "governer_lemma": tok.head.lemma_, "governer_start": tok.head.idx, "governer_end": (tok.head.idx + len(tok.head.text))})
 
     def print_documents(self):
         for doc in self.mmif.documents:
