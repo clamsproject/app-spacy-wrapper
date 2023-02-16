@@ -48,6 +48,6 @@ typer==0.3.2
 typing-extensions==4.2.0
 urllib3==1.26.9
 wasabi==0.9.1
-Werkzeug==1.0.1
+Werkzeug==2.2.3
 zeep==4.1.0
 zipp==3.1.0
