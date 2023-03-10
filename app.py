@@ -89,7 +89,8 @@ class SpacyApp(ClamsApp):
                 for view in mmif.get_views_for_document(doc.id):
                     if Uri.TOKEN in view.metadata.contains:
                         tokens = [token.properties['text'] for token in view.get_annotations(Uri.TOKEN)]
-                        tok_idx = {i: (token.properties['start'], token.properties['end']) for i, token in enumerate(view.get_annotations(Uri.TOKEN))}
+                        tok_idx = {i: f'{view.id}:{token.id}'
+                                   for i, token in enumerate(view.get_annotations(Uri.TOKEN))}
                         in_doc = Doc(nlp.vocab, tokens)
                         nlp.add_pipe("sentencizer")
                         for _, component in nlp.pipeline:
@@ -108,27 +109,25 @@ class SpacyApp(ClamsApp):
             # def add_annotation(view, attype, identifier, doc_id, start, end, properties):
 
             for n, tok in enumerate(in_doc):
-                if n not in tok_idx:
-                    p1 = tok.idx
-                    p2 = p1 + len(tok.text)
-                    tok_idx[n] = (p1, p2)
-                else:
-                    p1, p2 = tok_idx[n]
                 a = view.new_annotation(Uri.TOKEN)
-                a.add_property('start', p1)
-                a.add_property('end', p2)
+                if n not in tok_idx:
+                    a.add_property('start', tok.idx)
+                    a.add_property('end', tok.idx + len(tok.text))
+                    tok_idx[n] = a.id
+                else:
+                    a.add_property('targets', [tok_idx[n]])
                 a.add_property('pos', tok.tag_)
                 a.add_property('lemma', tok.lemma_)
                 a.add_property('text', tok.text)
-            for at_type, segmentaions in zip((Uri.NCHUNK, Uri.SENTENCE, Uri.NE), 
-                                             (in_doc.noun_chunks, in_doc.sents, in_doc.ents)):
-                for n, segment in enumerate(segmentaions):
+            for at_type, segmentations in zip((Uri.NCHUNK, Uri.SENTENCE, Uri.NE),
+                                              (in_doc.noun_chunks, in_doc.sents, in_doc.ents)):
+                for n, segment in enumerate(segmentations):
                     a = view.new_annotation(at_type)
-                    a.add_property('start', tok_idx[segment.start][0])
-                    a.add_property('end', tok_idx[segment.end - 1][1])
+                    a.add_property('targets', [tok_idx[i] for i in range(segment.start, segment.end)])
                     a.add_property('text', segment.text)
                     if segment.label_:
                         a.add_property('category', segment.label_)
+
         return mmif
 
 
