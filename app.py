@@ -20,21 +20,18 @@ Normally you would run this in a Docker container, see README.md.
 
 """
 
-import os
-import sys
-import collections
-import json
-import urllib
 import argparse
+import collections
+import os
+import urllib.request
 
 import spacy
-
 from clams.app import ClamsApp
-from clams.restify import Restifier
 from clams.appmetadata import AppMetadata
-from mmif.serialize import Mmif
-from mmif.vocabulary import AnnotationTypes, DocumentTypes
+from clams.restify import Restifier
 from lapps.discriminators import Uri
+from mmif.serialize import Mmif
+from mmif.vocabulary import DocumentTypes
 
 # Load small English core model
 nlp = spacy.load("en_core_web_sm")
@@ -42,8 +39,6 @@ nlp = spacy.load("en_core_web_sm")
 APP_VERSION = '0.0.8'
 APP_LICENSE = 'Apache 2.0'
 MMIF_VERSION = '0.4.0'
-MMIF_PYTHON_VERSION = '0.4.6'
-CLAMS_PYTHON_VERSION = '0.5.1'
 SPACY_VERSION = '3.1.2'
 SPACY_LICENSE = 'MIT'
 
@@ -60,13 +55,12 @@ class SpacyApp(ClamsApp):
         metadata = AppMetadata(
             identifier='https://apps.clams.ai/spacy_nlp',
             url='https://github.com/clamsproject/app-spacy-nlp',
-            name="Spacy NLP",
+            name="spaCy NLP",
             description="Apply spaCy NLP to all text documents in a MMIF file.",
             app_version=APP_VERSION,
             app_license=APP_LICENSE,
             analyzer_version=SPACY_VERSION,
             analyzer_license=SPACY_LICENSE,
-            mmif_version=MMIF_VERSION
         )
         metadata.add_input(DocumentTypes.TextDocument)
         metadata.add_output(Uri.TOKEN)
@@ -100,7 +94,8 @@ class SpacyApp(ClamsApp):
             view.new_contain(attype, document=docid)
         return view
 
-    def _read_text(self, textdoc):
+    @staticmethod
+    def _read_text(textdoc):
         """Read the text content from the document or the text value."""
         if textdoc.location:
             fh = urllib.request.urlopen(textdoc.location)
@@ -188,7 +183,6 @@ class Identifiers(object):
     @classmethod
     def reset(cls):
         cls.identifiers = collections.defaultdict(int)
-
 
 
 def test(infile, outfile):
