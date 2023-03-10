@@ -36,9 +36,8 @@ from spacy.tokens import Doc
 # Load small English core model
 nlp = spacy.load("en_core_web_sm")
 
-APP_VERSION = '0.0.8'
+APP_VERSION = 'v1'
 APP_LICENSE = 'Apache 2.0'
-MMIF_VERSION = '0.4.0'
 SPACY_VERSION = '3.1.2'
 SPACY_LICENSE = 'MIT'
 
