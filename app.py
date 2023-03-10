@@ -21,7 +21,6 @@ Normally you would run this in a Docker container, see README.md.
 """
 
 import argparse
-import os
 import urllib.request
 
 import spacy
@@ -40,12 +39,6 @@ APP_VERSION = 'v1'
 APP_LICENSE = 'Apache 2.0'
 SPACY_VERSION = '3.1.2'
 SPACY_LICENSE = 'MIT'
-
-
-# We need this to find the text documents in the documents list
-TEXT_DOCUMENT = os.path.basename(str(DocumentTypes.TextDocument))
-
-DEBUG = False
 
 
 class SpacyApp(ClamsApp):
@@ -104,8 +97,6 @@ class SpacyApp(ClamsApp):
             for attype in (Uri.TOKEN, Uri.POS, Uri.LEMMA,
                            Uri.NCHUNK, Uri.SENTENCE, Uri.NE):
                 view.new_contain(attype, document=did)
-
-            # def add_annotation(view, attype, identifier, doc_id, start, end, properties):
 
             for n, tok in enumerate(in_doc):
                 a = view.new_annotation(Uri.TOKEN)
