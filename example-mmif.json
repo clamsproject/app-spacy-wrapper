@@ -59,8 +59,8 @@
       "metadata": {
         "app": "http://mmif.clams.ai/apps/tesseract/0.2.1",
         "contains": {
-          "http://mmif.clams.ai/0.1.0/TextDocument": {},
-          "http://mmif.clams.ai/0.1.0/Alignment": {}
+          "http://mmif.clams.ai/0.4.0/vocabulary/TextDocument": {},
+          "http://mmif.clams.ai/0.4.0/vocabulary/Alignment": {}
         }
       },
       "annotations": [
