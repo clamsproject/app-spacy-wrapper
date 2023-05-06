@@ -1,3 +1,4 @@
-clams-python==0.5.2
+# Make sure clams-python version is explicitly specified, at least the lower bound
+clams-python==0.6.0
 spacy==3.1.2
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.1.0/en_core_web_sm-3.1.0.tar.gz#egg=en_core_web_sm

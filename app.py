@@ -21,75 +21,44 @@ Normally you would run this in a Docker container, see README.md.
 """
 
 import argparse
-import urllib.request
+from typing import Union
 
 import spacy
 from clams.app import ClamsApp
-from clams.appmetadata import AppMetadata
 from clams.restify import Restifier
 from lapps.discriminators import Uri
 from mmif.serialize import Mmif
 from mmif.vocabulary import DocumentTypes
 from spacy.tokens import Doc
 
-# Load small English core model
-nlp = spacy.load("en_core_web_sm")
 
-APP_VERSION = 'v1'
-APP_LICENSE = 'Apache 2.0'
-SPACY_VERSION = '3.1.2'
-SPACY_LICENSE = 'MIT'
+class SpacyWrapper(ClamsApp):
 
-
-class SpacyApp(ClamsApp):
+    def __init__(self):
+        super().__init__()
+        # Load small English core model
+        self.nlp = spacy.load("en_core_web_sm")
 
     def _appmetadata(self):
-        metadata = AppMetadata(
-            identifier='https://apps.clams.ai/spacy_nlp',
-            url='https://github.com/clamsproject/app-spacy-nlp',
-            name="spaCy NLP",
-            description="Apply spaCy NLP to all text documents in a MMIF file.",
-            app_version=APP_VERSION,
-            app_license=APP_LICENSE,
-            analyzer_version=SPACY_VERSION,
-            analyzer_license=SPACY_LICENSE,
-        )
-        metadata.add_input(DocumentTypes.TextDocument)
-        metadata.add_input(Uri.TOKEN, required=False)
-        
-        metadata.add_parameter(
-            name='pretokenized',
-            description='Boolean parameter to set the app to use existing tokenization, if available, for text documents for NLP processing. Useful to process ASR documents, for example.',
-            type='boolean',
-            default=False,
-        )
-        
-        metadata.add_output(Uri.TOKEN)
-        metadata.add_output(Uri.POS)
-        metadata.add_output(Uri.LEMMA)
-        metadata.add_output(Uri.NCHUNK)
-        metadata.add_output(Uri.SENTENCE)
-        metadata.add_output(Uri.NE)
-        return metadata
+        pass
 
-    def _annotate(self, mmif, **kwargs):
-        
+    def _annotate(self, mmif: Union[str, dict, Mmif], **parameters) -> Mmif:
         for doc in mmif.get_documents_by_type(DocumentTypes.TextDocument):
             in_doc = None
             tok_idx = {}
-            if 'pretokenized' in kwargs and kwargs['pretokenized']:
+            if 'pretokenized' in parameters and parameters['pretokenized']:
                 for view in mmif.get_views_for_document(doc.id):
                     if Uri.TOKEN in view.metadata.contains:
                         tokens = [token.properties['text'] for token in view.get_annotations(Uri.TOKEN)]
                         tok_idx = {i: f'{view.id}:{token.id}'
                                    for i, token in enumerate(view.get_annotations(Uri.TOKEN))}
-                        in_doc = Doc(nlp.vocab, tokens)
-                        nlp.add_pipe("sentencizer")
-                        for _, component in nlp.pipeline:
+                        in_doc = Doc(self.nlp.vocab, tokens)
+                        self.nlp.add_pipe("sentencizer")
+                        for _, component in self.nlp.pipeline:
                             in_doc = component(in_doc)
             if in_doc is None:
-                in_doc = doc.text_value if not doc.location else urllib.request.urlopen(doc.location).read().decode('utf8')
-                in_doc = nlp(in_doc)
+                in_doc = doc.text_value if not doc.location else open(doc.location_path()).read()
+                in_doc = self.nlp(in_doc)
 
             did = f'{doc.parent}:{doc.id}' if doc.parent else doc.id
             view = mmif.new_view()
@@ -123,11 +92,12 @@ class SpacyApp(ClamsApp):
 
 def test(infile, outfile):
     """Run spacy on an input MMIF file. This bypasses the server and just pings
-    the annotate() method on the SpacyApp class. Prints a summary of the views
+    the annotate() method on the SpacyWrapper class. Prints a summary of the views
     in the end result."""
-    print(SpacyApp().appmetadata(pretty=True))
+    app = SpacyWrapper()
+    print(app.appmetadata(pretty=True))
     with open(infile) as fh_in, open(outfile, 'w') as fh_out:
-        mmif_out_as_string = SpacyApp().annotate(fh_in.read(), pretty=True)
+        mmif_out_as_string = app.annotate(fh_in.read(), pretty=True)
         mmif_out = Mmif(mmif_out_as_string)
         fh_out.write(mmif_out_as_string)
         for view in mmif_out.views:
@@ -136,20 +106,26 @@ def test(infile, outfile):
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--port", action="store", default="5000", help="set port to listen"
+    )
+    parser.add_argument("--production", action="store_true", help="run gunicorn server")
     parser.add_argument('-t', '--test',  action='store_true', help="bypass the server")
-    parser.add_argument('--develop',  action='store_true', help="start a development server")
     parser.add_argument('infile', nargs='?', help="input MMIF file")
     parser.add_argument('outfile', nargs='?', help="output file")
-    args = parser.parse_args()
 
-    if args.test:
-        test(args.infile, args.outfile)
+    parsed_args = parser.parse_args()
+
+    if parsed_args.test:
+        test(parsed_args.infile, parsed_args.outfile)
     else:
-        app = SpacyApp()
-        service = Restifier(app)
-        if args.develop:
-            service.run()
+        # create the app instance
+        app = SpacyWrapper()
+
+        http_app = Restifier(app, port=int(parsed_args.port)
+        )
+        if parsed_args.production:
+            http_app.serve_production()
         else:
-            service.serve_production()
+            http_app.run()

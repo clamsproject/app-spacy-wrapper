@@ -2,27 +2,14 @@
 
 The spaCy NLP tool wrapped as a CLAMS service, spaCy is distributed under the [MIT license](https://github.com/explosion/spaCy/blob/master/LICENSE).
 
-This requires Python 3.6 or higher. For local install of required Python modules do:
-
-```bash
-$ pip install clams-python==0.5.1
-$ pip install spacy==3.1.2
-```
-
-In an earlier version of this application we had to manually install click==7.1.1 because clams-python installed version 8.0.1 and spaCy was not compatible with that version. The spacy install now does that automatically.
-
-You also need the small spaCy model.
-
-```bash
-$ python -m spacy download en_core_web_sm
-```
+This requires Python 3.8 or higher. For local install of required Python modules see [requirements.txt](requirements.txt).
 
 ## Using this service
 
-Use `python app.py -t example-mmif.json out.json` just to test the wrapping code without using a server. To test this using a server you run the app as a service in one terminal (when you add the optional  `--develop` parameter a Flask server will be used in development mode, otherwise you will get a production Gunicorn server):
+Use `python app.py -t example-mmif.json out.json` just to test the wrapping code without using a server. To test this using a server you run the app as a service in one terminal:
 
 ```bash
-$ python app.py [--develop]
+$ python app.py
 ```
 
 And poke at it from another:
@@ -32,16 +19,16 @@ $ curl http://0.0.0.0:5000/
 $ curl -H "Accept: application/json" -X POST -d@example-mmif.json http://0.0.0.0:5000/
 ```
 
-In CLAMS you usually run this in a Docker container. To create a Docker image
+In CLAMS you usually run this in a container. To create an image
 
 ```bash
-$ docker build -t clams-spacy-nlp .
+$ docker build -f Containerfile -t clams-spacy-wrapper .
 ```
 
 And to run it as a container:
 
 ```bash
-$ docker run --rm -d -p 5000:5000 clams-spacy-nlp
+$ docker run --rm -d -p 5000:5000 clams-spacy-wrapper
 $ curl -H "Accept: application/json" -X POST -d@example-mmif.json http://0.0.0.0:5000/
 ```
 
