@@ -1,6 +1,6 @@
-# Spacy NLP Service
+# CLAMS-spaCy wrapper
 
-The spaCy NLP tool wrapped as a CLAMS service, spaCy is distributed under the [MIT license](https://github.com/explosion/spaCy/blob/master/LICENSE).
+The spaCy NLP wrapped as a CLAMS service, spaCy is distributed under the [MIT license](https://github.com/explosion/spaCy/blob/master/LICENSE).
 
 This requires Python 3.8 or higher. For local install of required Python modules see [requirements.txt](requirements.txt).
 
