@@ -39,7 +39,8 @@ class SpacyWrapper(ClamsApp):
         pass
 
     def _annotate(self, mmif: Union[str, dict, Mmif], **parameters) -> Mmif:
-        if mmif.isinstance(Mmif):
+        if type(mmif) == Mmif:
+
             mmif_obj = mmif
         else:
             mmif_obj = Mmif(mmif)
@@ -71,7 +72,7 @@ class SpacyWrapper(ClamsApp):
                 a = view.new_annotation(Uri.TOKEN)
                 if n not in tok_idx:
                     a.add_property("start", tok.idx)
-                    a.add_property("end", tok.idx + len(tok.idx))
+                    a.add_property("end", tok.idx + len(tok_idx))
                     tok_idx[n] = a.id
                 else:
                     a.add_property('targets', [tok_idx[n]])
