@@ -1,56 +1,58 @@
-"""app.py
+"""
+DELETE THIS MODULE STRING AND REPLACE IT WITH A DESCRIPTION OF YOUR APP.
 
-Wrapping Spacy NLP to extract tokens, tags, lemmas, sentences, chunks and named
-entities.
+app.py Template
 
-Usage:
+The app.py script does several things:
+- import the necessary code
+- create a subclass of ClamsApp that defines the metadata and provides a method to run the wrapped NLP tool
+- provide a way to run the code as a RESTful Flask service 
 
-$ python app.py -t example-mmif.json out.json
-$ python app.py [--develop]
-
-The first invocation is to just test the app without running a server. The
-second is to start a server, which you can ping with
-
-$ curl -H "Accept: application/json" -X POST -d@example-mmif.json http://0.0.0.0:5000/
-
-With the --develop option you get a FLask server running in development mode,
-without it Gunicorn will be used for a more stable server.
-
-Normally you would run this in a Docker container, see README.md.
 
 """
 
 import argparse
 from typing import Union
 
-import spacy
-from clams.app import ClamsApp
-from clams.restify import Restifier
-from lapps.discriminators import Uri
-from mmif.serialize import Mmif
-from mmif.vocabulary import DocumentTypes
-from spacy.tokens import Doc
+# Imports needed for Clams and MMIF.
+# Non-NLP Clams applications will require AnnotationTypes
 
+from clams import ClamsApp, Restifier
+from mmif import Mmif, View, Annotation, Document, AnnotationTypes, DocumentTypes
+
+# For an NLP tool we need to import the LAPPS vocabulary items
+from lapps.discriminators import Uri
+
+# Spacy imports
+import spacy
+from spacy.tokens import Doc
 
 class SpacyWrapper(ClamsApp):
 
     def __init__(self):
         super().__init__()
-        # Load small English core model
+        # load small English core model
         self.nlp = spacy.load("en_core_web_sm")
 
     def _appmetadata(self):
+        # see metadata.py
         pass
 
     def _annotate(self, mmif: Union[str, dict, Mmif], **parameters) -> Mmif:
-        for doc in mmif.get_documents_by_type(DocumentTypes.TextDocument):
+        if type(mmif) == Mmif:
+
+            mmif_obj = mmif
+        else:
+            mmif_obj = Mmif(mmif)
+
+        for doc in mmif_obj.get_documents_by_type(DocumentTypes.TextDocument):
             in_doc = None
             tok_idx = {}
-            if 'pretokenized' in parameters and parameters['pretokenized']:
-                for view in mmif.get_views_for_document(doc.id):
+            if 'pretokenizd' in parameters and parameters['pretokenized']:
+                for view in mmif_obj.get_Views_for_document(doc.id):
                     if Uri.TOKEN in view.metadata.contains:
-                        tokens = [token.properties['text'] for token in view.get_annotations(Uri.TOKEN)]
-                        tok_idx = {i: f'{view.id}:{token.id}'
+                        tokens = [token.get_property('text') for token in view.get_annotations(Uri.TOKEN)]
+                        tok_idx = {i : f'{view.id}:{token.id}'
                                    for i, token in enumerate(view.get_annotations(Uri.TOKEN))}
                         in_doc = Doc(self.nlp.vocab, tokens)
                         self.nlp.add_pipe("sentencizer")
@@ -59,19 +61,18 @@ class SpacyWrapper(ClamsApp):
             if in_doc is None:
                 in_doc = doc.text_value if not doc.location else open(doc.location_path()).read()
                 in_doc = self.nlp(in_doc)
-
+            
             did = f'{doc.parent}:{doc.id}' if doc.parent else doc.id
             view = mmif.new_view()
-            self.sign_view(view)
-            for attype in (Uri.TOKEN, Uri.POS, Uri.LEMMA,
-                           Uri.NCHUNK, Uri.SENTENCE, Uri.NE):
+            self.sign_view(view, parameters)
+            for attype in (Uri.TOKEN, Uri.POS, Uri.LEMMA, Uri.NCHUNK, Uri.SENTENCE, Uri.NE):
                 view.new_contain(attype, document=did)
-
+            
             for n, tok in enumerate(in_doc):
                 a = view.new_annotation(Uri.TOKEN)
                 if n not in tok_idx:
-                    a.add_property('start', tok.idx)
-                    a.add_property('end', tok.idx + len(tok.text))
+                    a.add_property("start", tok.idx)
+                    a.add_property("end", tok.idx + len(tok_idx))
                     tok_idx[n] = a.id
                 else:
                     a.add_property('targets', [tok_idx[n]])
@@ -86,11 +87,9 @@ class SpacyWrapper(ClamsApp):
                     a.add_property('text', segment.text)
                     if segment.label_:
                         a.add_property('category', segment.label_)
+        return mmif_obj
 
-        return mmif
-
-
-def test(infile, outfile):
+def _test(infile, outfile):
     """Run spacy on an input MMIF file. This bypasses the server and just pings
     the annotate() method on the SpacyWrapper class. Prints a summary of the views
     in the end result."""
@@ -118,14 +117,16 @@ if __name__ == "__main__":
     parsed_args = parser.parse_args()
 
     if parsed_args.test:
-        test(parsed_args.infile, parsed_args.outfile)
+        _test(parsed_args.infile, parsed_args.outfile)
     else:
         # create the app instance
         app = SpacyWrapper()
 
         http_app = Restifier(app, port=int(parsed_args.port)
         )
+        # for running the application in production mode
         if parsed_args.production:
             http_app.serve_production()
+        # development mode
         else:
             http_app.run()

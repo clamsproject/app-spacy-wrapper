@@ -162,10 +162,3 @@ dmypy.json
 # ctag generated file
 tags
 .tags
-
-/en.tar.gz
-/en
-/dbpedia-spotlight-1.0.0.jar
-/spotlight-model_lang=en.tar.gz
-/venv
-
