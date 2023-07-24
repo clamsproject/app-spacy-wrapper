@@ -12,27 +12,29 @@ The app.py script does several things:
 """
 
 import argparse
+import logging
 from typing import Union
+
+import spacy
+from clams import ClamsApp, Restifier
+from lapps.discriminators import Uri
+from mmif import Mmif, View, Annotation, Document, AnnotationTypes, DocumentTypes
+from spacy.tokens import Doc
+
 
 # Imports needed for Clams and MMIF.
 # Non-NLP Clams applications will require AnnotationTypes
-
-from clams import ClamsApp, Restifier
-from mmif import Mmif, View, Annotation, Document, AnnotationTypes, DocumentTypes
-
-# For an NLP tool we need to import the LAPPS vocabulary items
-from lapps.discriminators import Uri
-
-# Spacy imports
-import spacy
-from spacy.tokens import Doc
 
 class SpacyWrapper(ClamsApp):
 
     def __init__(self):
         super().__init__()
-        # load small English core model
-        self.nlp = spacy.load("en_core_web_sm")
+        # Load small English core model
+        try:
+            self.nlp = spacy.load("en_core_web_sm")
+        except OSError as e:  # spacy raises OSError if model not found
+            spacy.cli.download("en_core_web_sm")
+            self.nlp = spacy.load("en_core_web_sm")
 
     def _appmetadata(self):
         # see metadata.py
@@ -106,13 +108,11 @@ def _test(infile, outfile):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--port", action="store", default="5000", help="set port to listen"
-    )
+    parser.add_argument("--port", action="store", default="5000", help="set port to listen")
     parser.add_argument("--production", action="store_true", help="run gunicorn server")
     parser.add_argument('-t', '--test',  action='store_true', help="bypass the server")
-    parser.add_argument('infile', nargs='?', help="input MMIF file")
-    parser.add_argument('outfile', nargs='?', help="output file")
+    parser.add_argument('infile', nargs='?', help="input MMIF file, only with --test")
+    parser.add_argument('outfile', nargs='?', help="output file, only with --test")
 
     parsed_args = parser.parse_args()
 
@@ -122,11 +122,11 @@ if __name__ == "__main__":
         # create the app instance
         app = SpacyWrapper()
 
-        http_app = Restifier(app, port=int(parsed_args.port)
-        )
+        http_app = Restifier(app, port=int(parsed_args.port))
         # for running the application in production mode
         if parsed_args.production:
             http_app.serve_production()
         # development mode
         else:
+            app.logger.setLevel(logging.DEBUG)
             http_app.run()

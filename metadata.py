@@ -4,11 +4,13 @@ The purpose of this file is to define the metadata of the app with minimal impor
 DO NOT CHANGE the name of the file
 """
 
-from mmif import DocumentTypes, AnnotationTypes
-from lapps.discriminators import Uri 
+import re
+
 from clams.app import ClamsApp
 from clams.appmetadata import AppMetadata
-import re
+from lapps.discriminators import Uri
+from mmif import DocumentTypes
+
 
 # DO NOT CHANGE the function name 
 def appmetadata() -> AppMetadata:
@@ -26,7 +28,7 @@ def appmetadata() -> AppMetadata:
         name="CLAMS wrapper for spaCy NLP",
         description="Apply spaCy NLP to all text documents in a MMIF file.",
         app_license="Apache 2.0",
-        identifier=f"http://apps.clams.ai/spacy-wrapper",
+        identifier=f"spacy-wrapper",
         url='https://github.com/clamsproject/app-spacy-wrapper',
         analyzer_version=[l.strip().rsplit('==')[-1] for l in open('requirements.txt').readlines() if re.match(r'^spacy==', l)][0],
         analyzer_license='MIT'
@@ -58,4 +60,4 @@ if __name__ == '__main__':
     metadata = appmetadata()
     for param in ClamsApp.universal_parameters:
         metadata.add_parameter(**param)
-    sys.stdout.write(appmetadata().jsonify(pretty=True))
+    sys.stdout.write(metadata.jsonify(pretty=True))
