@@ -64,7 +64,6 @@ class SpacyWrapper(ClamsApp):
             for n, tok in enumerate(in_doc):
                 a = view.new_annotation(Uri.TOKEN)
                 if n not in tok_idx:
-                    print(88888888)
                     a.add_property("start", tok.idx)
                     a.add_property("end", tok.idx + len(tok))
                     tok_idx[n] = a.id
