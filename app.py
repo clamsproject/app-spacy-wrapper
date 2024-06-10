@@ -42,11 +42,8 @@ class SpacyWrapper(ClamsApp):
         pass
 
     def _annotate(self, mmif: Union[str, dict, Mmif], **parameters) -> Mmif:
-        if type(mmif) == Mmif:
 
-            mmif_obj = mmif
-        else:
-            mmif_obj = Mmif(mmif)
+        mmif_obj = mmif if type(mmif) == Mmif else Mmif(mmif)
 
         for doc in mmif_obj.get_documents_by_type(DocumentTypes.TextDocument):
             in_doc = None
@@ -64,18 +61,18 @@ class SpacyWrapper(ClamsApp):
             if in_doc is None:
                 in_doc = doc.text_value if not doc.location else open(doc.location_path()).read()
                 in_doc = self.nlp(in_doc)
-            
+
             did = f'{doc.parent}:{doc.id}' if doc.parent else doc.id
             view = mmif.new_view()
             self.sign_view(view, parameters)
             for attype in (Uri.TOKEN, Uri.POS, Uri.LEMMA, Uri.NCHUNK, Uri.SENTENCE, Uri.NE):
                 view.new_contain(attype, document=did)
-            
+
             for n, tok in enumerate(in_doc):
                 a = view.new_annotation(Uri.TOKEN)
                 if n not in tok_idx:
                     a.add_property("start", tok.idx)
-                    a.add_property("end", tok.idx + len(tok_idx))
+                    a.add_property("end", tok.idx + len(tok))
                     tok_idx[n] = a.id
                 else:
                     a.add_property('targets', [tok_idx[n]])
@@ -98,7 +95,7 @@ def _test(infile, outfile):
     the annotate() method on the SpacyWrapper class. Prints a summary of the views
     in the end result."""
     app = SpacyWrapper()
-    print(app.appmetadata(pretty=True))
+    #print(app.appmetadata(pretty=True))
     with open(infile) as fh_in, open(outfile, 'w') as fh_out:
         mmif_out_as_string = app.annotate(fh_in.read(), pretty=True)
         mmif_out = Mmif(mmif_out_as_string)
