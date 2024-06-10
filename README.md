@@ -24,7 +24,7 @@ python app.py -t example-mmif.json out.json
 
 ### Configurable runtime parameters
 
-For the full list of parameters, please refer to the app metadata from in the CLAMS App Directory at [https://apps.clams.ai/#spacy-wrapper](https://apps.clams.ai/clamsapp/) or the [`metadata.py`](metadata.py) file in this repository.
+For the full list of parameters, please refer to the app metadata from in the CLAMS App Directory at [https://apps.clams.ai/#spacy-wrapper](https://apps.clams.ai/#spacy-wrapper) or the [`metadata.py`](metadata.py) file in this repository.
 
 ### Input and output details
 

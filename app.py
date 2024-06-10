@@ -1,13 +1,6 @@
 """
-DELETE THIS MODULE STRING AND REPLACE IT WITH A DESCRIPTION OF YOUR APP.
 
-app.py Template
-
-The app.py script does several things:
-- import the necessary code
-- create a subclass of ClamsApp that defines the metadata and provides a method to run the wrapped NLP tool
-- provide a way to run the code as a RESTful Flask service 
-
+Wrapper for the Python spaCy library.
 
 """
 
@@ -48,8 +41,8 @@ class SpacyWrapper(ClamsApp):
         for doc in mmif_obj.get_documents_by_type(DocumentTypes.TextDocument):
             in_doc = None
             tok_idx = {}
-            if 'pretokenizd' in parameters and parameters['pretokenized']:
-                for view in mmif_obj.get_Views_for_document(doc.id):
+            if parameters.get('pretokenized') is True:
+                for view in mmif_obj.get_views_for_document(doc.id):
                     if Uri.TOKEN in view.metadata.contains:
                         tokens = [token.get_property('text') for token in view.get_annotations(Uri.TOKEN)]
                         tok_idx = {i : f'{view.id}:{token.id}'
@@ -71,6 +64,7 @@ class SpacyWrapper(ClamsApp):
             for n, tok in enumerate(in_doc):
                 a = view.new_annotation(Uri.TOKEN)
                 if n not in tok_idx:
+                    print(88888888)
                     a.add_property("start", tok.idx)
                     a.add_property("end", tok.idx + len(tok))
                     tok_idx[n] = a.id
@@ -105,7 +99,9 @@ def _test(infile, outfile):
                   % (view.id, len(view.annotations), view.metadata['app']))
 
 
+
 if __name__ == "__main__":
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", action="store", default="5000", help="set port to listen")
     parser.add_argument("--production", action="store_true", help="run gunicorn server")
