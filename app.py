@@ -15,15 +15,16 @@ import argparse
 import logging
 from typing import Union
 
-import spacy
+# Imports needed for Clams and MMIF. Non-NLP Clams applications will require
+# AnnotationTypes, NLP apps require Uri
 from clams import ClamsApp, Restifier
 from lapps.discriminators import Uri
 from mmif import Mmif, View, Annotation, Document, AnnotationTypes, DocumentTypes
+
+# spaCy-specific imports
+import spacy
 from spacy.tokens import Doc
 
-
-# Imports needed for Clams and MMIF.
-# Non-NLP Clams applications will require AnnotationTypes
 
 class SpacyWrapper(ClamsApp):
 
@@ -90,6 +91,7 @@ class SpacyWrapper(ClamsApp):
                     if segment.label_:
                         a.add_property('category', segment.label_)
         return mmif_obj
+
 
 def _test(infile, outfile):
     """Run spacy on an input MMIF file. This bypasses the server and just pings
