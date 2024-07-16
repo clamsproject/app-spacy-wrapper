@@ -1,5 +1,5 @@
 """
-The purpose of this file is to define the metadata of the app with minimal imports. 
+The purpose of this file is to define the metadata of the app with minimal imports.
 
 DO NOT CHANGE the name of the file
 """
@@ -12,12 +12,12 @@ from lapps.discriminators import Uri
 from mmif import DocumentTypes
 
 
-# DO NOT CHANGE the function name 
+# DO NOT CHANGE the function name
 def appmetadata() -> AppMetadata:
     """
     Function to set app-metadata values and return it as an ``AppMetadata`` obj.
     Read these documentations before changing the code below
-    - https://sdk.clams.ai/appmetadata.html metadata specification. 
+    - https://sdk.clams.ai/appmetadata.html metadata specification.
     - https://sdk.clams.ai/autodoc/clams.appmetadata.html python API
     
     :return: AppMetadata object holding all necessary information.

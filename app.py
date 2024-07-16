@@ -1,21 +1,15 @@
 """
-
 Wrapper for the Python spaCy library.
-
 """
 
 import argparse
 import logging
 from typing import Union
 
-# Imports needed for Clams and MMIF. Non-NLP Clams applications will require
-# AnnotationTypes, NLP apps require Uri
+import spacy
 from clams import ClamsApp, Restifier
 from lapps.discriminators import Uri
-from mmif import Mmif, View, Annotation, Document, AnnotationTypes, DocumentTypes
-
-# spaCy-specific imports
-import spacy
+from mmif import Mmif, DocumentTypes
 from spacy.tokens import Doc
 
 
@@ -83,44 +77,25 @@ class SpacyWrapper(ClamsApp):
         return mmif_obj
 
 
-def _test(infile, outfile):
-    """Run spacy on an input MMIF file. This bypasses the server and just pings
-    the annotate() method on the SpacyWrapper class. Prints a summary of the views
-    in the end result."""
-    app = SpacyWrapper()
-    #print(app.appmetadata(pretty=True))
-    with open(infile) as fh_in, open(outfile, 'w') as fh_out:
-        mmif_out_as_string = app.annotate(fh_in.read(), pretty=True)
-        mmif_out = Mmif(mmif_out_as_string)
-        fh_out.write(mmif_out_as_string)
-        for view in mmif_out.views:
-            print("<View id=%s annotations=%s app=%s>"
-                  % (view.id, len(view.annotations), view.metadata['app']))
-
-
+def get_app():
+    return SpacyWrapper()
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", action="store", default="5000", help="set port to listen")
     parser.add_argument("--production", action="store_true", help="run gunicorn server")
-    parser.add_argument('-t', '--test',  action='store_true', help="bypass the server")
-    parser.add_argument('infile', nargs='?', help="input MMIF file, only with --test")
-    parser.add_argument('outfile', nargs='?', help="output file, only with --test")
 
     parsed_args = parser.parse_args()
 
-    if parsed_args.test:
-        _test(parsed_args.infile, parsed_args.outfile)
-    else:
-        # create the app instance
-        app = SpacyWrapper()
+    # create the app instance
+    app = get_app()
 
-        http_app = Restifier(app, port=int(parsed_args.port))
-        # for running the application in production mode
-        if parsed_args.production:
-            http_app.serve_production()
-        # development mode
-        else:
-            app.logger.setLevel(logging.DEBUG)
-            http_app.run()
+    http_app = Restifier(app, port=int(parsed_args.port))
+    # for running the application in production mode
+    if parsed_args.production:
+        http_app.serve_production()
+    # development mode
+    else:
+        app.logger.setLevel(logging.DEBUG)
+        http_app.run()
