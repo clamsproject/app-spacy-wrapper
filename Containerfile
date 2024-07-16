@@ -1,5 +1,5 @@
 # Use the same base image version as the clams-python python library version
-FROM ghcr.io/clamsproject/clams-python:1.0.9
+FROM ghcr.io/clamsproject/clams-python:1.2.2
 # See https://github.com/orgs/clamsproject/packages?tab=packages&q=clams-python for more base images
 # IF you want to automatically publish this image to the clamsproject organization, 
 # 1. you should have generated this template without --no-github-actions flag
@@ -24,8 +24,6 @@ ENV CLAMS_APP_VERSION ${CLAMS_APP_VERSION}
 COPY ./ /app
 WORKDIR /app
 RUN pip3 install -r requirements.txt
-RUN python3 -m spacy download en_core_web_sm
-
 RUN python3 -m spacy download en_core_web_sm
 
 # default command to run the CLAMS app in a production server 
