@@ -7,6 +7,7 @@ import logging
 from typing import Union
 
 import spacy
+from spacy.cli import download as spacy_download
 from clams import ClamsApp, Restifier
 from lapps.discriminators import Uri
 from mmif import Mmif, DocumentTypes
@@ -21,7 +22,7 @@ class SpacyWrapper(ClamsApp):
         try:
             self.nlp = spacy.load("en_core_web_sm")
         except OSError as e:  # spacy raises OSError if model not found
-            spacy.cli.download("en_core_web_sm")
+            spacy_download("en_core_web_sm")
             self.nlp = spacy.load("en_core_web_sm")
 
     def _appmetadata(self):
@@ -49,11 +50,10 @@ class SpacyWrapper(ClamsApp):
                 in_doc = doc.text_value if not doc.location else open(doc.location_path()).read()
                 in_doc = self.nlp(in_doc)
 
-            did = f'{doc.parent}:{doc.id}' if doc.parent else doc.id
             view = mmif.new_view()
             self.sign_view(view, parameters)
             for attype in (Uri.TOKEN, Uri.POS, Uri.LEMMA, Uri.NCHUNK, Uri.SENTENCE, Uri.NE):
-                view.new_contain(attype, document=did)
+                view.new_contain(attype, document=doc.id)
 
             for n, tok in enumerate(in_doc):
                 a = view.new_annotation(Uri.TOKEN)
