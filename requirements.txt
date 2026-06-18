@@ -1,2 +1,2 @@
 clams-python==1.7.0
-spacy==3.7
+spacy==3.8.*
